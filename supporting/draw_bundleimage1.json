@@ -1,0 +1,14 @@
+{
+  "commands": [
+    {
+      "command": "create",
+      "objecttype": "bitmapcontext",
+      "objectname": "movingimages_framework_test",
+      "size": {
+        "width": 908,
+        "height": 681
+      },
+      "preset": "AlphaPreMulFirstRGB8bpcInt"
+    }
+  ]
+}

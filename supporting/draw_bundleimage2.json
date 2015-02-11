@@ -1,0 +1,34 @@
+{
+  "commands": [
+    {
+      "command": "drawelement",
+      "receiverobject": {
+        "objecttype": "bitmapcontext",
+        "objectname": "movingimages_framework_test"
+      },
+      "drawinstructions": {
+        "elementtype": "drawimage",
+        "imageidentifier": "yvs.movingimages.framework.tests.imageident1",
+        "destinationrectangle": {
+          "origin": {
+            "x": 0,
+            "y": 0
+          },
+          "size": {
+            "width": 908,
+            "height": 681
+          }
+        }
+      }
+    }
+  ],
+  "cleanupcommands": [
+    {
+      "command": "close",
+      "receiverobject": {
+        "objecttype": "bitmapcontext",
+        "objectname": "movingimages_framework_test"
+      }
+    }
+  ]
+}

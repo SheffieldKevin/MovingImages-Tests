@@ -1,0 +1,3546 @@
+{
+  "runasynchronously": true,
+  "commands": [
+    {
+      "command": "create",
+      "objecttype": "bitmapcontext",
+      "objectname": "c09fe51b-eb48-46ae-b136-3a3503a65cb0",
+      "size": {
+        "width": 800,
+        "height": 600
+      },
+      "preset": "AlphaPreMulFirstRGB8bpcInt"
+    },
+    {
+      "command": "drawelement",
+      "receiverobject": {
+        "objecttype": "bitmapcontext",
+        "objectname": "c09fe51b-eb48-46ae-b136-3a3503a65cb0"
+      },
+      "drawinstructions": {
+        "elementtype": "arrayofelements",
+        "arrayofelements": [
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.2267267066512466",
+                    "y": "10 + $yloc + 100 * 0.744085409374063"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.15018782569515776",
+                    "height": "30 + $height + 200 * 0.5591950086213602"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.5137973712438405",
+                  "1 + $radius2 + 10.0 * 0.5266384667242199",
+                  "1 + $radius3 + 10.0 * 0.1237768024181577",
+                  "1 + $radius4 + 10.0 * 0.20188513952441967"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.5074029773825701,
+              "green": 0.9612746910270357,
+              "blue": 0.4213938969306634,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.8369271972088306",
+                    "y": "10 + $yloc + 100 * 0.9616164452984286"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.2280555561371942",
+                    "height": "30 + $height + 200 * 0.5234760087963082"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.8049619138350651",
+                  "1 + $radius2 + 10.0 * 0.4171878962667317",
+                  "1 + $radius3 + 10.0 * 0.9585949351691645",
+                  "1 + $radius4 + 10.0 * 0.16198315925622764"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.24896871208955207,
+              "green": 0.6503021571539779,
+              "blue": 0.8689073097219127,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.6125314015881865",
+                    "y": "10 + $yloc + 100 * 0.9873347886184972"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.7130055955093259",
+                    "height": "30 + $height + 200 * 0.31598454487463246"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.9308015549744436",
+                  "1 + $radius2 + 10.0 * 0.10159188803444641",
+                  "1 + $radius3 + 10.0 * 0.2726906324333618",
+                  "1 + $radius4 + 10.0 * 0.06766355322500983"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.037675490379901366,
+              "green": 0.9020318948460829,
+              "blue": 0.6859085067313583,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.5852364544229757",
+                    "y": "10 + $yloc + 100 * 0.16601717314490527"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.7239590840076968",
+                    "height": "30 + $height + 200 * 0.22763291686421494"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.33866182919100374",
+                  "1 + $radius2 + 10.0 * 0.5604853164264506",
+                  "1 + $radius3 + 10.0 * 0.5832041135789622",
+                  "1 + $radius4 + 10.0 * 0.6287234062294195"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.26684105628456656,
+              "green": 0.650855972842099,
+              "blue": 0.9497924157992015,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.7064729103217703",
+                    "y": "10 + $yloc + 100 * 0.8966206207932896"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.5267446695826893",
+                    "height": "30 + $height + 200 * 0.1647328192819566"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.8988164591173633",
+                  "1 + $radius2 + 10.0 * 0.09651155764204267",
+                  "1 + $radius3 + 10.0 * 0.4614691281376916",
+                  "1 + $radius4 + 10.0 * 0.7626444147170808"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.8191306591225301,
+              "green": 0.11367660095492549,
+              "blue": 0.5415921710146939,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.949143474836647",
+                    "y": "10 + $yloc + 100 * 0.3306072090057184"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.14439409682211723",
+                    "height": "30 + $height + 200 * 0.3520333060877525"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.7356721067068243",
+                  "1 + $radius2 + 10.0 * 0.571595563607868",
+                  "1 + $radius3 + 10.0 * 0.8908173550744435",
+                  "1 + $radius4 + 10.0 * 0.848358268355203"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.8160315429520094,
+              "green": 0.7114599266257975,
+              "blue": 0.4079432408503396,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.37574206717490677",
+                    "y": "10 + $yloc + 100 * 0.34392941837480817"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.29190053468106647",
+                    "height": "30 + $height + 200 * 0.6229461649679101"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.37899104039711307",
+                  "1 + $radius2 + 10.0 * 0.5209969729828918",
+                  "1 + $radius3 + 10.0 * 0.7170107302148054",
+                  "1 + $radius4 + 10.0 * 0.2100658369255871"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.28201555950742874,
+              "green": 0.9559473707285441,
+              "blue": 0.05360441175504782,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.9510633533748659",
+                    "y": "10 + $yloc + 100 * 0.26387527402832067"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.11282124099814528",
+                    "height": "30 + $height + 200 * 0.926258439521657"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.4799417111818912",
+                  "1 + $radius2 + 10.0 * 0.9530176114966797",
+                  "1 + $radius3 + 10.0 * 0.6417832557642529",
+                  "1 + $radius4 + 10.0 * 0.6936072311793812"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.13709354803054274,
+              "green": 0.5709923390053459,
+              "blue": 0.9568575221905832,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.11939442128507005",
+                    "y": "10 + $yloc + 100 * 0.997156796005221"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.13639577141817172",
+                    "height": "30 + $height + 200 * 0.7475528888212132"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.28214057747452015",
+                  "1 + $radius2 + 10.0 * 0.26476279918077095",
+                  "1 + $radius3 + 10.0 * 0.9418461135125785",
+                  "1 + $radius4 + 10.0 * 0.8018355397645189"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.16142285415614765,
+              "green": 0.749985644234102,
+              "blue": 0.3269076748320279,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.5590631056175812",
+                    "y": "10 + $yloc + 100 * 0.24603236343054302"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.5432651901035306",
+                    "height": "30 + $height + 200 * 0.44798584018377696"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.0958526647340826",
+                  "1 + $radius2 + 10.0 * 0.49302032046648536",
+                  "1 + $radius3 + 10.0 * 0.6082199985485339",
+                  "1 + $radius4 + 10.0 * 0.7725615928214774"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.3890645298801755,
+              "green": 0.8083929922594697,
+              "blue": 0.5950864810622966,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.8274549709279799",
+                    "y": "10 + $yloc + 100 * 0.324004927441064"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.43690183011103156",
+                    "height": "30 + $height + 200 * 0.3618092569294842"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.7791335916851034",
+                  "1 + $radius2 + 10.0 * 0.7065666580159662",
+                  "1 + $radius3 + 10.0 * 0.18243536920032144",
+                  "1 + $radius4 + 10.0 * 0.9057127015152475"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.8091138352711186,
+              "green": 0.8462242614687107,
+              "blue": 0.5540330329107178,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.9756615312247063",
+                    "y": "10 + $yloc + 100 * 0.18478787555754028"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.6059688066664224",
+                    "height": "30 + $height + 200 * 0.7044236598225556"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.2638891195462856",
+                  "1 + $radius2 + 10.0 * 0.03526378759510074",
+                  "1 + $radius3 + 10.0 * 0.6346194400088663",
+                  "1 + $radius4 + 10.0 * 0.3158708523405859"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.575031102361144,
+              "green": 0.7451912794443633,
+              "blue": 0.252553837898556,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.002129807743551315",
+                    "y": "10 + $yloc + 100 * 0.9953326747871319"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.19522374647616036",
+                    "height": "30 + $height + 200 * 0.5144288039124904"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.6621197312712144",
+                  "1 + $radius2 + 10.0 * 0.6329876952583381",
+                  "1 + $radius3 + 10.0 * 0.3538468080592796",
+                  "1 + $radius4 + 10.0 * 0.9179388980366612"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.4056496899941038,
+              "green": 0.9890557232268546,
+              "blue": 0.4914025843646943,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.34193038974925893",
+                    "y": "10 + $yloc + 100 * 0.3069258413986832"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.7898527377167762",
+                    "height": "30 + $height + 200 * 0.7227277050184269"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.2134242494216535",
+                  "1 + $radius2 + 10.0 * 0.6284506766405284",
+                  "1 + $radius3 + 10.0 * 0.4855399668826875",
+                  "1 + $radius4 + 10.0 * 0.6146936004398135"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.9567043317910524,
+              "green": 0.5128318338206819,
+              "blue": 0.3887261946728623,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.5269581391812536",
+                    "y": "10 + $yloc + 100 * 0.2784684429690515"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.9020416103934827",
+                    "height": "30 + $height + 200 * 0.9017405992845361"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.9200450668812508",
+                  "1 + $radius2 + 10.0 * 0.7617956612441807",
+                  "1 + $radius3 + 10.0 * 0.3966107462131152",
+                  "1 + $radius4 + 10.0 * 0.1957859749273213"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.07407234009409425,
+              "green": 0.7647919291460372,
+              "blue": 0.7601969630941361,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.3129155776366408",
+                    "y": "10 + $yloc + 100 * 0.5613576949197006"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.11207535209825747",
+                    "height": "30 + $height + 200 * 0.7770177380015942"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.5948560063145489",
+                  "1 + $radius2 + 10.0 * 0.9310244402450499",
+                  "1 + $radius3 + 10.0 * 0.014361436169647801",
+                  "1 + $radius4 + 10.0 * 0.45733723760227973"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.6332759866194962,
+              "green": 0.8093994362942233,
+              "blue": 0.7648741050235479,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.1872525818921391",
+                    "y": "10 + $yloc + 100 * 0.07837968111151417"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.00612678743386097",
+                    "height": "30 + $height + 200 * 0.4728710088585675"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.11762291460737473",
+                  "1 + $radius2 + 10.0 * 0.0729834029459362",
+                  "1 + $radius3 + 10.0 * 0.5484485682447349",
+                  "1 + $radius4 + 10.0 * 0.16009354444338608"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.6534229318767918,
+              "green": 0.4512026527571489,
+              "blue": 0.21706463987646274,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.7254556474368562",
+                    "y": "10 + $yloc + 100 * 0.6304304371577686"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.39145629227742473",
+                    "height": "30 + $height + 200 * 0.6232471080707336"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.6936632729793093",
+                  "1 + $radius2 + 10.0 * 0.3164134488892063",
+                  "1 + $radius3 + 10.0 * 0.9044602593514816",
+                  "1 + $radius4 + 10.0 * 0.22451156145378937"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.9854079823070387,
+              "green": 0.520619994827144,
+              "blue": 0.7497039725814072,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.1772645559889966",
+                    "y": "10 + $yloc + 100 * 0.605020322968689"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.42948785493568586",
+                    "height": "30 + $height + 200 * 0.31044469397656715"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.11260317126866592",
+                  "1 + $radius2 + 10.0 * 0.9191898859486644",
+                  "1 + $radius3 + 10.0 * 0.5657599097288812",
+                  "1 + $radius4 + 10.0 * 0.6798535674143481"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.6263613382867842,
+              "green": 0.16861860946706442,
+              "blue": 0.95904321735481,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.02865806355656586",
+                    "y": "10 + $yloc + 100 * 0.563549206598456"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.2522663325520267",
+                    "height": "30 + $height + 200 * 0.3487425335166511"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.9850425389446614",
+                  "1 + $radius2 + 10.0 * 0.13845598553960137",
+                  "1 + $radius3 + 10.0 * 0.827846504800739",
+                  "1 + $radius4 + 10.0 * 0.7253093960887398"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.3887522643512179,
+              "green": 0.19042979140645644,
+              "blue": 0.3079368500139126,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.3600675271445519",
+                    "y": "10 + $yloc + 100 * 0.1991794442410022"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.18634226701041734",
+                    "height": "30 + $height + 200 * 0.21075113704165793"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.018435896275213026",
+                  "1 + $radius2 + 10.0 * 0.05291370630886083",
+                  "1 + $radius3 + 10.0 * 0.6067746426477886",
+                  "1 + $radius4 + 10.0 * 0.9429699796633175"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.8375894403048446,
+              "green": 0.6429619372237874,
+              "blue": 0.6838093582809047,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.40204627098257917",
+                    "y": "10 + $yloc + 100 * 0.7473515814051295"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.12350308303648472",
+                    "height": "30 + $height + 200 * 0.777865711840842"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.13138638514828316",
+                  "1 + $radius2 + 10.0 * 0.3341366501054208",
+                  "1 + $radius3 + 10.0 * 0.6995228001437837",
+                  "1 + $radius4 + 10.0 * 0.01114671917081056"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.6144610033665252,
+              "green": 0.6180183104752116,
+              "blue": 0.4454224800899558,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.29827191937869457",
+                    "y": "10 + $yloc + 100 * 0.918398261967613"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.5001913132986412",
+                    "height": "30 + $height + 200 * 0.16979519368708695"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.9612908605895799",
+                  "1 + $radius2 + 10.0 * 0.8479464576273934",
+                  "1 + $radius3 + 10.0 * 0.7038782179744638",
+                  "1 + $radius4 + 10.0 * 0.16087252741411628"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.03909898794800948,
+              "green": 0.08896198989534976,
+              "blue": 0.8731341771463349,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.05383091327398437",
+                    "y": "10 + $yloc + 100 * 0.2524502151465827"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.017032703602422594",
+                    "height": "30 + $height + 200 * 0.23721041003970766"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.6964099792363954",
+                  "1 + $radius2 + 10.0 * 0.9598937177753118",
+                  "1 + $radius3 + 10.0 * 0.6119022134649925",
+                  "1 + $radius4 + 10.0 * 0.7584287390717651"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.8337537121469729,
+              "green": 0.6703627706967722,
+              "blue": 0.12071958455987708,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.8000493200946955",
+                    "y": "10 + $yloc + 100 * 0.12210460314274274"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.3451410599784265",
+                    "height": "30 + $height + 200 * 0.47908897767821346"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.13338462742972912",
+                  "1 + $radius2 + 10.0 * 0.21032274860736688",
+                  "1 + $radius3 + 10.0 * 0.606907927498027",
+                  "1 + $radius4 + 10.0 * 0.08324983827363042"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.3339406559261171,
+              "green": 0.7530180270761071,
+              "blue": 0.8224212613771804,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.06872477497430296",
+                    "y": "10 + $yloc + 100 * 0.5260721599383387"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.5578458580912202",
+                    "height": "30 + $height + 200 * 0.13430461906736468"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.4809521307411654",
+                  "1 + $radius2 + 10.0 * 0.6503203565825164",
+                  "1 + $radius3 + 10.0 * 0.6488213807115811",
+                  "1 + $radius4 + 10.0 * 0.8559804098322065"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.5626887793656804,
+              "green": 0.8577868910623202,
+              "blue": 0.10705686022146299,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.4512394009157705",
+                    "y": "10 + $yloc + 100 * 0.6967936099878148"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.07901983022666825",
+                    "height": "30 + $height + 200 * 0.5220945863518323"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.32978899990200927",
+                  "1 + $radius2 + 10.0 * 0.6848616205805695",
+                  "1 + $radius3 + 10.0 * 0.137293404760503",
+                  "1 + $radius4 + 10.0 * 0.9218590132464519"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.07874711386246669,
+              "green": 0.5251520923963778,
+              "blue": 0.6414134190203354,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.7810090612309206",
+                    "y": "10 + $yloc + 100 * 0.4607658968242614"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.7003803742010931",
+                    "height": "30 + $height + 200 * 0.16295976449579308"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.5887047009728232",
+                  "1 + $radius2 + 10.0 * 0.04349062931645098",
+                  "1 + $radius3 + 10.0 * 0.37627514193401745",
+                  "1 + $radius4 + 10.0 * 0.5348858323772108"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.47239037550324825,
+              "green": 0.13054337686596396,
+              "blue": 0.3352187435028645,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.7428547323827365",
+                    "y": "10 + $yloc + 100 * 0.6655130380488554"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.9471978765995369",
+                    "height": "30 + $height + 200 * 0.8356969853278207"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.40904936750397447",
+                  "1 + $radius2 + 10.0 * 0.04006099048801426",
+                  "1 + $radius3 + 10.0 * 0.7450764585111186",
+                  "1 + $radius4 + 10.0 * 0.994912932245145"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.476249918362443,
+              "green": 0.8946259546826021,
+              "blue": 0.4696706901942991,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.37216033735274967",
+                    "y": "10 + $yloc + 100 * 0.462094843700529"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.18875489288152159",
+                    "height": "30 + $height + 200 * 0.2796477666396199"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.3737067475248883",
+                  "1 + $radius2 + 10.0 * 0.14598192167338675",
+                  "1 + $radius3 + 10.0 * 0.3186379216424521",
+                  "1 + $radius4 + 10.0 * 0.24753504261040737"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.32120975176190825,
+              "green": 0.997813075463912,
+              "blue": 0.37065561071892883,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.6615051261771406",
+                    "y": "10 + $yloc + 100 * 0.338767042157341"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.5863232478397472",
+                    "height": "30 + $height + 200 * 0.9428521224494765"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.6104468494657269",
+                  "1 + $radius2 + 10.0 * 0.050335727103331895",
+                  "1 + $radius3 + 10.0 * 0.863713901569876",
+                  "1 + $radius4 + 10.0 * 0.9606978814504351"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.6942156204694032,
+              "green": 0.7212375629132856,
+              "blue": 0.34305554248014103,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.3895169319373818",
+                    "y": "10 + $yloc + 100 * 0.7358984073017538"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.9178925613913402",
+                    "height": "30 + $height + 200 * 0.631288592347565"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.746930833974061",
+                  "1 + $radius2 + 10.0 * 0.6462413802368921",
+                  "1 + $radius3 + 10.0 * 0.7363374473139764",
+                  "1 + $radius4 + 10.0 * 0.4107209009817602"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.29998263939946657,
+              "green": 0.47038517111008504,
+              "blue": 0.5073184612676275,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.2266938890489989",
+                    "y": "10 + $yloc + 100 * 0.05458564344797534"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.939903190823867",
+                    "height": "30 + $height + 200 * 0.980098067611558"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.44523742875759",
+                  "1 + $radius2 + 10.0 * 0.9241619445432216",
+                  "1 + $radius3 + 10.0 * 0.3430675135167872",
+                  "1 + $radius4 + 10.0 * 0.08129243614443726"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.748411027223713,
+              "green": 0.39764620704611564,
+              "blue": 0.7725805627386207,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.0019217646955947965",
+                    "y": "10 + $yloc + 100 * 0.22846288830015016"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.7529833692157414",
+                    "height": "30 + $height + 200 * 0.7854715745161213"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.4081211431238885",
+                  "1 + $radius2 + 10.0 * 0.4149036201066115",
+                  "1 + $radius3 + 10.0 * 0.5564599617597108",
+                  "1 + $radius4 + 10.0 * 0.3088070531600464"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.5302952188259873,
+              "green": 0.9533070389085353,
+              "blue": 0.22686972774282765,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.8650806036386021",
+                    "y": "10 + $yloc + 100 * 0.014970666743847283"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.3907582357659829",
+                    "height": "30 + $height + 200 * 0.3063169955300884"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.9603722199380813",
+                  "1 + $radius2 + 10.0 * 0.015609225026863016",
+                  "1 + $radius3 + 10.0 * 0.2652221249727861",
+                  "1 + $radius4 + 10.0 * 0.9090676199088583"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.6987539038170799,
+              "green": 0.3078330937293752,
+              "blue": 0.10463792573526709,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.9854484668134409",
+                    "y": "10 + $yloc + 100 * 0.3140516896988089"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.3426985471217918",
+                    "height": "30 + $height + 200 * 0.7671095252513825"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.08200820262095732",
+                  "1 + $radius2 + 10.0 * 0.8973310565271815",
+                  "1 + $radius3 + 10.0 * 0.3309536027536023",
+                  "1 + $radius4 + 10.0 * 0.8492790433569398"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.0960469399175432,
+              "green": 0.8166968236653717,
+              "blue": 0.22098026816566063,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.4188894282726855",
+                    "y": "10 + $yloc + 100 * 0.7975484974000578"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.9170703232342093",
+                    "height": "30 + $height + 200 * 0.5730505436993968"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.7832664251327112",
+                  "1 + $radius2 + 10.0 * 0.09782926359372945",
+                  "1 + $radius3 + 10.0 * 0.21737082667849172",
+                  "1 + $radius4 + 10.0 * 0.271278964820148"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.8130696691706901,
+              "green": 0.80847917857053,
+              "blue": 0.8993881140365746,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.18423841630300908",
+                    "y": "10 + $yloc + 100 * 0.03612714331971578"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.5717033182589034",
+                    "height": "30 + $height + 200 * 0.7503760191214196"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.8571518188045464",
+                  "1 + $radius2 + 10.0 * 0.46860756293349115",
+                  "1 + $radius3 + 10.0 * 0.11371638759957237",
+                  "1 + $radius4 + 10.0 * 0.033674674690099216"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.49169480288072964,
+              "green": 0.6970853406801009,
+              "blue": 0.8239831070461917,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.11309902300288266",
+                    "y": "10 + $yloc + 100 * 0.3994245938517774"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.03136666082785311",
+                    "height": "30 + $height + 200 * 0.301610309291761"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.20756565554143547",
+                  "1 + $radius2 + 10.0 * 0.4763993263357794",
+                  "1 + $radius3 + 10.0 * 0.11937310451430827",
+                  "1 + $radius4 + 10.0 * 0.7291854837784209"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.08524147979350583,
+              "green": 0.7549411351703141,
+              "blue": 0.8193331884755147,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.9443096470203675",
+                    "y": "10 + $yloc + 100 * 0.1192716420728761"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.5442890894175767",
+                    "height": "30 + $height + 200 * 0.9712301947314961"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.6134627729879403",
+                  "1 + $radius2 + 10.0 * 0.9424834527363604",
+                  "1 + $radius3 + 10.0 * 0.5625796644107649",
+                  "1 + $radius4 + 10.0 * 0.36275020836010474"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.038352483221690936,
+              "green": 0.1278873010683369,
+              "blue": 0.7331339170394116,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.7272992124295454",
+                    "y": "10 + $yloc + 100 * 0.5800782350288508"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.28917336742462485",
+                    "height": "30 + $height + 200 * 0.9989360315220578"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.6172663247315849",
+                  "1 + $radius2 + 10.0 * 0.8929961732022462",
+                  "1 + $radius3 + 10.0 * 0.5723564064636256",
+                  "1 + $radius4 + 10.0 * 0.7789295150448408"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.12801786371994028,
+              "green": 0.6425714297605192,
+              "blue": 0.8007543287088912,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.03231801892331865",
+                    "y": "10 + $yloc + 100 * 0.9382914695670043"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.155773818566442",
+                    "height": "30 + $height + 200 * 0.8899994838114234"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.2993289174748204",
+                  "1 + $radius2 + 10.0 * 0.8157926722779514",
+                  "1 + $radius3 + 10.0 * 0.21671436223114793",
+                  "1 + $radius4 + 10.0 * 0.8387009399916784"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.005257487716879727,
+              "green": 0.8655525539070423,
+              "blue": 0.4140799658759158,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.8721676903027372",
+                    "y": "10 + $yloc + 100 * 0.3929248520220521"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.7365508341716929",
+                    "height": "30 + $height + 200 * 0.6612546533964876"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.20545168357940524",
+                  "1 + $radius2 + 10.0 * 0.13678318653350796",
+                  "1 + $radius3 + 10.0 * 0.74305996572425",
+                  "1 + $radius4 + 10.0 * 0.12285589586494994"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.77044598820537,
+              "green": 0.7829144422367967,
+              "blue": 0.4177917321454192,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.920540607699244",
+                    "y": "10 + $yloc + 100 * 0.23595729309581748"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.7136738838995413",
+                    "height": "30 + $height + 200 * 0.9166256887371769"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.23127285077508297",
+                  "1 + $radius2 + 10.0 * 0.7133563662055826",
+                  "1 + $radius3 + 10.0 * 0.772912625178186",
+                  "1 + $radius4 + 10.0 * 0.5334473890371765"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.6716787811170107,
+              "green": 0.8957200794363133,
+              "blue": 0.8903188885797044,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.7474836812666189",
+                    "y": "10 + $yloc + 100 * 0.7725634022462724"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.778497210133592",
+                    "height": "30 + $height + 200 * 0.19338985287332033"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.7634856382743725",
+                  "1 + $radius2 + 10.0 * 0.14534879552679436",
+                  "1 + $radius3 + 10.0 * 0.7874824524399796",
+                  "1 + $radius4 + 10.0 * 0.7728235353730903"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.27479897936718467,
+              "green": 0.8059129710398264,
+              "blue": 0.8629707977850152,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.14810304164576193",
+                    "y": "10 + $yloc + 100 * 0.43181440512125435"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.7743283533139764",
+                    "height": "30 + $height + 200 * 0.2669499517534205"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.4988361765801935",
+                  "1 + $radius2 + 10.0 * 0.07150674979761062",
+                  "1 + $radius3 + 10.0 * 0.8002744640573234",
+                  "1 + $radius4 + 10.0 * 0.8234944046388947"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.307557472780863,
+              "green": 0.41763017344441844,
+              "blue": 0.14502099353805165,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.14272360521738803",
+                    "y": "10 + $yloc + 100 * 0.40004547917990396"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.03601650079342422",
+                    "height": "30 + $height + 200 * 0.28462421876326494"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.8664496382697824",
+                  "1 + $radius2 + 10.0 * 0.7105417891061666",
+                  "1 + $radius3 + 10.0 * 0.9681181814979882",
+                  "1 + $radius4 + 10.0 * 0.8114085776081655"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.46005502362925876,
+              "green": 0.3937017532644731,
+              "blue": 0.1427598610386661,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.2965249381390619",
+                    "y": "10 + $yloc + 100 * 0.5360511084679829"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.13084335024955396",
+                    "height": "30 + $height + 200 * 0.806489490702157"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.7852554650915006",
+                  "1 + $radius2 + 10.0 * 0.8620167872018668",
+                  "1 + $radius3 + 10.0 * 0.5464767431710573",
+                  "1 + $radius4 + 10.0 * 0.8425709599562877"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.705299537539061,
+              "green": 0.618469059061096,
+              "blue": 0.4535276962247856,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.7822909704360577",
+                    "y": "10 + $yloc + 100 * 0.7971379828215451"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.7360780344123427",
+                    "height": "30 + $height + 200 * 0.25510474766226165"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.5445520061968839",
+                  "1 + $radius2 + 10.0 * 0.6580323305138575",
+                  "1 + $radius3 + 10.0 * 0.12849776955867165",
+                  "1 + $radius4 + 10.0 * 0.8733149094395168"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.9674134527270134,
+              "green": 0.2456851455788649,
+              "blue": 0.31324310355110974,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.3673692523192109",
+                    "y": "10 + $yloc + 100 * 0.29682000435701605"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.32874100715841525",
+                    "height": "30 + $height + 200 * 0.5698874237424189"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.44029555948929533",
+                  "1 + $radius2 + 10.0 * 0.37897942115948813",
+                  "1 + $radius3 + 10.0 * 0.2511093970923155",
+                  "1 + $radius4 + 10.0 * 0.12326461627797902"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.9775348216721768,
+              "green": 0.02716148344444247,
+              "blue": 0.2747193446339534,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.3539416549280535",
+                    "y": "10 + $yloc + 100 * 0.060013870933031344"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.9455604311826546",
+                    "height": "30 + $height + 200 * 0.5734957892697391"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.880441974986615",
+                  "1 + $radius2 + 10.0 * 0.9256562036335618",
+                  "1 + $radius3 + 10.0 * 0.5414747726874217",
+                  "1 + $radius4 + 10.0 * 0.14691355544027718"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.22940242035759706,
+              "green": 0.8429168300394811,
+              "blue": 0.8723182685967192,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.19847184173668997",
+                    "y": "10 + $yloc + 100 * 0.01645523432116247"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.780148839251567",
+                    "height": "30 + $height + 200 * 0.6665627005927864"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.8406549668620543",
+                  "1 + $radius2 + 10.0 * 0.39216202000536693",
+                  "1 + $radius3 + 10.0 * 0.920663336376691",
+                  "1 + $radius4 + 10.0 * 0.6662706243407546"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.10948328078456182,
+              "green": 0.40874762346908633,
+              "blue": 0.8053631397341222,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.7379321623092703",
+                    "y": "10 + $yloc + 100 * 0.9152034306991916"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.845800036168747",
+                    "height": "30 + $height + 200 * 0.44169386070825556"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.1708815109324967",
+                  "1 + $radius2 + 10.0 * 0.6868856043928211",
+                  "1 + $radius3 + 10.0 * 0.3619037582264336",
+                  "1 + $radius4 + 10.0 * 0.5978263819365471"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.8211970362624831,
+              "green": 0.05903507985047762,
+              "blue": 0.12343858064650781,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.4553101104093067",
+                    "y": "10 + $yloc + 100 * 0.31524394732659755"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.8405682907428189",
+                    "height": "30 + $height + 200 * 0.06702685920999285"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.6184853278064603",
+                  "1 + $radius2 + 10.0 * 0.6918285598440757",
+                  "1 + $radius3 + 10.0 * 0.9839657610933198",
+                  "1 + $radius4 + 10.0 * 0.8852753000200241"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.4467077072948591,
+              "green": 0.7819340104246739,
+              "blue": 0.5395665090508144,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.8920783876156627",
+                    "y": "10 + $yloc + 100 * 0.14909744074764608"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.25890978134477205",
+                    "height": "30 + $height + 200 * 0.25376655433513995"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.34137150983587217",
+                  "1 + $radius2 + 10.0 * 0.8081856408700158",
+                  "1 + $radius3 + 10.0 * 0.42396214595204074",
+                  "1 + $radius4 + 10.0 * 0.5843243985735188"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.36248237837502284,
+              "green": 0.9368602491308806,
+              "blue": 0.35986202645596943,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.3306321526244219",
+                    "y": "10 + $yloc + 100 * 0.18401990504489874"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.22912830651621208",
+                    "height": "30 + $height + 200 * 0.2110067167384585"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.7399236700197698",
+                  "1 + $radius2 + 10.0 * 0.30143885455227704",
+                  "1 + $radius3 + 10.0 * 0.032792594602099046",
+                  "1 + $radius4 + 10.0 * 0.21161185489281875"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.06907917212366099,
+              "green": 0.7059359384966631,
+              "blue": 0.8461819066851453,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.34660365291076267",
+                    "y": "10 + $yloc + 100 * 0.28238244906520626"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.18678052912268117",
+                    "height": "30 + $height + 200 * 0.8708388917111685"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.14076046668555742",
+                  "1 + $radius2 + 10.0 * 0.626187357538031",
+                  "1 + $radius3 + 10.0 * 0.291915672024451",
+                  "1 + $radius4 + 10.0 * 0.05812325524941164"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.587904562514501,
+              "green": 0.48817531528830616,
+              "blue": 0.7811884941079222,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.7311010933099861",
+                    "y": "10 + $yloc + 100 * 0.007707995506505805"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.8045013723822139",
+                    "height": "30 + $height + 200 * 0.2844755731942443"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.5250482045541637",
+                  "1 + $radius2 + 10.0 * 0.7261071254071525",
+                  "1 + $radius3 + 10.0 * 0.426238405914528",
+                  "1 + $radius4 + 10.0 * 0.6198644828188448"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.9992196471220063,
+              "green": 0.1353675324492527,
+              "blue": 0.08967105948400322,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.7532337740075817",
+                    "y": "10 + $yloc + 100 * 0.10965116240442174"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.7601765918326273",
+                    "height": "30 + $height + 200 * 0.15033087435549375"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.39097141436681104",
+                  "1 + $radius2 + 10.0 * 0.4565903218450277",
+                  "1 + $radius3 + 10.0 * 0.979113051943349",
+                  "1 + $radius4 + 10.0 * 0.35925636526057203"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.8111252737058396,
+              "green": 0.06177902269866453,
+              "blue": 0.5713867454258479,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.9219961966722209",
+                    "y": "10 + $yloc + 100 * 0.9240893937279316"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.4800029736951439",
+                    "height": "30 + $height + 200 * 0.5809205426440772"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.6232013119759761",
+                  "1 + $radius2 + 10.0 * 0.5824648024887887",
+                  "1 + $radius3 + 10.0 * 0.9410552091348503",
+                  "1 + $radius4 + 10.0 * 0.7704824380366222"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.5673858626686078,
+              "green": 0.6724864263563065,
+              "blue": 0.7484366785801685,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.10159124938485897",
+                    "y": "10 + $yloc + 100 * 0.5181379424087842"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.16142516202917",
+                    "height": "30 + $height + 200 * 0.5648693450155675"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.8160772637979168",
+                  "1 + $radius2 + 10.0 * 0.4074731545824454",
+                  "1 + $radius3 + 10.0 * 0.41055130444994503",
+                  "1 + $radius4 + 10.0 * 0.8192913965451915"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.12276860714901483,
+              "green": 0.2876036118960129,
+              "blue": 0.04709258489807111,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.42129852930951905",
+                    "y": "10 + $yloc + 100 * 0.706322600058245"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.9499893226665964",
+                    "height": "30 + $height + 200 * 0.5319916477512379"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.5913586372427546",
+                  "1 + $radius2 + 10.0 * 0.8265555644263878",
+                  "1 + $radius3 + 10.0 * 0.7046935872004242",
+                  "1 + $radius4 + 10.0 * 0.03833739589189289"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.13462174281385653,
+              "green": 0.5872717467875456,
+              "blue": 0.9727688002226526,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.10824979139098656",
+                    "y": "10 + $yloc + 100 * 0.9485405076003268"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.2706821094205363",
+                    "height": "30 + $height + 200 * 0.13472978207216146"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.11622241252227639",
+                  "1 + $radius2 + 10.0 * 0.6065483255628283",
+                  "1 + $radius3 + 10.0 * 0.06697479213402535",
+                  "1 + $radius4 + 10.0 * 0.03173648545337937"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.009541787837463844,
+              "green": 0.6420157837200899,
+              "blue": 0.9874492368850498,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.5836251817555965",
+                    "y": "10 + $yloc + 100 * 0.07234039688152227"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.1355225317589389",
+                    "height": "30 + $height + 200 * 0.28871276517188094"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.08818620839034719",
+                  "1 + $radius2 + 10.0 * 0.8775197673666989",
+                  "1 + $radius3 + 10.0 * 0.7599840153715646",
+                  "1 + $radius4 + 10.0 * 0.7032345967888028"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.20976085126180477,
+              "green": 0.7123902303476267,
+              "blue": 0.7323746759845818,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.16799433863776347",
+                    "y": "10 + $yloc + 100 * 0.5330195966154125"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.752551251426836",
+                    "height": "30 + $height + 200 * 0.3221655611816713"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.4050581159664407",
+                  "1 + $radius2 + 10.0 * 0.870533122557232",
+                  "1 + $radius3 + 10.0 * 0.057712044070351465",
+                  "1 + $radius4 + 10.0 * 0.7511738515982587"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.7853245210166113,
+              "green": 0.6027215040837952,
+              "blue": 0.5081427175077624,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.8986828178318964",
+                    "y": "10 + $yloc + 100 * 0.9288580604975548"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.4985488249386282",
+                    "height": "30 + $height + 200 * 0.6913696212792988"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.47013055381273583",
+                  "1 + $radius2 + 10.0 * 0.1975323535499034",
+                  "1 + $radius3 + 10.0 * 0.6226219775429845",
+                  "1 + $radius4 + 10.0 * 0.1992759173713443"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.3215299854573197,
+              "green": 0.8555705779015029,
+              "blue": 0.6659460177577314,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.33560576749780247",
+                    "y": "10 + $yloc + 100 * 0.7251944838560151"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.31141878430300707",
+                    "height": "30 + $height + 200 * 0.7989537756403162"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.38228167013628267",
+                  "1 + $radius2 + 10.0 * 0.9646727664213044",
+                  "1 + $radius3 + 10.0 * 0.9861999272582737",
+                  "1 + $radius4 + 10.0 * 0.0791054821639503"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.8442027652334291,
+              "green": 0.37785047708221664,
+              "blue": 0.08646052594109377,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.29797052344083896",
+                    "y": "10 + $yloc + 100 * 0.9337025345581619"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.9354984965671398",
+                    "height": "30 + $height + 200 * 0.26102750416855314"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.1543763002403874",
+                  "1 + $radius2 + 10.0 * 0.5934677140577177",
+                  "1 + $radius3 + 10.0 * 0.6801540209355806",
+                  "1 + $radius4 + 10.0 * 0.633465324662168"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.15927191721099354,
+              "green": 0.9887876737814979,
+              "blue": 0.256815846259002,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.5469551161309303",
+                    "y": "10 + $yloc + 100 * 0.2543078839041639"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.4330306487654243",
+                    "height": "30 + $height + 200 * 0.32897414583721407"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.9354635422772636",
+                  "1 + $radius2 + 10.0 * 0.8198020392637234",
+                  "1 + $radius3 + 10.0 * 0.921407627208175",
+                  "1 + $radius4 + 10.0 * 0.2994635360642802"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.725200479909031,
+              "green": 0.9058547398581966,
+              "blue": 0.5059676288212515,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.7629087546365853",
+                    "y": "10 + $yloc + 100 * 0.6400770662132911"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.09942806543382432",
+                    "height": "30 + $height + 200 * 0.3997526683767878"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.9718799023787833",
+                  "1 + $radius2 + 10.0 * 0.976828370704871",
+                  "1 + $radius3 + 10.0 * 0.4058648447280291",
+                  "1 + $radius4 + 10.0 * 0.8400916658795715"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.4256558787132162,
+              "green": 0.128448320253452,
+              "blue": 0.7747580610139623,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.951277061977809",
+                    "y": "10 + $yloc + 100 * 0.14888136233050941"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.9563030485562966",
+                    "height": "30 + $height + 200 * 0.8507771993216537"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.8134168553601466",
+                  "1 + $radius2 + 10.0 * 0.7156422654579602",
+                  "1 + $radius3 + 10.0 * 0.7195977453992949",
+                  "1 + $radius4 + 10.0 * 0.3650742256716504"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.30542622908232786,
+              "green": 0.7205677780082786,
+              "blue": 0.0015708046434669276,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.9177125813257886",
+                    "y": "10 + $yloc + 100 * 0.941463814173376"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.4087899003142573",
+                    "height": "30 + $height + 200 * 0.1189112506587734"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.21015334773393146",
+                  "1 + $radius2 + 10.0 * 0.7396111126407217",
+                  "1 + $radius3 + 10.0 * 0.13539816364912383",
+                  "1 + $radius4 + 10.0 * 0.1320243927332354"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.11057220930918477,
+              "green": 0.7147287252790027,
+              "blue": 0.9355883021944963,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.11729208945376213",
+                    "y": "10 + $yloc + 100 * 0.7251494501785679"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.7445423744773618",
+                    "height": "30 + $height + 200 * 0.26497436485024595"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.6218595855764406",
+                  "1 + $radius2 + 10.0 * 0.8706385047354938",
+                  "1 + $radius3 + 10.0 * 0.7531842104012814",
+                  "1 + $radius4 + 10.0 * 0.20235949548540222"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.14822161857994487,
+              "green": 0.2309853001642984,
+              "blue": 0.7304026942025752,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.07331950553166322",
+                    "y": "10 + $yloc + 100 * 0.8268199117205975"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.849362215405737",
+                    "height": "30 + $height + 200 * 0.8582740979175089"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.8617067357060451",
+                  "1 + $radius2 + 10.0 * 0.7075009635907196",
+                  "1 + $radius3 + 10.0 * 0.9475209849740072",
+                  "1 + $radius4 + 10.0 * 0.5376819788801749"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.6145902054242791,
+              "green": 0.31910851575209953,
+              "blue": 0.4587276253257758,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.5266179491156324",
+                    "y": "10 + $yloc + 100 * 0.8023520026619431"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.5826240212485849",
+                    "height": "30 + $height + 200 * 0.851620664784934"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.5899106258725928",
+                  "1 + $radius2 + 10.0 * 0.939714072208286",
+                  "1 + $radius3 + 10.0 * 0.3518872943506549",
+                  "1 + $radius4 + 10.0 * 0.442028121106806"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.29812305480794143,
+              "green": 0.19427522206414527,
+              "blue": 0.8855653903189337,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.21841661324475004",
+                    "y": "10 + $yloc + 100 * 0.46912716119655207"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.09919713105516281",
+                    "height": "30 + $height + 200 * 0.03297483302382864"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.5656474660639073",
+                  "1 + $radius2 + 10.0 * 0.17011366257438354",
+                  "1 + $radius3 + 10.0 * 0.630675673053334",
+                  "1 + $radius4 + 10.0 * 0.5685789570294557"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.8960101024758979,
+              "green": 0.12225893918682695,
+              "blue": 0.9964864942709959,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.8390288859397043",
+                    "y": "10 + $yloc + 100 * 0.9144420456241205"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.5165749477004943",
+                    "height": "30 + $height + 200 * 0.9914156370628814"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.1133099759234999",
+                  "1 + $radius2 + 10.0 * 0.7415111916915987",
+                  "1 + $radius3 + 10.0 * 0.6979611806835647",
+                  "1 + $radius4 + 10.0 * 0.40670559854504496"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.8970191236530286,
+              "green": 0.05615246912063632,
+              "blue": 0.38294772494213936,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.46555671104498986",
+                    "y": "10 + $yloc + 100 * 0.4838570651218088"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.687525004623622",
+                    "height": "30 + $height + 200 * 0.07933285379897859"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.8771080482943393",
+                  "1 + $radius2 + 10.0 * 0.5262900353555396",
+                  "1 + $radius3 + 10.0 * 0.8699670854756923",
+                  "1 + $radius4 + 10.0 * 0.5103302775289454"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.9433637741527086,
+              "green": 0.41201966811571156,
+              "blue": 0.05711197210903618,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.7876918211174985",
+                    "y": "10 + $yloc + 100 * 0.2926236812417774"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.5671800430150895",
+                    "height": "30 + $height + 200 * 0.6906830323463152"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.9225860861745195",
+                  "1 + $radius2 + 10.0 * 0.21555302325040115",
+                  "1 + $radius3 + 10.0 * 0.3011931015196153",
+                  "1 + $radius4 + 10.0 * 0.40313619666025435"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.7848884447900131,
+              "green": 0.9388659441840375,
+              "blue": 0.21254964328520687,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.47118234114109825",
+                    "y": "10 + $yloc + 100 * 0.7977008839664742"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.547122719531487",
+                    "height": "30 + $height + 200 * 0.915640218139362"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.6090239361374025",
+                  "1 + $radius2 + 10.0 * 0.23625645098400283",
+                  "1 + $radius3 + 10.0 * 0.5801410300140302",
+                  "1 + $radius4 + 10.0 * 0.856190401582174"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.6250980919643682,
+              "green": 0.41528147794507275,
+              "blue": 0.4650220715999087,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.29633348740035814",
+                    "y": "10 + $yloc + 100 * 0.8568120469456698"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.14561708935623996",
+                    "height": "30 + $height + 200 * 0.4151520466165708"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.46000966072562877",
+                  "1 + $radius2 + 10.0 * 0.6334757356727336",
+                  "1 + $radius3 + 10.0 * 0.06091630711222784",
+                  "1 + $radius4 + 10.0 * 0.9899726400440486"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.5945424627942516,
+              "green": 0.5654499173089849,
+              "blue": 0.5330690195831705,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.8850777663514581",
+                    "y": "10 + $yloc + 100 * 0.14675664959919443"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.7741662564685707",
+                    "height": "30 + $height + 200 * 0.44168949477113195"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.27918713128785533",
+                  "1 + $radius2 + 10.0 * 0.41948321903325725",
+                  "1 + $radius3 + 10.0 * 0.5449936450995243",
+                  "1 + $radius4 + 10.0 * 0.798690248845878"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.7001285736033072,
+              "green": 0.1301437380361663,
+              "blue": 0.909369192671082,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.457001087790615",
+                    "y": "10 + $yloc + 100 * 0.2639100983566005"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.39005857488116247",
+                    "height": "30 + $height + 200 * 0.5104134465097312"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.6782475456040059",
+                  "1 + $radius2 + 10.0 * 0.07111212745517714",
+                  "1 + $radius3 + 10.0 * 0.8580277928285859",
+                  "1 + $radius4 + 10.0 * 0.46620590186685384"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.8359729695650504,
+              "green": 0.4581532455088675,
+              "blue": 0.43619560748384767,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.25281249048216126",
+                    "y": "10 + $yloc + 100 * 0.9124353207086676"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.43877269365406835",
+                    "height": "30 + $height + 200 * 0.8226576694964866"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.9098897730545602",
+                  "1 + $radius2 + 10.0 * 0.30181577625788325",
+                  "1 + $radius3 + 10.0 * 0.9916012518497999",
+                  "1 + $radius4 + 10.0 * 0.38086890537678897"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.8506910754003784,
+              "green": 0.39848430146625446,
+              "blue": 0.7946980005841103,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.9767139771028631",
+                    "y": "10 + $yloc + 100 * 0.5757318612776561"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.058815573163621404",
+                    "height": "30 + $height + 200 * 0.25304220343252215"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.928594709274721",
+                  "1 + $radius2 + 10.0 * 0.20276677671912868",
+                  "1 + $radius3 + 10.0 * 0.4965240560423878",
+                  "1 + $radius4 + 10.0 * 0.406993868601791"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.6109612936754671,
+              "green": 0.10859597111365815,
+              "blue": 0.772267789862542,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.21685292682212698",
+                    "y": "10 + $yloc + 100 * 0.4822501887390226"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.13288458632769462",
+                    "height": "30 + $height + 200 * 0.8087087981176314"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.013367820533274899",
+                  "1 + $radius2 + 10.0 * 0.37184947024456827",
+                  "1 + $radius3 + 10.0 * 0.4473654765774131",
+                  "1 + $radius4 + 10.0 * 0.7930365588758009"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.10771026586481636,
+              "green": 0.6441042527796872,
+              "blue": 0.9268794315914486,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.4546265539585722",
+                    "y": "10 + $yloc + 100 * 0.3689981416449829"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.9487175826656629",
+                    "height": "30 + $height + 200 * 0.7600252853135331"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.5919305414371214",
+                  "1 + $radius2 + 10.0 * 0.4511738417450033",
+                  "1 + $radius3 + 10.0 * 0.5544461216913557",
+                  "1 + $radius4 + 10.0 * 0.8284938243776054"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.24955203217458444,
+              "green": 0.2163608671625803,
+              "blue": 0.41112502809568874,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.9455688210152753",
+                    "y": "10 + $yloc + 100 * 0.13861472194638857"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.08160607067563674",
+                    "height": "30 + $height + 200 * 0.37035489532846944"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.21866996992670462",
+                  "1 + $radius2 + 10.0 * 0.896102133387137",
+                  "1 + $radius3 + 10.0 * 0.21262764802219403",
+                  "1 + $radius4 + 10.0 * 0.5714794939038776"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.3695053099891291,
+              "green": 0.6060504519135173,
+              "blue": 0.16194442011848031,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.3808111979002655",
+                    "y": "10 + $yloc + 100 * 0.8052223760011314"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.8171496495693692",
+                    "height": "30 + $height + 200 * 0.9068010411052778"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.6187450078681931",
+                  "1 + $radius2 + 10.0 * 0.9502243918737941",
+                  "1 + $radius3 + 10.0 * 0.47663955955891646",
+                  "1 + $radius4 + 10.0 * 0.2435422675038833"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.38668072243546736,
+              "green": 0.5333701216472614,
+              "blue": 0.3829737631532901,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.48303958841478967",
+                    "y": "10 + $yloc + 100 * 0.8194717653449378"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.1293203554509742",
+                    "height": "30 + $height + 200 * 0.012962739835147619"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.7411195974500995",
+                  "1 + $radius2 + 10.0 * 0.5368210682601697",
+                  "1 + $radius3 + 10.0 * 0.004600699965540134",
+                  "1 + $radius4 + 10.0 * 0.37253497864261564"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.1920017418839629,
+              "green": 0.30352635163419583,
+              "blue": 0.9722212442354036,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.05903787880961253",
+                    "y": "10 + $yloc + 100 * 0.9122123367175414"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.6176222905650228",
+                    "height": "30 + $height + 200 * 0.01705080124379299"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.989116667284073",
+                  "1 + $radius2 + 10.0 * 0.9007868757828416",
+                  "1 + $radius3 + 10.0 * 0.9019289938038647",
+                  "1 + $radius4 + 10.0 * 0.3126516229504942"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.06281839534664402,
+              "green": 0.6388578307085742,
+              "blue": 0.3112196987113336,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.9458264421483252",
+                    "y": "10 + $yloc + 100 * 0.7568314437056499"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.6028504851596543",
+                    "height": "30 + $height + 200 * 0.6386154607754764"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.1584289888505238",
+                  "1 + $radius2 + 10.0 * 0.8322637052435767",
+                  "1 + $radius3 + 10.0 * 0.5319937410301706",
+                  "1 + $radius4 + 10.0 * 0.5685830428585232"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.047127842511627493,
+              "green": 0.16755911225593656,
+              "blue": 0.04975858587930759,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.9218287226915449",
+                    "y": "10 + $yloc + 100 * 0.958834793591667"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.5664370371226825",
+                    "height": "30 + $height + 200 * 0.7230668485412547"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.5301728147863563",
+                  "1 + $radius2 + 10.0 * 0.6836958666792006",
+                  "1 + $radius3 + 10.0 * 0.8341124101715048",
+                  "1 + $radius4 + 10.0 * 0.18163474311932193"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.3349083512584282,
+              "green": 0.11095693063524736,
+              "blue": 0.542678233932264,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.24845611629419573",
+                    "y": "10 + $yloc + 100 * 0.9382541920796802"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.00199849351141812",
+                    "height": "30 + $height + 200 * 0.21057371647982992"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.48019813244502607",
+                  "1 + $radius2 + 10.0 * 0.9671435897621685",
+                  "1 + $radius3 + 10.0 * 0.9357904513333107",
+                  "1 + $radius4 + 10.0 * 0.5967520279926848"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.7076457719336624,
+              "green": 0.10454935238844076,
+              "blue": 0.4581651392087487,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.8520254297531135",
+                    "y": "10 + $yloc + 100 * 0.882377575124619"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.5736636628709184",
+                    "height": "30 + $height + 200 * 0.9854045066085088"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.6089924021262135",
+                  "1 + $radius2 + 10.0 * 0.6816251716874758",
+                  "1 + $radius3 + 10.0 * 0.7894543522812707",
+                  "1 + $radius4 + 10.0 * 0.5301049254443373"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.90093409530742,
+              "green": 0.8010737513426303,
+              "blue": 0.04170899079155821,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.8000331908499705",
+                    "y": "10 + $yloc + 100 * 0.9163875014036451"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.2933434914287021",
+                    "height": "30 + $height + 200 * 0.6774721887978288"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.9155154595954215",
+                  "1 + $radius2 + 10.0 * 0.13323106494991188",
+                  "1 + $radius3 + 10.0 * 0.4219161419554114",
+                  "1 + $radius4 + 10.0 * 0.7949344735527352"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.6501044479248338,
+              "green": 0.5459538827622522,
+              "blue": 0.6191482766712382,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.2404873311211949",
+                    "y": "10 + $yloc + 100 * 0.29146020137434503"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.9224735677927746",
+                    "height": "30 + $height + 200 * 0.10575143836350709"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.2539462713076882",
+                  "1 + $radius2 + 10.0 * 0.8389123402790929",
+                  "1 + $radius3 + 10.0 * 0.8991974141655916",
+                  "1 + $radius4 + 10.0 * 0.04461239855383381"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.468371438310868,
+              "green": 0.3727222070959133,
+              "blue": 0.5604628337571756,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.27433661044979074",
+                    "y": "10 + $yloc + 100 * 0.8527166084031448"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.044224552320763166",
+                    "height": "30 + $height + 200 * 0.6684385207927612"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.41510086744484465",
+                  "1 + $radius2 + 10.0 * 0.9329913183419184",
+                  "1 + $radius3 + 10.0 * 0.7521534272653697",
+                  "1 + $radius4 + 10.0 * 0.7002699229936709"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.6390694066998701,
+              "green": 0.22379551636718886,
+              "blue": 0.4849992623631517,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.38147948416447686",
+                    "y": "10 + $yloc + 100 * 0.3746141856608579"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.6999969516858321",
+                    "height": "30 + $height + 200 * 0.8306316101535137"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.04183288266299878",
+                  "1 + $radius2 + 10.0 * 0.32481368143453204",
+                  "1 + $radius3 + 10.0 * 0.587339309568469",
+                  "1 + $radius4 + 10.0 * 0.9501029739825413"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.078275568088234,
+              "green": 0.4320524332459781,
+              "blue": 0.7230283751152942,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          },
+          {
+            "elementtype": "fillpath",
+            "arrayofpathelements": [
+              {
+                "elementtype": "pathroundedrectangle",
+                "rect": {
+                  "origin": {
+                    "x": "10 + $xloc + 100 * 0.695355537083573",
+                    "y": "10 + $yloc + 100 * 0.7746930525602379"
+                  },
+                  "size": {
+                    "width": "40 + $width + 300 * 0.8920488201105531",
+                    "height": "30 + $height + 200 * 0.043974404913027065"
+                  }
+                },
+                "radiuses": [
+                  "1 + $radius1 + 10.0 * 0.3023561257075138",
+                  "1 + $radius2 + 10.0 * 0.7606392317555944",
+                  "1 + $radius3 + 10.0 * 0.8516580088634226",
+                  "1 + $radius4 + 10.0 * 0.6487677160526081"
+                ]
+              }
+            ],
+            "startpoint": {
+              "x": 0,
+              "y": 0
+            },
+            "fillcolor": {
+              "red": 0.8143633623045212,
+              "green": 0.7600313432730125,
+              "blue": 0.201754333235859,
+              "alpha": 1.0,
+              "colorcolorprofilename": "kCGColorSpaceSRGB"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "cleanupcommands": [
+    {
+      "command": "close",
+      "receiverobject": {
+        "objecttype": "bitmapcontext",
+        "objectname": "c09fe51b-eb48-46ae-b136-3a3503a65cb0"
+      }
+    }
+  ],
+  "variables": {
+    "xloc": 30.0,
+    "yloc": 20.0,
+    "width": 40.0,
+    "height": 30,
+    "radius1": 2.0,
+    "radius2": 4.0,
+    "radius3": 8.0,
+    "radius4": 16.0
+  }
+}
