@@ -139,12 +139,18 @@
     // First check whether an error occurred when asking for the list of presets
     MIReplyErrorEnum errorCode = MIGetErrorCodeFromReplyDictionary(resultDict);
     XCTAssertEqual(errorCode, 0, "Error getting list of bitmap presets");
+#if TARGET_OS_IPHONE
+    const char *cStrPresets = "AlphaOnly8bpcInt Gray8bpcInt Gray16bpcInt Gray32bpcFloat "\
+    "AlphaSkipFirstRGB8bpcInt AlphaSkipLastRGB8bpcInt AlphaPreMulFirstRGB8bpcInt "\
+    "AlphaPreMulBGRA8bpcInt AlphaPreMulLastRGB8bpcInt PlatformDefaultBitmapContext";
+#else
     const char *cStrPresets = "AlphaOnly8bpcInt Gray8bpcInt Gray16bpcInt "\
     "Gray32bpcFloat AlphaSkipFirstRGB8bpcInt AlphaSkipLastRGB8bpcInt "\
     "AlphaPreMulFirstRGB8bpcInt AlphaPreMulBGRA8bpcInt AlphaPreMulLastRGB8bpcInt "\
     "AlphaPreMulLastRGB16bpcInt AlphaSkipLastRGB16bpcInt "\
     "AlphaSkipLastRGB32bpcFloat AlphaPreMulLastRGB32bpcFloat CMYK8bpcInt "\
     "CMYK16bpcInt CMYK32bpcFloat PlatformDefaultBitmapContext";
+#endif
     NSString *presets = [[NSString alloc] initWithCString:cStrPresets
                                                  encoding:NSUTF8StringEncoding];
     NSString *resultString = MIGetStringFromReplyDictionary(resultDict);
