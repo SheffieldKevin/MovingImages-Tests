@@ -45,6 +45,10 @@
               {
                 "cifilterkey": "inputRadius",
                 "cifiltervalue": 30.0
+              },
+              {
+                "cifilterkey": "inputIntensity",
+                "cifiltervalue": 1.0
               }
             ]
           }
