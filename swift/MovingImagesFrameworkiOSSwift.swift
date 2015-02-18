@@ -9,12 +9,53 @@
 #if os(iOS)
 import UIKit
 import MovingImagesiOS
+import Photos
 #endif
 
 import XCTest
 import Foundation
 import ImageIO
 import AVFoundation
+
+func GetImageFileURL() -> NSURL? {
+    let fm = NSFileManager.defaultManager()
+    var error:NSError?
+    
+    #if os(iOS)
+        return fm.URLForDirectory(NSSearchPathDirectory.CachesDirectory,
+        inDomain: NSSearchPathDomainMask.UserDomainMask,
+        appropriateForURL: .None,
+        create: false,
+        error: &error)
+    #else
+        return fm.URLForDirectory(NSSearchPathDirectory.PicturesDirectory,
+            inDomain: NSSearchPathDomainMask.UserDomainMask,
+            appropriateForURL: .None,
+            create: false,
+            error: &error)
+    #endif
+}
+
+func GetImageFilePathInPictures(fileName: String = "videowriter.mov") -> String {
+    return GetImageFileURL()!.path! + "/" + fileName
+}
+
+#if os(iOS)
+func saveImageFileToSharedPhotoLibrary(#filePath: String) -> Void {
+    let url = NSURL.fileURLWithPath(filePath)
+    
+    let wait = dispatch_semaphore_create(0)
+    PHPhotoLibrary.sharedPhotoLibrary().performChanges({
+        let request =
+            PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(url)
+        },
+        completionHandler: { success, error in
+            dispatch_semaphore_signal(wait)
+            Void.self
+    })
+    dispatch_semaphore_wait(wait, DISPATCH_TIME_FOREVER)
+}
+#endif
 
 class MovingImagesFrameworkiOSSwift: XCTestCase {
 
@@ -212,6 +253,50 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
         let errorCode = MIGetErrorCodeFromReplyDictionary(commandResult)
         XCTAssertEqual(errorCode.rawValue, 0,
             "Error running commands in context")
+    }
+
+
+    func testDrawingCIBloomCIFilter() {
+        let tempDict = MovingImagesFrameworkiOSSwift.createDictionaryFromJSON(
+            "coreimage_cibloom")
+        
+        let fileURL = makeURLFromNamedFile("DSCN0724", fileExtension: "JPG")
+        let filePath = fileURL.path!
+        let outPath = GetImageFilePathInPictures(fileName: "DSCN0724CIBloom.jpg")
+        let variablesDict = [
+            "test.inputimage.coreimage.cibloom" : filePath,
+            "test.outputimage.coreimage.cibloom" : outPath
+        ]
+        
+        let commandDict:[String : AnyObject] = [
+            "commands" : tempDict["commands"]!,
+            "runasynchronously" : false,
+            "variables" : variablesDict
+        ]
+        let theContext:MIContext = MICreateContext()
+        let commandResult = MIMovingImagesHandleCommands(theContext, commandDict,
+            nil)
+        let errorCode = MIGetErrorCodeFromReplyDictionary(commandResult)
+        XCTAssertEqual(errorCode.rawValue, 0,
+            "Error using the CIBloom filter.")
+        if (errorCode == MIReplyErrorEnum.NoError)
+        {
+            #if os(iOS)
+                saveImageFileToSharedPhotoLibrary(filePath: outPath)
+                
+                // Now check to see if the file exists and delete it.
+                let fm = NSFileManager.defaultManager()
+                if (fm.fileExistsAtPath(outPath))
+                {
+                    fm.removeItemAtPath(outPath, error: nil)
+                }
+            #endif
+        }
+        else
+        {
+            println(MIGetStringFromReplyDictionary(commandResult))
+        }
+
     }
 
     // Check that running commands asynchronously works as expected.

@@ -1,0 +1,202 @@
+{
+  "runasynchronously": false,
+  "commands": [
+    {
+      "command": "create",
+      "objecttype": "bitmapcontext",
+      "objectname": "315ca17e-e291-4dcf-b2a8-411fc5a19b70",
+      "size": {
+        "width": 908,
+        "height": 681
+      },
+      "preset": "AlphaPreMulFirstRGB8bpcInt"
+    },
+    {
+      "command": "create",
+      "objecttype": "bitmapcontext",
+      "objectname": "d23ec448-fcff-4a58-9b0f-0ca80f05861c",
+      "size": {
+        "width": 908,
+        "height": 681
+      },
+      "preset": "AlphaPreMulFirstRGB8bpcInt"
+    },
+    {
+      "command": "create",
+      "objecttype": "imagefilterchain",
+      "imagefilterchaindict": {
+        "cirenderdestination": {
+          "objecttype": "bitmapcontext",
+          "objectname": "d23ec448-fcff-4a58-9b0f-0ca80f05861c"
+        },
+        "coreimagesoftwarerender": false,
+        "cifilterlist": [
+          {
+            "cifiltername": "CIBloom",
+            "cifilterproperties": [
+              {
+                "cifilterkey": "inputImage",
+                "cifiltervalueclass": "CIImage",
+                "cifiltervalue": {
+                  "objecttype": "bitmapcontext",
+                  "objectname": "315ca17e-e291-4dcf-b2a8-411fc5a19b70"
+                }
+              },
+              {
+                "cifilterkey": "inputRadius",
+                "cifiltervalue": 30.0
+              }
+            ]
+          }
+        ]
+      },
+      "objectname": "2d60bb9b-3c86-4419-89d1-76130600e765"
+    },
+    {
+      "command": "create",
+      "objecttype": "imageexporter",
+      "file": "~/placeholder.jpg",
+      "utifiletype": "public.jpeg",
+      "objectname": "6ae9220f-5e10-4be0-ae89-b53c0921d3be"
+    },
+    {
+      "command": "create",
+      "objecttype": "imageimporter",
+      "pathsubstitution" : "test.inputimage.coreimage.cibloom",
+      "file": "/Volumes/MacintoshHD/Users/ktam/gitlab/movingimages/testing/yosemite/images/DSCN0724CIBloom.jpg",
+      "objectname": "34ae4361-c6c7-4372-865d-d07c4b42ec2f"
+    },
+    {
+      "command": "drawelement",
+      "receiverobject": {
+        "objecttype": "bitmapcontext",
+        "objectname": "315ca17e-e291-4dcf-b2a8-411fc5a19b70"
+      },
+      "drawinstructions": {
+        "elementtype": "drawimage",
+        "sourceobject": {
+          "objecttype": "imageimporter",
+          "objectname": "34ae4361-c6c7-4372-865d-d07c4b42ec2f"
+        },
+        "imageoptions": {
+          "imageindex": 0
+        },
+        "sourcerectangle": {
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "size": {
+            "width": 908,
+            "height": 681
+          }
+        },
+        "destinationrectangle": {
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "size": {
+            "width": 908,
+            "height": 681
+          }
+        }
+      }
+    },
+    {
+      "command": "renderfilterchain",
+      "receiverobject": {
+        "objecttype": "imagefilterchain",
+        "objectname": "2d60bb9b-3c86-4419-89d1-76130600e765"
+      },
+      "renderinstructions": {
+        "destinationrectangle": {
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "size": {
+            "width": 908,
+            "height": 681
+          }
+        },
+        "sourcerectangle": {
+          "origin": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "size": {
+            "width": 908,
+            "height": 681
+          }
+        }
+      }
+    },
+    {
+      "command": "setproperty",
+      "receiverobject": {
+        "objecttype": "imageexporter",
+        "objectname": "6ae9220f-5e10-4be0-ae89-b53c0921d3be"
+      },
+      "propertykey": "exportfilepath",
+      "propertyvalue": "/var/folders/r5/1g1m2vp5139_xqhy658cgxnw0000gn/T/DSCN0724CIBloom.jpg",
+      "pathsubstitution" : "test.outputimage.coreimage.cibloom"
+    },
+    {
+      "command": "addimage",
+      "receiverobject": {
+        "objecttype": "imageexporter",
+        "objectname": "6ae9220f-5e10-4be0-ae89-b53c0921d3be"
+      },
+      "sourceobject": {
+        "objecttype": "bitmapcontext",
+        "objectname": "d23ec448-fcff-4a58-9b0f-0ca80f05861c"
+      }
+    },
+    {
+      "command": "export",
+      "receiverobject": {
+        "objecttype": "imageexporter",
+        "objectname": "6ae9220f-5e10-4be0-ae89-b53c0921d3be"
+      }
+    },
+    {
+      "command": "close",
+      "receiverobject": {
+        "objecttype": "imageimporter",
+        "objectname": "34ae4361-c6c7-4372-865d-d07c4b42ec2f"
+      }
+    }
+  ],
+  "cleanupcommands": [
+    {
+      "command": "close",
+      "receiverobject": {
+        "objecttype": "bitmapcontext",
+        "objectname": "315ca17e-e291-4dcf-b2a8-411fc5a19b70"
+      }
+    },
+    {
+      "command": "close",
+      "receiverobject": {
+        "objecttype": "bitmapcontext",
+        "objectname": "d23ec448-fcff-4a58-9b0f-0ca80f05861c"
+      }
+    },
+    {
+      "command": "close",
+      "receiverobject": {
+        "objecttype": "imagefilterchain",
+        "objectname": "2d60bb9b-3c86-4419-89d1-76130600e765"
+      }
+    },
+    {
+      "command": "close",
+      "receiverobject": {
+        "objecttype": "imageexporter",
+        "objectname": "6ae9220f-5e10-4be0-ae89-b53c0921d3be"
+      }
+    }
+  ]
+}
+

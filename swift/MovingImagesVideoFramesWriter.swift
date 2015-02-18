@@ -313,7 +313,8 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             MIJSONKeyCommands : [
                 createVideoWriterCommand,
                 [
-                    MIJSONKeyCommand : MIJSONValueAddInputToMovieFrameWriterCommand,
+                    MIJSONKeyCommand :
+                        MIJSONValueAddInputToMovieFrameWriterCommand,
                     MIJSONKeyReceiverObject : videoWriterObject,
                     MIJSONPropertyMovieVideoWriterPreset :
                                         MIJSONValueMovieVideoWriterPresetH264_SD,
@@ -410,7 +411,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         // println("Dictionary Results are: \(dictionaryRes)")
         let areSame = previousResult.isEqualToDictionary(dictionaryRes)
         XCTAssert(areSame,
-            "Different dicts from get properties of video writer with video input")
+        "Different dicts from get properties of video writer with video input")
         
         let closeResult = MIMovingImagesHandleCommand(nil, closeVideoWriter)
         let errorCode3 = MIGetErrorCodeFromReplyDictionary(closeResult)

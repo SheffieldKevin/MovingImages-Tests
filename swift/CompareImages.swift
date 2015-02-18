@@ -114,12 +114,16 @@ func compareImages(#image1:CGImage, #image2:CGImage) -> Int {
 }
 #endif
 
+func makeURLFromNamedFile(namedFile: NSString, #fileExtension: NSString) -> NSURL {
+    let testBundle = NSBundle(forClass: MovingImagesFrameworkiOSSwift.self)
+    let url = testBundle.URLForResource(namedFile, withExtension:fileExtension)!
+    return url
+}
+
 func createCGImageFromNamedFile(namedImage: NSString, #fileExtension: NSString)
     -> CGImage? {
-    let testBundle = NSBundle(forClass: MovingImagesFrameworkiOSSwift.self)
-    let jpegURL = testBundle.URLForResource(namedImage,
-        withExtension:fileExtension)!
-    let imageSource = CGImageSourceCreateWithURL(jpegURL, nil)
+    let theURL = makeURLFromNamedFile(namedImage, fileExtension: fileExtension)
+    let imageSource = CGImageSourceCreateWithURL(theURL, nil)
     let myImage = CGImageSourceCreateImageAtIndex(imageSource, 0, nil)
     return myImage
 }
