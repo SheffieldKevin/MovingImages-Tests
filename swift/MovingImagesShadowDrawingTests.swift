@@ -308,7 +308,8 @@ class MovingImagesShadowDrawingTests: XCTestCase {
                 let origImage = createCGImageFromNamedPNGImage(namedImageName)
                 let imageDiff = compareImages(image1: origImage, image2: theImage)
                 // println("Max image difference: \(imageDiff)")
-                XCTAssert(imageDiff < 2, "Image file \(namedImageName) different")
+                XCTAssert(imageDiff < 2,
+                    "Image file \(namedImageName) different: \(imageDiff)")
             }
             else
             {

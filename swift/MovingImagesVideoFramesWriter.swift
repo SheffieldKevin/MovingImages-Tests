@@ -697,7 +697,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             MIJSONPropertyMovieTrackIndex : 0
         ]
         
-        let bitmapContextName = "testAddingFromToVideoInputWriter.bitmapcontext"
+        let bitmapContextName = "testAddingFrameToVideoInputWriter.bitmapcontext"
         let bitmapObject = [
             MIJSONKeyObjectType : MICGBitmapContextKey,
             MIJSONKeyObjectName : bitmapContextName
@@ -716,7 +716,6 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             MIJSONKeyObjectName : bitmapContextName,
             MIJSONPropertyPreset : MIPlatformDefaultBitmapContext,
             MIJSONKeySize : sizeDict,
-//            MIJSONPropertyColorProfile : kCGColorSpaceGenericRGB
             MIJSONPropertyColorProfile : "kCGColorSpaceGenericRGB"
         ]
 
@@ -734,7 +733,10 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             "size" : boxSize
         ]
         let textRect = [
-            "origin" : [ "x" : 0, "y" : -4 ],
+            "origin" : [
+                "x" : -CGFloat(boxWidth) * 0.5,
+                "y" : -CGFloat(boxHeight) * 0.5
+            ],
             "size" : boxSize
         ]
         let fillColor = [
@@ -758,12 +760,12 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             "green" : 0.1,
             "blue" : 0.1,
             "alpha" : 0.8,
-            "colorcolorprofilename" : "kCGColorSpaceSRGB"
+            "colorcolorprofilename" : "kCGColorSpaceGenericRGB"
         ]
 
         let fillRectElement = [
             MIJSONKeyElementType : MIJSONValueRectangleFillElement,
-            MIJSONKeyRect : bitmapBoxRect,
+            MIJSONKeyRect : boxRect,
             MIJSONKeyFillColor : [
                 "red" : 1.0, "green" : 1.0, "blue" : 1.0, "alpha" : 0.0,
                 "colorcolorprofilename" : "kCGColorSpaceSRGB"
@@ -773,14 +775,14 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         let cornerRadius = 10
         let fillRoundedRectElement = [
             MIJSONKeyElementType : MIJSONValueRoundedRectangleFillElement,
-            MIJSONKeyRect : bitmapBoxRect,
+            MIJSONKeyRect : boxRect,
             MIJSONKeyRadius : cornerRadius,
             MIJSONKeyFillColor : fillColor
         ]
         
         let strokeRoundedRectElement = [
             MIJSONKeyElementType : MIJSONValueRoundedRectangleStrokeElement,
-            MIJSONKeyRect : bitmapBoxRect,
+            MIJSONKeyRect : boxRect,
             MIJSONKeyRadius : cornerRadius,
             MIJSONKeyStrokeColor : strokeColor,
             MIJSONKeyLineWidth : 2.0
@@ -791,14 +793,15 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         
         let drawTextElement = [
             MIJSONKeyElementType : MIJSONValueBasicStringElement,
-            MIJSONKeyRect : bitmapBoxRect,
             MIJSONKeyFillColor : textColor,
-            MIJSONKeyLineWidth : 2.0,
             MIJSONKeyStringText : theText,
             MIJSONKeyStringPostscriptFontName : fontName,
-            MIJSONKeyStringFontSize : 12,
+            MIJSONKeyStringFontSize : 16,
             MIJSONKeyTextAlignment : MIJSONValueTextAlignCenter,
-            MIJSONKeyPoint : [ "x" : 0, "y" : 0 ],
+            MIJSONKeyPoint : [
+                "x" : -CGFloat(boxWidth) * 0.5,
+                "y" : -CGFloat(boxHeight) * 0.5
+            ],
             MIJSONKeyArrayOfPathElements : [
                 [
                     "elementtype" : "pathrectangle",
@@ -821,21 +824,6 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             MIJSONKeyObjectType : MICGBitmapContextKey,
             MIJSONKeyObjectName : textBoxBitmapName
         ]
-        
-        let drawTextBoxCommand = [
-            MIJSONKeyCommand : MIJSONValueDrawElementCommand,
-            MIJSONKeyReceiverObject : textBoxBitmapObject,
-            MIJSONPropertyDrawInstructions : [
-                MIJSONKeyElementType : MIJSONValueArrayOfElements,
-                MIJSONKeyBlendMode : MIJSONValueBlendModeCopy,
-                MIJSONValueArrayOfElements : [
-                    fillRectElement,
-                    fillRoundedRectElement,
-                    strokeRoundedRectElement,
-                    drawTextElement
-                ],
-            ]
-        ]
 
         let textBoxImageIdentifier = "testViewWriter.textboximage"
         let assignTextBoxImageToImageCollection = [
@@ -851,10 +839,6 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         
         // An array of commands to be run before processing the frames.
         let preProcessCommands = [
-            createTextBoxCommand,
-            drawTextBoxCommand,
-            assignTextBoxImageToImageCollection,
-            closeTextBoxBitmapCommand,
             createVideoWriterCommand3,
             createBitmapContextCommand,
             addInputToMovieFrameWriterCommand
@@ -875,16 +859,10 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             MIJSONKeyReceiverObject : bitmapObject
         ]
 
-        let removeTextBoxImageFromImageCollection = [
-            MIJSONKeyCommand : MIJSONValueRemoveImageFromCollectionCommand,
-            MIJSONPropertyImageIdentifier : textBoxImageIdentifier
-        ]
-
         // An array of commands to cleanup any objects or images in the collection
         let cleanupCommands = [
             closeVideoWriter,
-            closeBitmapContext,
-            removeTextBoxImageFromImageCollection
+            closeBitmapContext
         ]
         
         let theUUID = CFUUIDCreate(kCFAllocatorDefault)
@@ -933,14 +911,18 @@ class MovingImagesVideoFramesWriter: XCTestCase {
                     MIJSONPropertyImageIdentifier : imageId
                 ]
             ]
+            // println("x = \(xPosFromSampleIndex(index: index))")
+            // println("y = \(yPosFromSampleIndex(index: index))")
             let drawTextBoxCommand = [
                 MIJSONKeyCommand : MIJSONValueDrawElementCommand,
                 MIJSONKeyReceiverObject : bitmapObject,
                 MIJSONPropertyDrawInstructions : [
-                    MIJSONKeyElementType : MIJSONValueDrawImage,
-                    MIJSONKeyBlendMode : MIJSONValueBlendModeNormal,
-                    MIJSONPropertyImageIdentifier : textBoxImageIdentifier,
-                    MIJSONKeyDestinationRectangle : boxRect,
+                    MIJSONKeyElementType : MIJSONValueArrayOfElements,
+                    MIJSONValueArrayOfElements : [
+                        fillRoundedRectElement,
+                        strokeRoundedRectElement,
+                        drawTextElement
+                    ],
                     MIJSONKeyContextTransformation : [
                         [
                             MIJSONKeyTransformationType : MIJSONValueTranslate,
@@ -1077,7 +1059,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             MIJSONPropertyMovieTrackIndex : 0
         ]
         
-        let bitmapContextName = "testAddingFromToVideoInputWriter.bitmapcontext"
+        let bitmapContextName = "testAddingFrameToVideoInputWriter.bitmapcontext"
         let bitmapObject = [
             MIJSONKeyObjectType : MICGBitmapContextKey,
             MIJSONKeyObjectName : bitmapContextName
@@ -1181,7 +1163,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         // An array of commands to cleanup any objects or images in the collection
         let cleanupCommands = [
             closeVideoWriter,
-            bitmapObject
+            closeBitmapContext
         ]
         
         let theUUID = CFUUIDCreate(kCFAllocatorDefault)
@@ -1361,7 +1343,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             MIJSONPropertyMovieTrackIndex : 0
         ]
         
-        let bitmapContextName = "testAddingFromToVideoInputWriter.bitmapcontext"
+        let bitmapContextName = "testAddingFrameToVideoInputWriter.bitmapcontext"
         let bitmapObject = [
             MIJSONKeyObjectType : MICGBitmapContextKey,
             MIJSONKeyObjectName : bitmapContextName
@@ -1465,7 +1447,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         // An array of commands to cleanup any objects or images in the collection
         let cleanupCommands = [
             closeVideoWriter,
-            bitmapObject
+            closeBitmapContext
         ]
         
         let theUUID = CFUUIDCreate(kCFAllocatorDefault)
