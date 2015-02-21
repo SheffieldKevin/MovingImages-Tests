@@ -1035,7 +1035,8 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             MIJSONPropertyFile : inputMovieFilePath
         ]
 
-        let exPath = GetMoviePathInMoviesDir(fileName: "videowriter-prores4444.mov")
+        let exPath = GetMoviePathInMoviesDir(
+                    fileName: "videowriter-prores4444.mov")
         let createVideoWriterCommandLocal = [
             MIJSONKeyCommand : MIJSONValueCreateCommand,
             MIJSONKeyObjectType : MIMovieVideoFramesWriterKey,
