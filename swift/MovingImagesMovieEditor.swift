@@ -108,10 +108,12 @@ class MovingImagesMovieEditor: XCTestCase {
             ]
         ]
         
-        let result2 = MIMovingImagesHandleCommands(nil, commandsDict2, nil)
-        let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
-        XCTAssertEqual(errorCode2.rawValue, 0,
-            "Error adding an audio track to a movie editor.")
+        // Version 1.0 of MovingImages will not manipulate audio tracks.
+        // So adding audio tracks has been dropped for now.
+        // let result2 = MIMovingImagesHandleCommands(nil, commandsDict2, nil)
+        // let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
+        // XCTAssertEqual(errorCode2.rawValue, 0,
+        //    "Error adding an audio track to a movie editor.")
         
         // Now add a video track with the persistent track id returned above.
         // This should produce an error as the track id is already used.
@@ -150,7 +152,7 @@ class MovingImagesMovieEditor: XCTestCase {
         if errorCode4 == MIReplyErrorEnum.NoError
         {
             let resultValue = MIGetNumericReplyValueFromDictionary(result4)
-            XCTAssertEqual(resultValue.integerValue, 3,
+            XCTAssertEqual(resultValue.integerValue, 2,
                 "The number of tracks should be 3")
         }
         
@@ -202,13 +204,12 @@ class MovingImagesMovieEditor: XCTestCase {
             ]
         ]
         
-        let result2 = MIMovingImagesHandleCommands(theContext, commandsDict2, nil)
-        let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
-        XCTAssertEqual(errorCode2.rawValue, 0,
-            "Error adding an audio track to a movie editor.")
+        // let result2 = MIMovingImagesHandleCommands(theContext, commandsDict2, nil)
+        // let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
+        // XCTAssertEqual(errorCode2.rawValue, 0,
+        //    "Error adding an audio track to a movie editor.")
         
-        // Now add a video track with the persistent track id returned above.
-        // This should produce an error as the track id is already used.
+        // Now add a video track.
         let commandsDict3 = [
             MIJSONKeyCommands : [
                 [
@@ -245,7 +246,7 @@ class MovingImagesMovieEditor: XCTestCase {
         let propertiesJSON = MIGetStringFromReplyDictionary(result4)
         XCTAssertEqual(propertiesJSON,
             "{\"objecttype\":\"movieeditor\",\"objectname\":" +
-            "\"test003.movieeditor\",\"numberoftracks\":2,\"objectreference\"" +
+            "\"test003.movieeditor\",\"numberoftracks\":1,\"objectreference\"" +
             ":0,\"metadataformats\":\"\",\"duration\":{\"flags\":1,\"value\"" +
             ":0,\"timescale\":1,\"epoch\":0}}",
             "Get movie editor properties as json returned diff")
@@ -272,7 +273,7 @@ class MovingImagesMovieEditor: XCTestCase {
             "\"mediatype\":\"vide\",\"timerange\":{\"start\":{\"flags\":0," +
             "\"value\":0,\"timescale\":0,\"epoch\":0},\"duration\":{\"flags\"" +
             ":0,\"value\":0,\"timescale\":0,\"epoch\":0}},\"trackid\":" +
-            "2,\"languagecode\":\"\",\"languagetag\":\"\",\"affinetransform\"" +
+            "1,\"languagecode\":\"\",\"languagetag\":\"\",\"affinetransform\"" +
             ":{\"m12\":0,\"m21\":0,\"m22\":1,\"tY\":0,\"m11\":1,\"tX\":" +
             "0},\"requiresframereordering\":false,\"trackenabled\":true," +
             "\"framerate\":0}",
@@ -293,11 +294,14 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
+/*
+        // Getting property of an audio track in video editor.
+        // No longer possible.
         let result6 = MIMovingImagesHandleCommands(theContext, commandsDict6, nil)
         let errorCode6 = MIGetErrorCodeFromReplyDictionary(result6)
         XCTAssertEqual(errorCode6.rawValue, 0,
-            "Error getting properties from a movie editor.")
-        
+           "Error getting properties from a movie editor.")
+
         let audioTrackPropertiesJSON = MIGetStringFromReplyDictionary(result6)
         XCTAssertEqual(audioTrackPropertiesJSON,
             "{\"preferredvolume\":1,\"mediatype\":\"soun\",\"timerange\":" +
@@ -306,7 +310,7 @@ class MovingImagesMovieEditor: XCTestCase {
             ":0}},\"trackid\":1,\"languagecode\":\"\",\"languagetag\":\"\"" +
             ",\"trackenabled\":true}",
             "Get video track properties as json returned diff")
-        
+*/
         let commandsDict7 = [
             MIJSONKeyCommands : [
                 [
@@ -346,7 +350,7 @@ class MovingImagesMovieEditor: XCTestCase {
             "Error getting properties from a movie editor.")
 
         let trackID = MIGetNumericReplyValueFromDictionary(result8)
-        XCTAssertEqual(trackID.intValue, Int32(2),
+        XCTAssertEqual(trackID.intValue, Int32(1),
             "Persistent track id should be equal to 2.")
 
         // lets attempt to access a track property from a track that doesn't exist
@@ -364,10 +368,167 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
+/*
+        // uncomment after audio track functionality added.
         let result9 = MIMovingImagesHandleCommands(theContext, commandsDict9, nil)
         let errorCode9 = MIGetErrorCodeFromReplyDictionary(result9)
         XCTAssertEqual(errorCode9.rawValue,
             MIReplyErrorEnum.OperationFailed.rawValue,
             "Error getting properties from a movie editor.")
+*/
+    }
+    
+    func testInsertingSegmentsToAMovieEditorTrack() -> Void {
+        // First we need to import a movie so that we have a track to insert
+        let testBundle = NSBundle(forClass: MovingImagesMovieImporter.self)
+        let movieURL = testBundle.URLForResource("testinput-movingimages",
+            withExtension:"mov")!
+        
+        let movieFilePath = movieURL.path!
+        let movieImporterName = "test004.movieimporter"
+        let createMovieImporterCommand = [
+            MIJSONKeyCommand : MIJSONValueCreateCommand,
+            MIJSONKeyObjectType : MIMovieImporterKey,
+            MIJSONKeyObjectName : movieImporterName,
+            MIJSONPropertyFile : movieFilePath
+        ]
+
+        let movieImporterObject = [
+            MIJSONKeyObjectType : MIMovieImporterKey,
+            MIJSONKeyObjectName : movieImporterName
+        ]
+
+        let closeMovieImporterObjectCommand = [
+            MIJSONKeyCommand : MIJSONValueCloseCommand,
+            MIJSONKeyReceiverObject : movieImporterObject
+        ]
+
+        let movieEditorName = "test004.movieeditor"
+        let videoTrackPersistentID = 3
+
+        let createMovieEditorCommand = [
+            MIJSONKeyCommand : MIJSONValueCreateCommand,
+            MIJSONKeyObjectType : MIMovieEditorKey,
+            MIJSONKeyObjectName : movieEditorName
+        ]
+
+        let movieEditorObject = [
+            MIJSONKeyObjectType : MIMovieEditorKey,
+            MIJSONKeyObjectName : movieEditorName
+        ]
+        
+        let closeMovieEditorObjectCommand = [
+            MIJSONKeyCommand : MIJSONValueCloseCommand,
+            MIJSONKeyReceiverObject : movieEditorObject
+        ]
+        
+        // Add a video track with the persistent track id returned above.
+        let addVideoTrackToEditorCommand = [
+            MIJSONKeyCommand : MIJSONValueCreateTrackCommand,
+            MIJSONPropertyMovieTrackID : videoTrackPersistentID,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeVideo
+        ]
+        
+        let videoTrackID = [
+            MIJSONPropertyMovieTrackID : videoTrackPersistentID
+        ]
+        
+        // Prepare adding a track segment
+        
+        // The video data will be inserted at the begining of the track.
+        let insertionTime : [String : AnyObject] = [
+            kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+            kCMTimeValueKey : 0,
+            kCMTimeScaleKey : 6000,
+            kCMTimeEpochKey : 0
+        ]
+        
+        // Get the video frame data from 4 seconds into the imported movie
+        let segmentStartTime = [
+            MIJSONPropertyMovieTime : 4.0
+        ]
+
+        let segmentDurationTime : [String : AnyObject] = [
+            kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+            kCMTimeValueKey : 12000,
+            kCMTimeScaleKey : 6000,
+            kCMTimeEpochKey : 0
+        ]
+        
+        let sourceSegmentTimeRange = [
+            MIJSONPropertyMovieTimeRangeStart : segmentStartTime,
+            MIJSONPropertyMovieTimeRangeDuration : segmentDurationTime
+        ]
+        
+        let sourceTrackID = [
+            MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeVideo,
+            MIJSONPropertyMovieTrackIndex : 0
+        ]
+
+        let insertSegmentCommand = [
+            MIJSONKeyCommand : MIJSONValueInsertTrackSegment,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTrack : videoTrackID,
+            MIJSONKeySourceObject : movieImporterObject,
+            MIJSONPropertyMovieSourceTrack : sourceTrackID,
+            MIJSONPropertyMovieSourceTimeRange : sourceSegmentTimeRange,
+            MIJSONPropertyMovieInsertionTime : insertionTime
+        ]
+
+        // Prepare adding an empty segment in the middle of another segment.
+        
+        // How start time and duration are defined below can be swapped. The
+        // two different ways of defining them are both valid.
+        let emptySegmentStartTime : [String : AnyObject] = [
+            kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+            kCMTimeValueKey : 6000,
+            kCMTimeScaleKey : 6000,
+            kCMTimeEpochKey : 0
+        ]
+        
+        let emptySegmentDuration = [
+            MIJSONPropertyMovieTime : 0.5
+        ]
+        
+        let emptySegmentTimeRange = [
+            MIJSONPropertyMovieTimeRangeStart : emptySegmentStartTime,
+            MIJSONPropertyMovieTimeRangeDuration : emptySegmentDuration
+        ]
+        
+        // Insert an empty segment into the video track.
+        let insertEmptySegmentCommand = [
+            MIJSONKeyCommand : MIJSONValueInsertEmptyTrackSegment,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTrack : videoTrackID,
+            MIJSONPropertyMovieTimeRange : emptySegmentTimeRange
+        ]
+        
+        let getVideoTrackSegmentsProperty = [
+            MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
+            MIJSONPropertyKey : MIJSONPropertyMovieTimeRange,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTrack : videoTrackID
+        ]
+        
+        let commandsDict = [
+            MIJSONKeyCommands : [
+                createMovieImporterCommand,
+                createMovieEditorCommand,
+                addVideoTrackToEditorCommand,
+                insertSegmentCommand,
+                insertEmptySegmentCommand,
+                getVideoTrackSegmentsProperty
+            ],
+            MIJSONKeyCleanupCommands : [
+                closeMovieEditorObjectCommand,
+                closeMovieImporterObjectCommand
+            ]
+        ]
+        
+        let context = MIContext()
+        let result = MIMovingImagesHandleCommands(context, commandsDict, nil)
+        let resultStr = MIGetStringFromReplyDictionary(result)
+        println(resultStr)
     }
 }
