@@ -444,11 +444,23 @@ class MovingImagesMovieEditor: XCTestCase {
             kCMTimeEpochKey : 0
         ]
         
+        // Since the duration of first segment is 2 seconds, start 2nd at 2 secs
+        let insertionTime2 = [
+            MIJSONPropertyMovieTime : 2.0
+        ]
+        
         // Get the video frame data from 4 seconds into the imported movie
         let segmentStartTime = [
             MIJSONPropertyMovieTime : 4.0
         ]
 
+        let segment2StartTime : [String : AnyObject] = [
+            kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+            kCMTimeValueKey : 6000,
+            kCMTimeScaleKey : 6000,
+            kCMTimeEpochKey : 0
+        ]
+        
         let segmentDurationTime : [String : AnyObject] = [
             kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
             kCMTimeValueKey : 12000,
@@ -458,6 +470,11 @@ class MovingImagesMovieEditor: XCTestCase {
         
         let sourceSegmentTimeRange = [
             MIJSONPropertyMovieTimeRangeStart : segmentStartTime,
+            MIJSONPropertyMovieTimeRangeDuration : segmentDurationTime
+        ]
+        
+        let sourceSegment2TimeRange = [
+            MIJSONPropertyMovieTimeRangeStart : segment2StartTime,
             MIJSONPropertyMovieTimeRangeDuration : segmentDurationTime
         ]
         
@@ -476,13 +493,24 @@ class MovingImagesMovieEditor: XCTestCase {
             MIJSONPropertyMovieInsertionTime : insertionTime
         ]
 
+        let insertSegment2Command = [
+            MIJSONKeyCommand : MIJSONValueInsertTrackSegment,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTrack : videoTrackID,
+            MIJSONKeySourceObject : movieImporterObject,
+            MIJSONPropertyMovieSourceTrack : sourceTrackID,
+            MIJSONPropertyMovieSourceTimeRange : sourceSegment2TimeRange,
+            MIJSONPropertyMovieInsertionTime : insertionTime2
+        ]
+
         // Prepare adding an empty segment in the middle of another segment.
         
         // How start time and duration are defined below can be swapped. The
-        // two different ways of defining them are both valid.
+        // two different ways of defining them are both valid. Now try and insert
+        // an empty segment between the first and second segment.
         let emptySegmentStartTime : [String : AnyObject] = [
             kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
-            kCMTimeValueKey : 6000,
+            kCMTimeValueKey : 12000,
             kCMTimeScaleKey : 6000,
             kCMTimeEpochKey : 0
         ]
@@ -506,20 +534,41 @@ class MovingImagesMovieEditor: XCTestCase {
         
         let getVideoTrackSegmentsProperty = [
             MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
-            MIJSONPropertyKey : MIJSONPropertyMovieTimeRange,
+            MIJSONPropertyKey : MIJSONPropertyMovieTrackSegmentMappings,
             MIJSONKeyReceiverObject : movieEditorObject,
             MIJSONPropertyMovieTrack : videoTrackID
         ]
         
-        let commandsDict = [
+        let commandsDict1 = [
             MIJSONKeyCommands : [
                 createMovieImporterCommand,
                 createMovieEditorCommand,
                 addVideoTrackToEditorCommand,
                 insertSegmentCommand,
+                insertSegment2Command,
+                getVideoTrackSegmentsProperty
+            ]
+        ]
+
+        let movieExportPath = GetMoviePathInMoviesDir(
+            fileName: "movieeditor_export.mp4")
+        let exportMovieCommand = [
+            MIJSONKeyCommand : MIJSONValueExportCommand,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieExportPreset : AVAssetExportPreset1920x1080,
+            MIJSONPropertyFileType : AVFileTypeMPEG4,
+            MIJSONPropertyExportFilePath : movieExportPath
+        ]
+        
+        let commandsDict3 = [
+            MIJSONKeyCommands : [
                 insertEmptySegmentCommand,
                 getVideoTrackSegmentsProperty
-            ],
+            ]
+        ]
+
+        let cleanupCommands = [
+            MIJSONKeyCommands : [ ],
             MIJSONKeyCleanupCommands : [
                 closeMovieEditorObjectCommand,
                 closeMovieImporterObjectCommand
@@ -527,8 +576,18 @@ class MovingImagesMovieEditor: XCTestCase {
         ]
         
         let context = MIContext()
-        let result = MIMovingImagesHandleCommands(context, commandsDict, nil)
-        let resultStr = MIGetStringFromReplyDictionary(result)
-        println(resultStr)
+        let result1 = MIMovingImagesHandleCommands(context, commandsDict1, nil)
+        let resultStr1 = MIGetStringFromReplyDictionary(result1)
+        println(resultStr1)
+        println("=====================================================")
+        let result2 = MIMovingImagesHandleCommand(context, exportMovieCommand)
+        println("\(result2)")
+        let result3 = MIMovingImagesHandleCommands(context, commandsDict1, nil)
+        let resultStr3 = MIGetStringFromReplyDictionary(result3)
+        println(resultStr3)
+        println("=====================================================")
+        
+        let cleanupResult = MIMovingImagesHandleCommands(context,
+            cleanupCommands, nil)
     }
 }
