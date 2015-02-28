@@ -490,7 +490,8 @@ class MovingImagesMovieEditor: XCTestCase {
             MIJSONKeySourceObject : movieImporterObject,
             MIJSONPropertyMovieSourceTrack : sourceTrackID,
             MIJSONPropertyMovieSourceTimeRange : sourceSegmentTimeRange,
-            MIJSONPropertyMovieInsertionTime : insertionTime
+            MIJSONPropertyMovieInsertionTime : insertionTime,
+            MIJSONPropertyMovieAddPassthruInstruction : true
         ]
 
         let insertSegment2Command = [
@@ -500,7 +501,8 @@ class MovingImagesMovieEditor: XCTestCase {
             MIJSONKeySourceObject : movieImporterObject,
             MIJSONPropertyMovieSourceTrack : sourceTrackID,
             MIJSONPropertyMovieSourceTimeRange : sourceSegment2TimeRange,
-            MIJSONPropertyMovieInsertionTime : insertionTime2
+            MIJSONPropertyMovieInsertionTime : insertionTime2,
+            MIJSONPropertyMovieAddPassthruInstruction : true
         ]
 
         // Prepare adding an empty segment in the middle of another segment.
