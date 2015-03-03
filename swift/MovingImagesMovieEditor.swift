@@ -671,10 +671,17 @@ class MovingImagesMovieEditor: XCTestCase {
         
         // ProRes4444 is not available, it is not a export preset option.
 #if os(iOS)
+    #if arch(x86_64)
         let origCompatiblePresets = "AVAssetExportPresetLowQuality " +
         "AVAssetExportPresetHighestQuality AVAssetExportPresetMediumQuality " +
         "AVAssetExportPreset1920x1080 AVAssetExportPreset1280x720 " +
         "AVAssetExportPreset960x540 AVAssetExportPreset640x480"
+    #else
+        let origCompatiblePresets = "AVAssetExportPresetLowQuality " +
+        "AVAssetExportPreset960x540 AVAssetExportPreset640x480 " +
+        "AVAssetExportPresetMediumQuality AVAssetExportPreset1920x1080 " +
+        "AVAssetExportPreset1280x720 AVAssetExportPresetHighestQuality"
+    #endif
 #else
         let origCompatiblePresets = "AVAssetExportPresetAppleM4VWiFi " +
         "AVAssetExportPresetAppleM4V480pSD AVAssetExportPresetAppleM4V1080pHD " +
@@ -743,6 +750,8 @@ class MovingImagesMovieEditor: XCTestCase {
         let movieExportPath = GetMoviePathInMoviesDir(
             fileName: "movieeditor_export1.mp4")
         
+        // I expect the exported movie to be cropped to the top left corner of
+        // the supplied content into the video track.
         let exportMovieCommand = [
             MIJSONKeyCommand : MIJSONValueExportCommand,
             MIJSONKeyReceiverObject : movieEditorObject,
@@ -750,7 +759,6 @@ class MovingImagesMovieEditor: XCTestCase {
             MIJSONPropertyFileType : AVFileTypeMPEG4,
             MIJSONPropertyFile : movieExportPath
         ]
-        
 
         let cleanupCommands = [
             MIJSONKeyCommands : [
@@ -762,8 +770,10 @@ class MovingImagesMovieEditor: XCTestCase {
             ]
         ]
         
-        let cleanupResult = MIMovingImagesHandleCommands(context, cleanupCommands,
-            nil)
+        let result12 = MIMovingImagesHandleCommands(context, cleanupCommands, nil)
+        let error12 = MIGetErrorCodeFromReplyDictionary(result12)
+        XCTAssertEqual(error12, MIReplyErrorEnum.NoError,
+            "Error occurred when exporting the movie.")
     }
     
     func testInsertingSegmentsToAMovieEditorTrack() -> Void {
