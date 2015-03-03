@@ -142,7 +142,7 @@
         "objecttype": "imageexporter",
         "objectname": "6ae9220f-5e10-4be0-ae89-b53c0921d3be"
       },
-      "propertykey": "exportfilepath",
+      "propertykey": "file",
       "propertyvalue": "/var/folders/r5/1g1m2vp5139_xqhy658cgxnw0000gn/T/DSCN0724CIBloom.jpg",
       "pathsubstitution" : "test.outputimage.coreimage.cibloom"
     },

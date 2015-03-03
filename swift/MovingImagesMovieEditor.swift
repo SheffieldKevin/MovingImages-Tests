@@ -381,6 +381,7 @@ class MovingImagesMovieEditor: XCTestCase {
     
     func testGetCompatibleExportPresetsForEditorWithContent() -> Void {
         // First we need to import a movie so that we have a track to insert
+        // Setting up various inputs.
         let testBundle = NSBundle(forClass: MovingImagesMovieImporter.self)
         let movieURL = testBundle.URLForResource("testinput-movingimages",
             withExtension:"mov")!
@@ -450,6 +451,8 @@ class MovingImagesMovieEditor: XCTestCase {
             ]
         ]
 
+        // After running the listed commands above check that the natural size
+        // is 0,0 as we've not added any content yet or specified the natural size.
         let context = MIContext()
         let result1 = MIMovingImagesHandleCommands(context, commandsDict1, nil)
         let resultStr1 = MIGetStringFromReplyDictionary(result1)
@@ -459,6 +462,9 @@ class MovingImagesMovieEditor: XCTestCase {
             "Composition without content added should have width,height=(0,0)")
         println(resultStr1)
         
+        //
+        // Now set the natural size and then check that the assignment has taken.
+        //
         let sizeDict = [
             MIJSONKeyWidth : 1920,
             MIJSONKeyHeight : 1080
@@ -486,6 +492,9 @@ class MovingImagesMovieEditor: XCTestCase {
             "Composition should have width,height=(1920,1080)")
         println(resultStr2)
 
+        //
+        // Now set the natural size back to 0,0 and check the assignment has taken.
+        //
         let zeroSizeDict = [
             MIJSONKeyWidth : 0.0,
             MIJSONKeyHeight : 0.0
@@ -512,8 +521,11 @@ class MovingImagesMovieEditor: XCTestCase {
             "Composition without content added should have width,height=(0,0)")
         println(resultStr3)
 
-        // Prepare adding a track segment
+        //
+        // Add video content & confirm natural size is picked up from content.
+        //
         
+        // Prepare adding a track segment
         // The video data will be inserted at the begining of the track.
         let insertionTime : [String : AnyObject] = [
             kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
@@ -569,6 +581,10 @@ class MovingImagesMovieEditor: XCTestCase {
             "Composition with content should have width,height=(1920,1080)")
         println(resultStr4)
         
+        //
+        // Now specify the natural size & check that overrides size from content.
+        //
+        
         let halfSizeDict = [
             MIJSONKeyWidth : 960,
             MIJSONKeyHeight : 540
@@ -597,6 +613,10 @@ class MovingImagesMovieEditor: XCTestCase {
             "Composition with content should have width,height=(960,540)")
         println(resultStr5)
         
+        //
+        // Now get the natural size of the track with the added video content.
+        //
+        
         let getTrackNaturalSize = [
             MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
             MIJSONPropertyKey : MIJSONPropertyMovieNaturalSize,
@@ -604,11 +624,16 @@ class MovingImagesMovieEditor: XCTestCase {
             MIJSONKeyReceiverObject : movieEditorObject
         ]
         
+        // The video track natural size should be same as content added.
         let result6 = MIMovingImagesHandleCommand(context, getTrackNaturalSize)
         let resultStr6 = MIGetStringFromReplyDictionary(result6)
         XCTAssertEqual(resultStr6, origRes2,
             "Track with segment added should have width,height=(1920,1080)")
         println(resultStr6)
+        
+        //
+        // Now confirm that the video track transform remains as identity.
+        //
         
         let getTrackTransform = [
             MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
@@ -631,11 +656,106 @@ class MovingImagesMovieEditor: XCTestCase {
         XCTAssert(origDict7.isEqualToDictionary(resultDict7),
             "Track transform is unchanged after movie natural size changed")
         println(resultStr7)
+        
+        //
+        // Get the list of compatible presets
+        //
+        
+        let getCompatiblePresets = [
+            MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
+            MIJSONPropertyKey : MIJSONPropertyMovieExportCompatiblePresets,
+            MIJSONKeyReceiverObject : movieEditorObject
+        ]
+        let result8 = MIMovingImagesHandleCommand(context, getCompatiblePresets)
+        let resultStr8 = MIGetStringFromReplyDictionary(result8)
+        
+        // ProRes4444 is not available, it is not a export preset option.
+#if os(iOS)
+        let origCompatiblePresets = "AVAssetExportPresetLowQuality " +
+        "AVAssetExportPresetHighestQuality AVAssetExportPresetMediumQuality " +
+        "AVAssetExportPreset1920x1080 AVAssetExportPreset1280x720 " +
+        "AVAssetExportPreset960x540 AVAssetExportPreset640x480"
+#else
+        let origCompatiblePresets = "AVAssetExportPresetAppleM4VWiFi " +
+        "AVAssetExportPresetAppleM4V480pSD AVAssetExportPresetAppleM4V1080pHD " +
+        "AVAssetExportPresetAppleM4VCellular AVAssetExportPreset1920x1080 " +
+        "AVAssetExportPreset1280x720 AVAssetExportPreset640x480 " +
+        "AVAssetExportPresetAppleM4ViPod AVAssetExportPreset3840x2160 " +
+        "AVAssetExportPresetAppleM4VAppleTV AVAssetExportPresetAppleM4V720pHD " +
+        "AVAssetExportPreset960x540 AVAssetExportPresetAppleProRes422LPCM"
+#endif
+        XCTAssertEqual(resultStr8, origCompatiblePresets,
+        "List of compatible presets for composition with video content differs")
+        println(resultStr8)
+        
+        //
+        // Get allowed export file types for a few different presets.
+        //
+        
+        let getAllowedFileTypes = [
+            MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
+            MIJSONPropertyKey : MIJSONPropertyMovieExportTypes,
+            MIJSONPropertyMovieExportPreset : AVAssetExportPreset1920x1080,
+            MIJSONKeyReceiverObject : movieEditorObject
+        ]
+
+        let result9 = MIMovingImagesHandleCommand(context, getAllowedFileTypes)
+        let resultStr9 = MIGetStringFromReplyDictionary(result9)
+        let origFileTypes = "com.apple.quicktime-movie public.mpeg-4"
+        
+        XCTAssertEqual(resultStr9, origFileTypes,
+            "List allowed movie export file types with the added video content")
+        println(resultStr9)
+
+#if os(OSX)
+        let getAllowedFileTypes2 = [
+            MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
+            MIJSONPropertyKey : MIJSONPropertyMovieExportTypes,
+            MIJSONPropertyMovieExportPreset : AVAssetExportPresetAppleM4VCellular,
+            MIJSONKeyReceiverObject : movieEditorObject
+        ]
+        
+        let result10 = MIMovingImagesHandleCommand(context, getAllowedFileTypes2)
+        let resultStr10 = MIGetStringFromReplyDictionary(result10)
+        let origFileTypes2 = "com.apple.m4v-video"
+        
+        XCTAssertEqual(resultStr10, origFileTypes2,
+            "List allowed movie export file types with the added video content")
+        println(resultStr10)
+
+        let getAllowedFileTypes3 = [
+            MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
+            MIJSONPropertyKey : MIJSONPropertyMovieExportTypes,
+            MIJSONPropertyMovieExportPreset : AVAssetExportPresetAppleProRes422LPCM,
+            MIJSONKeyReceiverObject : movieEditorObject
+        ]
+        
+        let result11 = MIMovingImagesHandleCommand(context, getAllowedFileTypes3)
+        let resultStr11 = MIGetStringFromReplyDictionary(result11)
+        let origFileTypes3 = "com.apple.quicktime-movie"
+        
+        XCTAssertEqual(resultStr11, origFileTypes3,
+            "List allowed movie export file types with the added video content")
+        println(resultStr11)
+#endif
         println("=====================================================")
+
+        let movieExportPath = GetMoviePathInMoviesDir(
+            fileName: "movieeditor_export1.mp4")
         
+        let exportMovieCommand = [
+            MIJSONKeyCommand : MIJSONValueExportCommand,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieExportPreset : AVAssetExportPreset1920x1080,
+            MIJSONPropertyFileType : AVFileTypeMPEG4,
+            MIJSONPropertyFile : movieExportPath
+        ]
         
+
         let cleanupCommands = [
-            MIJSONKeyCommands : [ ],
+            MIJSONKeyCommands : [
+                exportMovieCommand
+            ],
             MIJSONKeyCleanupCommands : [
                 closeMovieEditorObjectCommand,
                 closeMovieImporterObjectCommand
@@ -828,7 +948,7 @@ class MovingImagesMovieEditor: XCTestCase {
             MIJSONKeyReceiverObject : movieEditorObject,
             MIJSONPropertyMovieExportPreset : AVAssetExportPreset1920x1080,
             MIJSONPropertyFileType : AVFileTypeMPEG4,
-            MIJSONPropertyExportFilePath : movieExportPath
+            MIJSONPropertyFile : movieExportPath
         ]
         
         let commandsDict3 = [

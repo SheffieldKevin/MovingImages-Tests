@@ -172,7 +172,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         
         let dictResult4 = MIGetDictionaryValueFromReplyDictionary(result4)
         let previousResult : NSDictionary = [
-            "exportfilepath" : GetMoviePathInMoviesDir(),
+            "file" : GetMoviePathInMoviesDir(),
             "objectname" : videoWriterName,
             "objecttype" : MIMovieVideoFramesWriterKey,
             "utifiletype" : AVFileTypeQuickTimeMovie,
@@ -227,9 +227,9 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             "\"AVVideoWidthKey\":1782,\"AVVideoScalingModeKey\":" +
             "\"AVVideoScalingModeResizeAspect\"},\"frameduration\":{\"flags\":1," +
             "\"value\":200,\"timescale\":6000,\"epoch\":0},\"canwriteframes\":" +
-            "true,\"time\":{\"flags\":1,\"value\":0,\"timescale\":6000,\"epoch\"" +
-            ":0},\"size\":{\"width\":1782,\"height\":1080},\"exportfilepath\":" +
-            "\"\\/Users\\/ktam\\/Movies\\/videowriter.mov\",\"videowriterstatus\"" +
+            "true,\"file\":\"\\/Users\\/ktam\\/Movies\\/videowriter.mov\"," +
+            "\"time\":{\"flags\":1,\"value\":0,\"timescale\":6000,\"epoch\"" +
+            ":0},\"size\":{\"width\":1782,\"height\":1080},\"videowriterstatus\"" +
             ":0,\"utifiletype\":\"com.apple.quicktime-movie\"}"
         XCTAssertEqual(stringResult4, previousResult,
             "Different string returned from get properties of video writer")
@@ -378,7 +378,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         let previousResult:NSDictionary = [
             MIJSONKeyObjectName : "test001.movievideoframeswriter",
             MIJSONKeyObjectType : "videoframeswriter",
-            MIJSONPropertyExportFilePath : filePath,
+            MIJSONPropertyFile : filePath,
             MIJSONPropertyFileType : AVFileTypeQuickTimeMovie,
             MIJSONPropertyMovieVideoWriterSettings : [
                 AVVideoCodecKey : "avc1",
@@ -488,7 +488,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
                 "timescale" : 6000,
                 "value" : 0
             ],
-            MIJSONPropertyExportFilePath : GetMoviePathInMoviesDir(),
+            MIJSONPropertyFile : GetMoviePathInMoviesDir(),
             MIJSONPropertyMovieVideoWriterStatus : 0,
             MIJSONPropertyFileType : "com.apple.quicktime-movie"
         ]
