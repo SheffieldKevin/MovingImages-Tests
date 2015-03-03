@@ -480,7 +480,7 @@ class MovingImagesMovieImporter: XCTestCase {
             "Error getting natural size of first video track in movie.")
         let naturalSize = MIGetStringFromReplyDictionary(result)
         XCTAssertEqual(naturalSize,
-            "{\"width\":576.000000, \"height\":360.000000}",
+            "{\"width\":576,\"height\":360}",
             "Natural size is different")
     }
 

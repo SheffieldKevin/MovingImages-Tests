@@ -511,7 +511,6 @@ class MovingImagesMovieEditor: XCTestCase {
         XCTAssertEqual(resultStr3, origRes1,
             "Composition without content added should have width,height=(0,0)")
         println(resultStr3)
-        println("=====================================================")
 
         // Prepare adding a track segment
         
@@ -523,21 +522,9 @@ class MovingImagesMovieEditor: XCTestCase {
             kCMTimeEpochKey : 0
         ]
         
-        // Since the duration of first segment is 2 seconds, start 2nd at 2 secs
-        let insertionTime2 = [
-            MIJSONPropertyMovieTime : 2.0
-        ]
-        
         // Get the video frame data from 4 seconds into the imported movie
         let segmentStartTime = [
             MIJSONPropertyMovieTime : 4.0
-        ]
-        
-        let segment2StartTime : [String : AnyObject] = [
-            kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
-            kCMTimeValueKey : 6000,
-            kCMTimeScaleKey : 6000,
-            kCMTimeEpochKey : 0
         ]
         
         let segmentDurationTime : [String : AnyObject] = [
@@ -567,29 +554,86 @@ class MovingImagesMovieEditor: XCTestCase {
             MIJSONPropertyMovieInsertionTime : insertionTime,
             MIJSONPropertyMovieAddPassthruInstruction : true
         ]
-        
-        let sourceSegment2TimeRange = [
-            MIJSONPropertyMovieTimeRangeStart : segment2StartTime,
-            MIJSONPropertyMovieTimeRangeDuration : segmentDurationTime
-        ]
-        
-        let insertSegment2Command = [
-            MIJSONKeyCommand : MIJSONValueInsertTrackSegment,
-            MIJSONKeyReceiverObject : movieEditorObject,
-            MIJSONPropertyMovieTrack : videoTrackID,
-            MIJSONKeySourceObject : movieImporterObject,
-            MIJSONPropertyMovieSourceTrack : sourceTrackID,
-            MIJSONPropertyMovieSourceTimeRange : sourceSegment2TimeRange,
-            MIJSONPropertyMovieInsertionTime : insertionTime2,
-            MIJSONPropertyMovieAddPassthruInstruction : true
-        ]
-        
-        let commandsDictX = [
+
+        let commandDict4 = [
             MIJSONKeyCommands : [
                 insertSegmentCommand,
+                getNaturalSizeCommand
             ]
         ]
-
+        let result4 = MIMovingImagesHandleCommands(context,
+            commandDict4, nil)
+        let resultStr4 = MIGetStringFromReplyDictionary(result4)
+        
+        XCTAssertEqual(resultStr4, origRes2,
+            "Composition with content should have width,height=(1920,1080)")
+        println(resultStr4)
+        
+        let halfSizeDict = [
+            MIJSONKeyWidth : 960,
+            MIJSONKeyHeight : 540
+        ]
+        
+        let setNaturalSizeToHalfSizeCommand = [
+            MIJSONKeyCommand : MIJSONValueSetPropertyCommand,
+            MIJSONPropertyKey : MIJSONPropertyMovieNaturalSize,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyValue : halfSizeDict
+        ]
+        
+        let commandDict5 = [
+            MIJSONKeyCommands : [
+                setNaturalSizeToHalfSizeCommand,
+                getNaturalSizeCommand
+            ]
+        ]
+        
+        let result5 = MIMovingImagesHandleCommands(context,
+            commandDict5, nil)
+    
+        let resultStr5 = MIGetStringFromReplyDictionary(result5)
+        let origRes3 = "{\"width\":960,\"height\":540}"
+        XCTAssertEqual(resultStr5, origRes3,
+            "Composition with content should have width,height=(960,540)")
+        println(resultStr5)
+        
+        let getTrackNaturalSize = [
+            MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
+            MIJSONPropertyKey : MIJSONPropertyMovieNaturalSize,
+            MIJSONPropertyMovieTrack : videoTrackID,
+            MIJSONKeyReceiverObject : movieEditorObject
+        ]
+        
+        let result6 = MIMovingImagesHandleCommand(context, getTrackNaturalSize)
+        let resultStr6 = MIGetStringFromReplyDictionary(result6)
+        XCTAssertEqual(resultStr6, origRes2,
+            "Track with segment added should have width,height=(1920,1080)")
+        println(resultStr6)
+        
+        let getTrackTransform = [
+            MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
+            MIJSONPropertyKey : MIJSONPropertyMovieTrackAffineTransform,
+            MIJSONPropertyMovieTrack : videoTrackID,
+            MIJSONKeyReceiverObject : movieEditorObject
+        ]
+        
+        let result7 = MIMovingImagesHandleCommand(context, getTrackTransform)
+        let resultStr7 = MIGetStringFromReplyDictionary(result7)
+        let resultDict7 = MIGetDictionaryValueFromReplyDictionary(result7)
+        let origDict7 : NSDictionary = [
+            MIJSONKeyAffineTransformM11 : 1,
+            MIJSONKeyAffineTransformM12 : 0,
+            MIJSONKeyAffineTransformM21 : 0,
+            MIJSONKeyAffineTransformM22 : 1,
+            MIJSONKeyAffineTransformtX : 0,
+            MIJSONKeyAffineTransformtY : 0,
+        ]
+        XCTAssert(origDict7.isEqualToDictionary(resultDict7),
+            "Track transform is unchanged after movie natural size changed")
+        println(resultStr7)
+        println("=====================================================")
+        
+        
         let cleanupCommands = [
             MIJSONKeyCommands : [ ],
             MIJSONKeyCleanupCommands : [
@@ -600,7 +644,6 @@ class MovingImagesMovieEditor: XCTestCase {
         
         let cleanupResult = MIMovingImagesHandleCommands(context, cleanupCommands,
             nil)
-        let cleanupResultStr = MIGetStringFromReplyDictionary(cleanupResult)
     }
     
     func testInsertingSegmentsToAMovieEditorTrack() -> Void {
