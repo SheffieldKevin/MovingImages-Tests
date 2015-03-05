@@ -510,7 +510,7 @@ class MovingImagesMovieImporter: XCTestCase {
             MIJSONKeyCommands : [
                 [
                     MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
-                    MIJSONPropertyKey : MIJSONPropertyMovieTrackAffineTransform,
+                    MIJSONPropertyKey : MIJSONKeyAffineTransform,
                     MIJSONKeyReceiverObject : receiverObject,
                     MIJSONPropertyMovieTrack : trackIdentDict
                 ]
@@ -535,7 +535,7 @@ class MovingImagesMovieImporter: XCTestCase {
             MIJSONKeyCommands : [
                 [
                     MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
-                    MIJSONPropertyKey : MIJSONPropertyMovieTrackPreferredVolume,
+                    MIJSONPropertyKey : MIJSONKeyMovieTrackPreferredVolume,
                     MIJSONKeyReceiverObject : receiverObject,
                     MIJSONPropertyMovieTrack : audioTrackIdentDict
                 ]
