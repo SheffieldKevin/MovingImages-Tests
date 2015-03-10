@@ -155,7 +155,12 @@ let platformSuffix = "OSX"
 func makeSaveFileURLPath(fileName: String) -> NSURL {
     // Don't use expand tilde version. iOS simulator homedir is not what we want.
     // let fp = "~/Desktop/".stringByExpandingTildeInPath + "/" + fileName
-    return NSURL.fileURLWithPath("/Users/ktam/Desktop/" + fileName)!
+#if os(iOS)
+    return NSURL.fileURLWithPath("/Users/ktam/Desktop/iOSSim/" + fileName)!
+#else
+    let fp = "~/Desktop/OSX/".stringByExpandingTildeInPath + "/" + fileName
+    return NSURL.fileURLWithPath(fp)!
+#endif
 }
 
 func saveCGImageToAPNGFile(theImage: CGImageRef, #fileName: NSString) -> Void {

@@ -637,7 +637,7 @@ class MovingImagesMovieEditor: XCTestCase {
         
         let getTrackTransform = [
             MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
-            MIJSONPropertyKey : MIJSONPropertyMovieTrackAffineTransform,
+            MIJSONPropertyKey : MIJSONKeyAffineTransform,
             MIJSONPropertyMovieTrack : videoTrackID,
             MIJSONKeyReceiverObject : movieEditorObject
         ]
@@ -733,7 +733,8 @@ class MovingImagesMovieEditor: XCTestCase {
         let getAllowedFileTypes3 = [
             MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
             MIJSONPropertyKey : MIJSONPropertyMovieExportTypes,
-            MIJSONPropertyMovieExportPreset : AVAssetExportPresetAppleProRes422LPCM,
+            MIJSONPropertyMovieExportPreset :
+                                        AVAssetExportPresetAppleProRes422LPCM,
             MIJSONKeyReceiverObject : movieEditorObject
         ]
         
@@ -760,9 +761,116 @@ class MovingImagesMovieEditor: XCTestCase {
             MIJSONPropertyFile : movieExportPath
         ]
 
+        let result12 = MIMovingImagesHandleCommand(context, exportMovieCommand)
+        let result12Str = MIGetStringFromReplyDictionary(result12)
+        let error12 = MIGetErrorCodeFromReplyDictionary(result12)
+        XCTAssertEqual(error12, MIReplyErrorEnum.NoError,
+            "Error occurred when exporting the movie.")
+
+        //
+        // Now set the transform of the track to scale by 0.5.
+        // Then check what happens to the track natural size.
+        // Then export a second movie.
+        //
+        
+        let scaleTransform = [
+            [
+                MIJSONKeyTransformationType : MIJSONValueScale,
+                MIJSONKeyScale : [
+                    MIJSONKeyX : 0.5,
+                    MIJSONKeyY : 0.5
+                ]
+            ]
+        ]
+        
+        let setTrackTransform = [
+            MIJSONKeyCommand : MIJSONValueSetPropertyCommand,
+            MIJSONPropertyKey : MIJSONKeyContextTransformation,
+            MIJSONPropertyValue : scaleTransform,
+            MIJSONPropertyMovieTrack : videoTrackID,
+            MIJSONKeyReceiverObject : movieEditorObject
+        ]
+
+        let commandDict13 = [
+            MIJSONKeyCommands : [
+                setTrackTransform,
+                getTrackNaturalSize
+            ]
+        ]
+
+        let result13 = MIMovingImagesHandleCommands(context, commandDict13, nil)
+        let result13Str = MIGetStringFromReplyDictionary(result13)
+        XCTAssertEqual(result13Str, origRes2,
+            "Track natural size not expected.")
+
+        let getTrackTransform2 = [
+            MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
+            MIJSONPropertyKey : MIJSONKeyAffineTransform,
+            MIJSONPropertyMovieTrack : videoTrackID,
+            MIJSONKeyReceiverObject : movieEditorObject
+        ]
+        let result14 = MIMovingImagesHandleCommand(context, getTrackTransform2)
+        let resultStr14 = MIGetStringFromReplyDictionary(result14)
+        let resultDict14 = MIGetDictionaryValueFromReplyDictionary(result14)
+        let origDict14 : NSDictionary = [
+            MIJSONKeyAffineTransformM11 : 0.5,
+            MIJSONKeyAffineTransformM12 : 0,
+            MIJSONKeyAffineTransformM21 : 0,
+            MIJSONKeyAffineTransformM22 : 0.5,
+            MIJSONKeyAffineTransformtX : 0,
+            MIJSONKeyAffineTransformtY : 0,
+        ]
+        XCTAssert(origDict14.isEqualToDictionary(resultDict14),
+            "Track transform is unchanged after movie natural size changed")
+        println(resultStr14)
+
+        let movieExportPath2 = GetMoviePathInMoviesDir(
+            fileName: "movieeditor_export2.mp4")
+        
+        // I expect the exported movie to be cropped to the top left corner of
+        // the supplied content into the video track.
+        let exportMovieCommand2 = [
+            MIJSONKeyCommand : MIJSONValueExportCommand,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieExportPreset : AVAssetExportPreset1920x1080,
+            MIJSONPropertyFileType : AVFileTypeMPEG4,
+            MIJSONPropertyFile : movieExportPath2
+        ]
+    
+        let result15 = MIMovingImagesHandleCommand(context, exportMovieCommand2)
+        let error15 = MIGetErrorCodeFromReplyDictionary(result15)
+        XCTAssertEqual(error15, MIReplyErrorEnum.NoError,
+            "Error occurred when exporting the movie.")
+        
+        let fullSizeDict = [
+            MIJSONKeyWidth : 1920,
+            MIJSONKeyHeight : 1080
+        ]
+        
+        let setNaturalSizeToSizeCommand = [
+            MIJSONKeyCommand : MIJSONValueSetPropertyCommand,
+            MIJSONPropertyKey : MIJSONPropertyMovieNaturalSize,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyValue : fullSizeDict
+        ]
+        
+        let movieExportPath3 = GetMoviePathInMoviesDir(
+            fileName: "movieeditor_export3.mp4")
+        
+        // I expect the exported movie to be cropped to the top left corner of
+        // the supplied content into the video track.
+        let exportMovieCommand3 = [
+            MIJSONKeyCommand : MIJSONValueExportCommand,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieExportPreset : AVAssetExportPreset1920x1080,
+            MIJSONPropertyFileType : AVFileTypeMPEG4,
+            MIJSONPropertyFile : movieExportPath3
+        ]
+        
         let cleanupCommands = [
             MIJSONKeyCommands : [
-                exportMovieCommand
+                setNaturalSizeToSizeCommand,
+                exportMovieCommand3
             ],
             MIJSONKeyCleanupCommands : [
                 closeMovieEditorObjectCommand,
@@ -770,13 +878,13 @@ class MovingImagesMovieEditor: XCTestCase {
             ]
         ]
         
-        let result12 = MIMovingImagesHandleCommands(context, cleanupCommands, nil)
-        let error12 = MIGetErrorCodeFromReplyDictionary(result12)
-        XCTAssertEqual(error12, MIReplyErrorEnum.NoError,
+        let result16 = MIMovingImagesHandleCommands(context, cleanupCommands, nil)
+        let error16 = MIGetErrorCodeFromReplyDictionary(result16)
+        XCTAssertEqual(error16, MIReplyErrorEnum.NoError,
             "Error occurred when exporting the movie.")
     }
     
-    func testInsertingSegmentsToAMovieEditorTrack() -> Void {
+    func testInsertingSegmentsToAMovieEditorTrackAndExporting() -> Void {
         // First we need to import a movie so that we have a track to insert
         let testBundle = NSBundle(forClass: MovingImagesMovieImporter.self)
         let movieURL = testBundle.URLForResource("testinput-movingimages",
@@ -910,7 +1018,7 @@ class MovingImagesMovieEditor: XCTestCase {
         // an empty segment between the first and second segment.
         let emptySegmentStartTime : [String : AnyObject] = [
             kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
-            kCMTimeValueKey : 12000,
+            kCMTimeValueKey : 9000,
             kCMTimeScaleKey : 6000,
             kCMTimeEpochKey : 0
         ]
@@ -939,6 +1047,21 @@ class MovingImagesMovieEditor: XCTestCase {
             MIJSONPropertyMovieTrack : videoTrackID
         ]
         
+        let movieExportPath = GetMoviePathInMoviesDir(
+            fileName: "movieeditor_export.mp4")
+        
+        let theUUID = CFUUIDCreate(kCFAllocatorDefault)
+        let pathSubsKey : String = CFUUIDCreateString(kCFAllocatorDefault, theUUID)
+        
+        let exportMovieCommand = [
+            MIJSONKeyCommand : MIJSONValueExportCommand,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieExportPreset : AVAssetExportPreset1920x1080,
+            MIJSONPropertyFileType : AVFileTypeMPEG4,
+            MIJSONPropertyFile : movieExportPath,
+            MIJSONPropertyPathSubstitution : pathSubsKey
+        ]
+        
         let commandsDict1 = [
             MIJSONKeyCommands : [
                 createMovieImporterCommand,
@@ -946,21 +1069,14 @@ class MovingImagesMovieEditor: XCTestCase {
                 addVideoTrackToEditorCommand,
                 insertSegmentCommand,
                 insertSegment2Command,
+                exportMovieCommand,
                 getVideoTrackSegmentsProperty
+            ],
+            MIJSONKeyVariablesDictionary : [
+                pathSubsKey : movieExportPath
             ]
         ]
 
-        let movieExportPath = GetMoviePathInMoviesDir(
-            fileName: "movieeditor_export.mp4")
-
-        let exportMovieCommand = [
-            MIJSONKeyCommand : MIJSONValueExportCommand,
-            MIJSONKeyReceiverObject : movieEditorObject,
-            MIJSONPropertyMovieExportPreset : AVAssetExportPreset1920x1080,
-            MIJSONPropertyFileType : AVFileTypeMPEG4,
-            MIJSONPropertyFile : movieExportPath
-        ]
-        
         let commandsDict3 = [
             MIJSONKeyCommands : [
                 insertEmptySegmentCommand,
@@ -969,7 +1085,9 @@ class MovingImagesMovieEditor: XCTestCase {
         ]
 
         let cleanupCommands = [
-            MIJSONKeyCommands : [ ],
+            MIJSONKeyCommands : [
+                exportMovieCommand
+            ],
             MIJSONKeyCleanupCommands : [
                 closeMovieEditorObjectCommand,
                 closeMovieImporterObjectCommand
@@ -979,16 +1097,941 @@ class MovingImagesMovieEditor: XCTestCase {
         let context = MIContext()
         let result1 = MIMovingImagesHandleCommands(context, commandsDict1, nil)
         let resultStr1 = MIGetStringFromReplyDictionary(result1)
+        let origResult1 = "[{\"sourcetimerange\":{\"start\":{\"flags\":1," +
+        "\"value\":24000,\"timescale\":6000,\"epoch\":0},\"duration\"" +
+        ":{\"flags\":1,\"value\":12000,\"timescale\":6000,\"epoch\":0}}," +
+        "\"targettimerange\":{\"start\":{\"flags\":1,\"value\":0,\"timescale\":" +
+        "6000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":12000," +
+        "\"timescale\":6000,\"epoch\":0}}},{\"sourcetimerange\":{\"start\":" +
+        "{\"flags\":1,\"value\":6000,\"timescale\":6000,\"epoch\":0}," +
+        "\"duration\":{\"flags\":1,\"value\":12000,\"timescale\":6000," +
+        "\"epoch\":0}},\"targettimerange\":{\"start\":{\"flags\":1,\"value\":" +
+        "12000,\"timescale\":6000,\"epoch\":0},\"duration\":{\"flags\":1," +
+        "\"value\":12000,\"timescale\":6000,\"epoch\":0}}}]"
+        XCTAssertEqual(origResult1, resultStr1,
+            "Segments of the video track with no empty segments differ")
         println(resultStr1)
-        println("=====================================================")
-        let result2 = MIMovingImagesHandleCommand(context, exportMovieCommand)
-        println("\(result2)")
-        let result3 = MIMovingImagesHandleCommands(context, commandsDict1, nil)
+        println("=============================================================")
+
+        let origResult3 = "[{\"sourcetimerange\":{\"start\":{\"flags\":1," +
+        "\"value\":24000,\"timescale\":6000,\"epoch\":0},\"duration\":" +
+        "{\"flags\":1,\"value\":9000,\"timescale\":6000,\"epoch\":0}}," +
+        "\"targettimerange\":{\"start\":{\"flags\":1,\"value\":0," +
+        "\"timescale\":6000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":" +
+        "9000,\"timescale\":6000,\"epoch\":0}}},{\"sourcetimerange\":" +
+        "{\"start\":{\"flags\":1,\"value\":33000,\"timescale\":6000," +
+        "\"epoch\":0},\"duration\":{\"flags\":1,\"value\":3000,\"timescale\":" +
+        "6000,\"epoch\":0}},\"targettimerange\":{\"start\":{\"flags\":1," +
+        "\"value\":12000,\"timescale\":6000,\"epoch\":0},\"duration\":" +
+        "{\"flags\":1,\"value\":3000,\"timescale\":6000,\"epoch\":0}}}," +
+        "{\"sourcetimerange\":{\"start\":{\"flags\":1,\"value\":6000," +
+        "\"timescale\":6000,\"epoch\":0},\"duration\":{\"flags\":1," +
+        "\"value\":12000,\"timescale\":6000,\"epoch\":0}}," +
+        "\"targettimerange\":{\"start\":{\"flags\":1,\"value\":15000," +
+        "\"timescale\":6000,\"epoch\":0},\"duration\":{\"flags\":1," +
+        "\"value\":12000,\"timescale\":6000,\"epoch\":0}}}]"
+        let result3 = MIMovingImagesHandleCommands(context, commandsDict3, nil)
         let resultStr3 = MIGetStringFromReplyDictionary(result3)
-        println(resultStr3)
-        println("=====================================================")
-        
+        XCTAssertEqual(origResult3, resultStr3,
+            "Segments of the video track with empty segments differ")
+        println("=============================================================")
+        let movieExportPath2 = GetMoviePathInMoviesDir(
+            fileName: "movieeditor_export_empty.mp4")
+        let vars2 = [ pathSubsKey : movieExportPath2 ]
+        context.appendVariables(vars2)
         let cleanupResult = MIMovingImagesHandleCommands(context,
             cleanupCommands, nil)
+        context.dropVariablesDictionary(vars2)
+        let error4 = MIGetErrorCodeFromReplyDictionary(cleanupResult)
+        XCTAssertEqual(error4, MIReplyErrorEnum.OperationFailed,
+            "Saving a single track movie with empty track segment should fail.")
+    }
+
+/*
+    func testAddingTransitionInstructionsAndExporting() -> Void {
+        // First we need to import a movie so that we have a track to insert
+        let testBundle = NSBundle(forClass: MovingImagesMovieEditor.self)
+        let movieURL = testBundle.URLForResource("testinput-movingimages",
+            withExtension:"mov")!
+        
+        let movieFilePath = movieURL.path!
+        let movieImporterName = "test005.movieimporter"
+        let createMovieImporterCommand = [
+            MIJSONKeyCommand : MIJSONValueCreateCommand,
+            MIJSONKeyObjectType : MIMovieImporterKey,
+            MIJSONKeyObjectName : movieImporterName,
+            MIJSONPropertyFile : movieFilePath
+        ]
+        
+        let movieImporterObject = [
+            MIJSONKeyObjectType : MIMovieImporterKey,
+            MIJSONKeyObjectName : movieImporterName
+        ]
+
+        let sourceTrackID = [
+            MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeVideo,
+            MIJSONPropertyMovieTrackIndex : 0
+        ]
+
+        let closeMovieImporterObjectCommand = [
+            MIJSONKeyCommand : MIJSONValueCloseCommand,
+            MIJSONKeyReceiverObject : movieImporterObject
+        ]
+        
+        // Now set up the movie editor.
+        let movieEditorName = "test005.movieeditor"
+        let videoTrack1PersistentID = 3
+        let videoTrack2PersistentID = 4
+        
+        let createMovieEditorCommand = [
+            MIJSONKeyCommand : MIJSONValueCreateCommand,
+            MIJSONKeyObjectType : MIMovieEditorKey,
+            MIJSONKeyObjectName : movieEditorName
+        ]
+        
+        let movieEditorObject = [
+            MIJSONKeyObjectType : MIMovieEditorKey,
+            MIJSONKeyObjectName : movieEditorName
+        ]
+        
+        let closeMovieEditorObjectCommand = [
+            MIJSONKeyCommand : MIJSONValueCloseCommand,
+            MIJSONKeyReceiverObject : movieEditorObject
+        ]
+        
+        let cleanupCommands = [
+            closeMovieImporterObjectCommand,
+            closeMovieEditorObjectCommand
+        ]
+        
+        // Add a video track with the persistent track id.
+        let addVideoTrack1ToEditorCommand = [
+            MIJSONKeyCommand : MIJSONValueCreateTrackCommand,
+            MIJSONPropertyMovieTrackID : videoTrack1PersistentID,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeVideo
+        ]
+        
+        let videoTrack1ID = [
+            MIJSONPropertyMovieTrackID : videoTrack1PersistentID
+        ]
+
+        // Add a video track with the persistent track id returned above.
+        let addVideoTrack2ToEditorCommand = [
+            MIJSONKeyCommand : MIJSONValueCreateTrackCommand,
+            MIJSONPropertyMovieTrackID : videoTrack2PersistentID,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeVideo
+        ]
+        
+        let videoTrack2ID = [
+            MIJSONPropertyMovieTrackID : videoTrack2PersistentID
+        ]
+
+        let trackList = [ videoTrack1ID, videoTrack2ID ]
+        
+        // Make the list of commands mutable so in the add segments iteration
+        // I can just keep adding commands to the command list.
+        
+        var commandList: [[NSString : AnyObject]] = [
+            createMovieImporterCommand,
+            createMovieEditorCommand,
+            addVideoTrack1ToEditorCommand,
+            addVideoTrack2ToEditorCommand
+        ]
+        
+        // The duration of all segments is 3 seconds. 
+        
+        let segmentDurationTime : [String : AnyObject] = [
+            kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+            kCMTimeValueKey : 18000,
+            kCMTimeScaleKey : 6000,
+            kCMTimeEpochKey : 0
+        ]
+        
+        func makeSourceTimeFromIndex(index: Int) -> [String : AnyObject] {
+            return [
+                kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+                kCMTimeValueKey : 36000 - index * 6000,
+                kCMTimeScaleKey : 6000,
+                kCMTimeEpochKey : 0
+            ]
+        }
+        
+        func makeDestinationTimeFromIndex(index: Int) -> [String : AnyObject] {
+            return [
+                kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+                kCMTimeValueKey : index * 12000,
+                kCMTimeScaleKey : 6000,
+                kCMTimeEpochKey : 0
+            ]
+        }
+
+        func trackForIndex(index: Int) -> [NSString : Int] {
+            return trackList[index % 2]
+        }
+
+        // So lets add the track segments.
+        
+        for index in 0..<7 {
+            let sourceTimeRange = [
+                MIJSONPropertyMovieTimeRangeStart : makeSourceTimeFromIndex(index),
+                MIJSONPropertyMovieTimeRangeDuration : segmentDurationTime
+            ]
+            let targetTime = makeDestinationTimeFromIndex(index)
+            let track = trackForIndex(index)
+            let insertSegmentCommand = [
+                MIJSONKeyCommand : MIJSONValueInsertTrackSegment,
+                MIJSONKeyReceiverObject : movieEditorObject,
+                MIJSONPropertyMovieTrack : track,
+                MIJSONKeySourceObject : movieImporterObject,
+                MIJSONPropertyMovieSourceTrack : sourceTrackID,
+                MIJSONPropertyMovieSourceTimeRange : sourceTimeRange,
+                MIJSONPropertyMovieInsertionTime : targetTime
+            ]
+            commandList.append(insertSegmentCommand)
+        }
+        
+        // Now add the composition instructions.
+        // There are seven composition instructions which are just passthru
+        // instructions. Lets set those up first.
+        
+        // All instructions have a duration of 1 second. There are two additional
+        // passthru only instructions, one for the first second of the video and
+        // one for the last second of the video.
+        
+        let instructionDuration : [String : AnyObject] = [
+            kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+            kCMTimeValueKey : 6000,
+            kCMTimeScaleKey : 6000,
+            kCMTimeEpochKey : 0
+        ]
+        
+        let startTime : [String : AnyObject] = [
+            kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+            kCMTimeValueKey : 0,
+            kCMTimeScaleKey : 6000,
+            kCMTimeEpochKey : 0
+        ]
+        
+        let lastTime : [String : AnyObject] = [
+            kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+            kCMTimeValueKey : 84000,
+            kCMTimeScaleKey : 6000,
+            kCMTimeEpochKey : 0
+        ]
+        
+        func makePassthruLayerInstructionForIndex(index: Int)
+            -> [NSString : AnyObject] {
+            return [
+                MIJSONKeyMovieEditorLayerInstructionType :
+                                    MIJSONValueMovieEditorPassthruInstruction,
+                MIJSONPropertyMovieTrack : trackList[index % 2]
+            ]
+        }
+        
+        let addFirstInstructionCommand = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : [
+                MIJSONPropertyMovieTimeRangeStart : startTime,
+                MIJSONPropertyMovieTimeRangeDuration : instructionDuration
+            ],
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                makePassthruLayerInstructionForIndex(0)
+            ]
+        ]
+        commandList.append(addFirstInstructionCommand)
+
+        func makePassthruStartTimeFromIndex(index: Int) -> [String : AnyObject] {
+            return [
+                kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+                kCMTimeValueKey : 6000 + index * 12000,
+                kCMTimeScaleKey : 6000,
+                kCMTimeEpochKey : 0
+            ]
+        }
+    
+        for index in 0..<7 {
+            let instructionCommand = [
+                MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
+                MIJSONKeyReceiverObject : movieEditorObject,
+                MIJSONPropertyMovieTimeRange : [
+                    MIJSONPropertyMovieTimeRangeStart :
+                                        makePassthruStartTimeFromIndex(index),
+                    MIJSONPropertyMovieTimeRangeDuration : instructionDuration
+                ],
+                MIJSONPropertyMovieEditorLayerInstructions : [
+                    makePassthruLayerInstructionForIndex(index)
+                ]
+            ]
+            commandList.append(instructionCommand)
+        }
+
+        let addEndInstructionCommand = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : [
+                MIJSONPropertyMovieTimeRangeStart : lastTime,
+                MIJSONPropertyMovieTimeRangeDuration : instructionDuration
+            ],
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                makePassthruLayerInstructionForIndex(6)
+            ]
+        ]
+        commandList.append(addEndInstructionCommand)
+        
+        // All the passthrough only instructions have been made. Now the more
+        // complex instructions need to be made, these will be done one at a time.
+
+        func fromTrackForIndex(index: Int) -> [NSString : Int] {
+            return trackList[index % 2]
+        }
+        
+        func toTrackForIndex(index: Int) -> [NSString : Int] {
+            return trackList[(index + 1) % 2]
+        }
+        
+        func makePassThruLayerInstructionWithTrack(track: [NSString : Int])
+        ->  [NSString : AnyObject] {
+            return [
+                MIJSONKeyMovieEditorLayerInstructionType :
+                                    MIJSONValueMovieEditorPassthruInstruction,
+                MIJSONPropertyMovieTrack : track
+            ]
+        }
+        
+        func makeStartTimeInSeconds(seconds: Int) -> [String : AnyObject] {
+            return [
+                kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+                kCMTimeValueKey : 6000 * seconds,
+                kCMTimeScaleKey : 6000,
+                kCMTimeEpochKey : 0
+            ]
+        }
+        
+        // The first instruction will be an opacity instruction. Not a ramp.
+        
+        let opacityLayerInstruction : [NSString : AnyObject] = [
+            MIJSONKeyMovieEditorLayerInstructionType :
+                                    MIJSONValueMovieEditorOpacityInstruction,
+            MIJSONPropertyMovieTrack : fromTrackForIndex(0),
+            MIJSONPropertyMovieEditorInstructionValue : 0.5,
+            MIJSONPropertyMovieTime : makeStartTimeInSeconds(2)
+        ]
+        
+        let opacityTimeRange : [String : AnyObject] = [
+            MIJSONPropertyMovieTimeRangeStart : makeStartTimeInSeconds(2),
+            MIJSONPropertyMovieTimeRangeDuration : instructionDuration
+        ]
+        
+        let addOpacityInstructionCommand : [String : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction as String,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : opacityTimeRange,
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                opacityLayerInstruction,
+                makePassThruLayerInstructionWithTrack(toTrackForIndex(0))
+            ]
+        ]
+        commandList.append(addOpacityInstructionCommand)
+        
+        // Make a transform instruction.
+        
+        // I need to checkout the generated video that the transformed content
+        // is centred and scaled by 0.5.
+        let transformTransform = [
+            [
+                MIJSONKeyTransformationType : MIJSONValueTranslate,
+                MIJSONKeyTranslation : [
+                    "x" : 0.25 * 1920.0,
+                    "y" : 0.25 * 1080.0
+                ]
+            ],
+            [
+                MIJSONKeyTransformationType : MIJSONValueScale,
+                MIJSONKeyScale : [ "x" : 0.5, "y" : 0.5 ]
+            ]
+        ]
+        
+        let transformLayerInstruction : [NSString : AnyObject] = [
+            MIJSONKeyMovieEditorLayerInstructionType :
+                                    MIJSONValueMovieEditorTransformInstruction,
+            MIJSONPropertyMovieTrack : fromTrackForIndex(1),
+            MIJSONPropertyMovieEditorInstructionValue : transformTransform,
+            MIJSONPropertyMovieTime : makeStartTimeInSeconds(4)
+        ]
+        
+        let transformTimeRange : [String : AnyObject] = [
+            MIJSONPropertyMovieTimeRangeStart : makeStartTimeInSeconds(4),
+            MIJSONPropertyMovieTimeRangeDuration : instructionDuration
+        ]
+
+        let addTransformInstructionCommand : [String : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction as String,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : transformTimeRange,
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                transformLayerInstruction,
+                makePassThruLayerInstructionWithTrack(toTrackForIndex(1))
+            ]
+        ]
+        commandList.append(addTransformInstructionCommand)
+        
+        // Make a crop instruction.
+        
+        let cropRect = [
+            MIJSONKeySize : [
+                MIJSONKeyWidth : 0.25 * 1920, // uses defined constant.
+                "height" : 0.25 * 1080 // uses constant literal.
+            ],
+            "origin" : [
+                MIJSONKeyX : 960,
+                MIJSONKeyY : 540
+            ]
+        ]
+    
+        let cropLayerInstruction : [NSString : AnyObject] = [
+            MIJSONKeyMovieEditorLayerInstructionType :
+                                        MIJSONValueMovieEditorCropInstruction,
+            MIJSONPropertyMovieTrack : fromTrackForIndex(2),
+            MIJSONPropertyMovieEditorInstructionValue : cropRect,
+            MIJSONPropertyMovieTime : makeStartTimeInSeconds(6)
+        ]
+        
+        let cropTimeRange : [String : AnyObject] = [
+            MIJSONPropertyMovieTimeRangeStart : makeStartTimeInSeconds(6),
+            MIJSONPropertyMovieTimeRangeDuration : instructionDuration
+        ]
+        
+        let addCropInstructionCommand : [String : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction as String,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : cropTimeRange,
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                cropLayerInstruction,
+                makePassThruLayerInstructionWithTrack(toTrackForIndex(2))
+            ]
+        ]
+        commandList.append(addCropInstructionCommand)
+        
+        // OK that is the static composition instructions done.
+        // Now onto the ramp instructions.
+        
+        // lets start with the opacity ramp.
+        
+        let opacityRampTimeRange : [String : AnyObject] = [
+            MIJSONPropertyMovieTimeRangeStart : makeStartTimeInSeconds(8),
+            MIJSONPropertyMovieTimeRangeDuration : instructionDuration
+        ]
+        
+        let opacityRampLayerInstruction : [NSString : AnyObject] = [
+            MIJSONKeyMovieEditorLayerInstructionType :
+                                    MIJSONValueMovieEditorOpacityRampInstruction,
+            MIJSONPropertyMovieTrack : fromTrackForIndex(3),
+            MIJSONPropertyMovieEditorStartRampValue : 1.0,
+            MIJSONPropertyMovieEditorEndRampValue : 0.0,
+            MIJSONPropertyMovieTimeRange : opacityRampTimeRange
+        ]
+        
+        let addOpacityRampInstructionCommand : [String : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction as String,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : opacityRampTimeRange,
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                opacityRampLayerInstruction,
+                makePassThruLayerInstructionWithTrack(toTrackForIndex(3))
+            ]
+        ]
+        commandList.append(addOpacityRampInstructionCommand)
+
+        // With the transform ramp, don't specify the time range in the layer
+        // instruction because it should pick up the time range from the 
+        // instruction itself.
+        
+        // The start transform is just an identity matrix.
+        let startTransform = [
+            MIJSONKeyAffineTransformM11 : 1.0,
+            MIJSONKeyAffineTransformM12 : 0.0,
+            MIJSONKeyAffineTransformM21 : 0.0,
+            MIJSONKeyAffineTransformM22 : 1.0,
+            MIJSONKeyAffineTransformtX : 0.0,
+            MIJSONKeyAffineTransformtY : 0.0
+        ]
+
+        // The end transform I'll generate using a scale and translate.
+
+        let endTransform = [
+            [
+                MIJSONKeyTransformationType : MIJSONValueTranslate,
+                MIJSONKeyTranslation : [
+                    "x" : 0.75 * 1920.0,
+                    "y" : 0.0
+                ]
+            ],
+            [
+                MIJSONKeyTransformationType : MIJSONValueScale,
+                MIJSONKeyScale : [ "x" : 0.25, "y" : 0.25 ]
+            ]
+        ]
+        
+        let transformRampLayerInstruction : [NSString : AnyObject] = [
+            MIJSONKeyMovieEditorLayerInstructionType :
+                                    MIJSONValueMovieEditorTransformRampInstruction,
+            MIJSONPropertyMovieTrack : fromTrackForIndex(4),
+            MIJSONPropertyMovieEditorStartRampValue : startTransform,
+            MIJSONPropertyMovieEditorEndRampValue : endTransform,
+        ]
+        
+        let transformRampTimeRange : [String : AnyObject] = [
+            MIJSONPropertyMovieTimeRangeStart : makeStartTimeInSeconds(10),
+            MIJSONPropertyMovieTimeRangeDuration : instructionDuration
+        ]
+        
+        let addTransformRampInstructionCommand : [String : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction as String,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : transformRampTimeRange,
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                transformRampLayerInstruction,
+                makePassThruLayerInstructionWithTrack(toTrackForIndex(4))
+            ]
+        ]
+        commandList.append(addTransformRampInstructionCommand)
+
+        // Now the last ramp instruction. The crop instruction.
+        // The start crop, doesn't crop anything.
+        let startCrop = [
+            MIJSONKeySize : [ MIJSONKeyWidth : 1920, MIJSONKeyHeight : 1080 ],
+            MIJSONKeyOrigin : [ MIJSONKeyX : 0, MIJSONKeyY : 0]
+        ]
+        
+        // The end crop is essentially empty, well not quite and centred.
+        let endCrop = [
+            MIJSONKeySize : [ MIJSONKeyWidth : 16, MIJSONKeyHeight : 9 ],
+            MIJSONKeyOrigin : [ MIJSONKeyX : 952, MIJSONKeyY : 536]
+        ]
+        
+        let cropRampTimeRange : [String : AnyObject] = [
+            MIJSONPropertyMovieTimeRangeStart : makeStartTimeInSeconds(12),
+            MIJSONPropertyMovieTimeRangeDuration : instructionDuration
+        ]
+        
+        let cropRampLayerInstruction : [NSString : AnyObject] = [
+            MIJSONKeyMovieEditorLayerInstructionType :
+                                MIJSONValueMovieEditorCropRampInstruction,
+            MIJSONPropertyMovieTrack : fromTrackForIndex(5),
+            MIJSONPropertyMovieEditorStartRampValue : startCrop,
+            MIJSONPropertyMovieEditorEndRampValue : endCrop,
+            MIJSONPropertyMovieTimeRange : cropRampTimeRange
+        ]
+        
+        let addCropRampInstructionCommand : [String : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction as String,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : cropRampTimeRange,
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                cropRampLayerInstruction,
+                makePassThruLayerInstructionWithTrack(toTrackForIndex(5))
+            ]
+        ]
+        commandList.append(addCropRampInstructionCommand)
+
+        let movieExportPath = GetMoviePathInMoviesDir(
+            fileName: "movieeditor_videoinstruction.mov")
+
+        let exportMovieCommand = [
+            MIJSONKeyCommand : MIJSONValueExportCommand,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieExportPreset : AVAssetExportPreset1920x1080,
+            MIJSONPropertyFileType : AVFileTypeQuickTimeMovie,
+            MIJSONPropertyFile : movieExportPath,
+        ]
+        
+        commandList.append(exportMovieCommand)
+        let videoInstructionCommands = [
+            MIJSONKeyCommands : commandList,
+            MIJSONKeyCleanupCommands : cleanupCommands
+        ]
+        
+        let instructionResult = MIMovingImagesHandleCommands(nil,
+            videoInstructionCommands, nil)
+        let resultStr = MIGetStringFromReplyDictionary(instructionResult)
+        println("Result: \(resultStr)")
+        let errorCode = MIGetErrorCodeFromReplyDictionary(instructionResult)
+        XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
+            "Error occured gnerating and creating movie with instructions.")
+    }
+*/
+    func testAddingTransitionInstructionsAndExporting() -> Void {
+        let numSegments = 2
+        
+        // First we need to import a movie so that we have a track to insert
+        let testBundle = NSBundle(forClass: MovingImagesMovieEditor.self)
+        let movieURL = testBundle.URLForResource("testinput-movingimages",
+            withExtension:"mov")!
+        
+        let movieFilePath = movieURL.path!
+        let movieImporterName = "test005.movieimporter"
+        let createMovieImporterCommand = [
+            MIJSONKeyCommand : MIJSONValueCreateCommand,
+            MIJSONKeyObjectType : MIMovieImporterKey,
+            MIJSONKeyObjectName : movieImporterName,
+            MIJSONPropertyFile : movieFilePath
+        ]
+        
+        let movieImporterObject = [
+            MIJSONKeyObjectType : MIMovieImporterKey,
+            MIJSONKeyObjectName : movieImporterName
+        ]
+        
+        let sourceTrackID = [
+            MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeVideo,
+            MIJSONPropertyMovieTrackIndex : 0
+        ]
+        
+        let closeMovieImporterObjectCommand = [
+            MIJSONKeyCommand : MIJSONValueCloseCommand,
+            MIJSONKeyReceiverObject : movieImporterObject
+        ]
+        
+        // Now set up the movie editor.
+        let movieEditorName = "test005.movieeditor"
+        let videoTrack1PersistentID = 3
+        let videoTrack2PersistentID = 4
+        
+        let createMovieEditorCommand = [
+            MIJSONKeyCommand : MIJSONValueCreateCommand,
+            MIJSONKeyObjectType : MIMovieEditorKey,
+            MIJSONKeyObjectName : movieEditorName
+        ]
+        
+        let movieEditorObject = [
+            MIJSONKeyObjectType : MIMovieEditorKey,
+            MIJSONKeyObjectName : movieEditorName
+        ]
+        
+        let closeMovieEditorObjectCommand = [
+            MIJSONKeyCommand : MIJSONValueCloseCommand,
+            MIJSONKeyReceiverObject : movieEditorObject
+        ]
+        
+        let cleanupCommands = [
+            closeMovieImporterObjectCommand,
+            closeMovieEditorObjectCommand
+        ]
+        
+        // Add a video track with the persistent track id.
+        let addVideoTrack1ToEditorCommand = [
+            MIJSONKeyCommand : MIJSONValueCreateTrackCommand,
+            MIJSONPropertyMovieTrackID : videoTrack1PersistentID,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeVideo
+        ]
+        
+        let videoTrack1ID = [
+            MIJSONPropertyMovieTrackID : videoTrack1PersistentID
+        ]
+        
+        // Add a video track with the persistent track id returned above.
+        let addVideoTrack2ToEditorCommand = [
+            MIJSONKeyCommand : MIJSONValueCreateTrackCommand,
+            MIJSONPropertyMovieTrackID : videoTrack2PersistentID,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeVideo
+        ]
+        
+        let videoTrack2ID = [
+            MIJSONPropertyMovieTrackID : videoTrack2PersistentID
+        ]
+        
+        let trackList = [ videoTrack1ID, videoTrack2ID ]
+        
+        // Make the list of commands mutable so in the add segments iteration
+        // I can just keep adding commands to the command list.
+        
+        var commandList: [[NSString : AnyObject]] = [
+            createMovieImporterCommand,
+            createMovieEditorCommand,
+            addVideoTrack1ToEditorCommand,
+            addVideoTrack2ToEditorCommand
+        ]
+        
+        // The duration of all segments is 3 seconds.
+        
+        let segmentDurationTime : [String : AnyObject] = [
+            kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+            kCMTimeValueKey : 18000,
+            kCMTimeScaleKey : 6000,
+            kCMTimeEpochKey : 0
+        ]
+        
+        func makeSourceTimeFromIndex(index: Int) -> [String : AnyObject] {
+            return [
+                kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+                kCMTimeValueKey : 36000 - index * 6000,
+                kCMTimeScaleKey : 6000,
+                kCMTimeEpochKey : 0
+            ]
+        }
+        
+        func makeDestinationTimeFromIndex(index: Int) -> [String : AnyObject] {
+            return [
+                kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+                kCMTimeValueKey : index * 12000,
+                kCMTimeScaleKey : 6000,
+                kCMTimeEpochKey : 0
+            ]
+        }
+        
+        func trackForIndex(index: Int) -> [NSString : Int] {
+            return trackList[index % 2]
+        }
+        
+        // So lets add the track segments.
+        
+        for index in 0..<numSegments {
+            let sourceTimeRange = [
+                MIJSONPropertyMovieTimeRangeStart : makeSourceTimeFromIndex(index),
+                MIJSONPropertyMovieTimeRangeDuration : segmentDurationTime
+            ]
+            // let targetTime = makeDestinationTimeFromIndex(index)
+            let targetTime = makeDestinationTimeFromIndex(0)
+            let track = trackForIndex(index)
+            let insertSegmentCommand = [
+                MIJSONKeyCommand : MIJSONValueInsertTrackSegment,
+                MIJSONKeyReceiverObject : movieEditorObject,
+                MIJSONPropertyMovieTrack : track,
+                MIJSONKeySourceObject : movieImporterObject,
+                MIJSONPropertyMovieSourceTrack : sourceTrackID,
+                MIJSONPropertyMovieSourceTimeRange : sourceTimeRange,
+                MIJSONPropertyMovieInsertionTime : targetTime
+            ]
+            commandList.append(insertSegmentCommand)
+        }
+        
+        // Now add the composition instructions.
+        // There are seven composition instructions which are just passthru
+        // instructions. Lets set those up first.
+        
+        // All instructions have a duration of 1 second. There are two additional
+        // passthru only instructions, one for the first second of the video and
+        // one for the last second of the video.
+        
+        let instructionDuration : [String : AnyObject] = [
+            kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+            // kCMTimeValueKey : 3 * 6000,
+            kCMTimeValueKey : 6000,
+            kCMTimeScaleKey : 6000,
+            kCMTimeEpochKey : 0
+        ]
+        
+        func makeStartTimeInSeconds(seconds: Int) -> [String : AnyObject] {
+            return [
+                kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+                kCMTimeValueKey : 6000 * seconds,
+                kCMTimeScaleKey : 6000,
+                kCMTimeEpochKey : 0
+            ]
+        }
+        
+        let lastTime : [String : AnyObject] = [
+            kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+            kCMTimeValueKey : numSegments * 12000,
+            kCMTimeScaleKey : 6000,
+            kCMTimeEpochKey : 0
+        ]
+
+        func makePassthruLayerInstructionForIndex(index: Int)
+            -> [NSString : AnyObject] {
+                return [
+                    MIJSONKeyMovieEditorLayerInstructionType :
+                    MIJSONValueMovieEditorPassthruInstruction,
+                    MIJSONPropertyMovieTrack : trackList[index % 2]
+                ]
+        }
+        
+        let addFirstInstructionCommand = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : [
+                MIJSONPropertyMovieTimeRangeStart : makeStartTimeInSeconds(0),
+                MIJSONPropertyMovieTimeRangeDuration : instructionDuration
+            ],
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                makePassthruLayerInstructionForIndex(0)
+            ]
+        ]
+        commandList.append(addFirstInstructionCommand)
+
+        /*
+        func makePassthruLayerInstructionForIndex(index: Int)
+            -> [NSString : AnyObject] {
+                return [
+                    MIJSONKeyMovieEditorLayerInstructionType :
+                    MIJSONValueMovieEditorPassthruInstruction,
+                    MIJSONPropertyMovieTrack : trackList[index % 2]
+                ]
+        }
+
+        let addFirstInstructionCommand = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : [
+                MIJSONPropertyMovieTimeRangeStart : startTime,
+                MIJSONPropertyMovieTimeRangeDuration : instructionDuration
+            ],
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                makePassthruLayerInstructionForIndex(0)
+            ]
+        ]
+        commandList.append(addFirstInstructionCommand)
+        
+        func makePassthruStartTimeFromIndex(index: Int) -> [String : AnyObject] {
+            return [
+                kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
+                kCMTimeValueKey : 6000 + index * 12000,
+                kCMTimeScaleKey : 6000,
+                kCMTimeEpochKey : 0
+            ]
+        }
+        
+        for index in 0..<numSegments {
+            let instructionCommand = [
+                MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
+                MIJSONKeyReceiverObject : movieEditorObject,
+                MIJSONPropertyMovieTimeRange : [
+                    MIJSONPropertyMovieTimeRangeStart :
+                        makePassthruStartTimeFromIndex(index),
+                    MIJSONPropertyMovieTimeRangeDuration : instructionDuration
+                ],
+                MIJSONPropertyMovieEditorLayerInstructions : [
+                    makePassthruLayerInstructionForIndex(index)
+                ]
+            ]
+            commandList.append(instructionCommand)
+        }
+        
+        let addEndInstructionCommand = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : [
+                MIJSONPropertyMovieTimeRangeStart : lastTime,
+                MIJSONPropertyMovieTimeRangeDuration : instructionDuration
+            ],
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                makePassthruLayerInstructionForIndex(numSegments - 1)
+            ]
+        ]
+        commandList.append(addEndInstructionCommand)
+*/
+        // All the passthrough only instructions have been made. Now the more
+        // complex instructions need to be made, these will be done one at a time.
+        
+        func fromTrackForIndex(index: Int) -> [NSString : Int] {
+            return trackList[index % 2]
+        }
+        
+        func toTrackForIndex(index: Int) -> [NSString : Int] {
+            return trackList[(index + 1) % 2]
+        }
+        
+        func makePassThruLayerInstructionWithTrack(track: [NSString : Int])
+            ->  [NSString : AnyObject] {
+                return [
+                    MIJSONKeyMovieEditorLayerInstructionType :
+                                    MIJSONValueMovieEditorPassthruInstruction,
+                    MIJSONPropertyMovieTrack : track
+                ]
+        }
+        
+        // The first instruction will be an opacity instruction. Not a ramp.
+        
+        let opacityLayerInstruction : [NSString : AnyObject] = [
+            MIJSONKeyMovieEditorLayerInstructionType :
+                                        MIJSONValueMovieEditorOpacityInstruction,
+            MIJSONPropertyMovieTrack : fromTrackForIndex(0),
+            MIJSONPropertyMovieEditorInstructionValue : 0.5,
+            // MIJSONPropertyMovieTime : makeStartTimeInSeconds(2)
+            MIJSONPropertyMovieTime : makeStartTimeInSeconds(1)
+        ]
+        
+        let opacityTimeRange : [String : AnyObject] = [
+            // MIJSONPropertyMovieTimeRangeStart : makeStartTimeInSeconds(2),
+            MIJSONPropertyMovieTimeRangeStart : makeStartTimeInSeconds(1),
+            MIJSONPropertyMovieTimeRangeDuration : instructionDuration
+        ]
+        
+        let addOpacityInstructionCommand : [String : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction as String,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : opacityTimeRange,
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                opacityLayerInstruction,
+                makePassThruLayerInstructionWithTrack(toTrackForIndex(0))
+            ]
+        ]
+        commandList.append(addOpacityInstructionCommand)
+
+        let addLastInstructionCommand = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : [
+                MIJSONPropertyMovieTimeRangeStart : makeStartTimeInSeconds(2),
+                MIJSONPropertyMovieTimeRangeDuration : instructionDuration
+            ],
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                makePassthruLayerInstructionForIndex(1)
+            ]
+        ]
+        commandList.append(addLastInstructionCommand)
+
+        let movieExportPath = GetMoviePathInMoviesDir(
+            fileName: "movieeditor_videoinstruction.mov")
+
+        let theUUID = CFUUIDCreate(kCFAllocatorDefault)
+        let compositionMapKey : String = CFUUIDCreateString(kCFAllocatorDefault,
+            theUUID)
+
+        let assignCompositionMapImageToImageCollection = [
+            MIJSONKeyCommand : MIJSONValueAssignImageToCollectionCommand,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyImageIdentifier : compositionMapKey
+        ]
+        commandList.append(assignCompositionMapImageToImageCollection)
+/*
+        let saveCompositionMapCommand = [
+            MIJSONKeyCommand : MIJSONValueSaveMovieCompositionMap,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyFile : "~/Desktop/movieeditor_videoinstruction.png"
+        ]
+        commandList.append(saveCompositionMapCommand)
+*/
+
+        let exportMovieCommand = [
+            MIJSONKeyCommand : MIJSONValueExportCommand,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieExportPreset : AVAssetExportPreset1920x1080,
+            MIJSONPropertyFileType : AVFileTypeQuickTimeMovie,
+            MIJSONPropertyFile : movieExportPath,
+        ]
+        commandList.append(exportMovieCommand)
+        
+        let videoInstructionCommands = [
+            MIJSONKeyCommands : commandList,
+            MIJSONKeyCleanupCommands : cleanupCommands
+        ]
+        
+        let instructionResult = MIMovingImagesHandleCommands(nil,
+            videoInstructionCommands, nil)
+        let defaultContext = MIContext.defaultContext()
+        let theImage = defaultContext.getCGImageWithIdentifier(compositionMapKey)
+        saveCGImageToAJPEGFile(theImage, baseName: "ComppositionMap")
+        defaultContext.removeImageWithIdentifier(compositionMapKey)
+        let resultStr = MIGetStringFromReplyDictionary(instructionResult)
+        println("Result: \(resultStr)")
+        let errorCode = MIGetErrorCodeFromReplyDictionary(instructionResult)
+        XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
+            "Error occured gnerating and creating movie with instructions.")
     }
 }
