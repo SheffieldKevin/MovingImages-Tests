@@ -1840,120 +1840,60 @@ class MovingImagesMovieEditor: XCTestCase {
             ]
         }
         
-        func makePassthruInstructionCommandForTrack(track: [NSString : Int],
-                                startTime: Int) -> [String : AnyObject]
+        func makeTimeRangeStartingWith(seconds: Int) -> [String : AnyObject] {
+            return [
+                MIJSONPropertyMovieTimeRangeStart : [
+                    kCMTimeFlagsKey as String : Int(CMTimeFlags.Valid.rawValue),
+                    kCMTimeValueKey as String : 6000 * seconds,
+                    kCMTimeScaleKey as String : 6000,
+                    kCMTimeEpochKey as String : 0
+                ],
+                MIJSONPropertyMovieTimeRangeDuration : [
+                    kCMTimeFlagsKey as String : Int(CMTimeFlags.Valid.rawValue),
+                    kCMTimeValueKey as String : 6000,
+                    kCMTimeScaleKey as String : 6000,
+                    kCMTimeEpochKey as String : 0
+                ]
+            ]
+        }
+        
+        func makePassthruInstructionCommandForTrack(track: [String : AnyObject],
+            #startTime: Int) -> [String : AnyObject]
         {
             let passThruInstruction : [String : AnyObject] = [
                 MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
                 MIJSONKeyReceiverObject : movieEditorObject,
-                MIJSONPropertyMovieTimeRange : [
-                    MIJSONPropertyMovieTimeRangeStart: makeStartTimeInSeconds(startTime),
-                    MIJSONPropertyMovieTimeRangeDuration : instructionDuration
-                ],
+                MIJSONPropertyMovieTimeRange : makeTimeRangeStartingWith(startTime),
                 MIJSONPropertyMovieEditorLayerInstructions : [
-                    MIJSONKeyMovieEditorLayerInstructionType :
-                                    MIJSONValueMovieEditorPassthruInstruction,
-                    MIJSONPropertyMovieTrack : track
+                    [
+                        MIJSONKeyMovieEditorLayerInstructionType :
+                                        MIJSONValueMovieEditorPassthruInstruction,
+                        MIJSONPropertyMovieTrack : track
+                    ]
                 ]
             ]
             return passThruInstruction
         }
-    
-        let addFirstInstructionCommand = [
-            MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
-            MIJSONKeyReceiverObject : movieEditorObject,
-            MIJSONPropertyMovieTimeRange : [
-                MIJSONPropertyMovieTimeRangeStart : makeStartTimeInSeconds(0),
-                MIJSONPropertyMovieTimeRangeDuration : instructionDuration
-            ],
-            MIJSONPropertyMovieEditorLayerInstructions : [
-                makePassthruLayerInstructionForIndex(0)
-            ]
-        ]
+        
+        commandList.append(makePassthruInstructionCommandForTrack(
+            trackForIndex(0), startTime: 0))
 
-        commandList.append(addFirstInstructionCommand)
+        commandList.append(makePassthruInstructionCommandForTrack(
+            trackForIndex(0), startTime: 1))
 
-        /*
-        func makePassthruLayerInstructionForIndex(index: Int)
-            -> [NSString : AnyObject] {
-                return [
-                    MIJSONKeyMovieEditorLayerInstructionType :
-                    MIJSONValueMovieEditorPassthruInstruction,
-                    MIJSONPropertyMovieTrack : trackList[index % 2]
-                ]
-        }
-
-        let addFirstInstructionCommand = [
-            MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
-            MIJSONKeyReceiverObject : movieEditorObject,
-            MIJSONPropertyMovieTimeRange : [
-                MIJSONPropertyMovieTimeRangeStart : startTime,
-                MIJSONPropertyMovieTimeRangeDuration : instructionDuration
-            ],
-            MIJSONPropertyMovieEditorLayerInstructions : [
-                makePassthruLayerInstructionForIndex(0)
-            ]
-        ]
-        commandList.append(addFirstInstructionCommand)
-        
-        func makePassthruStartTimeFromIndex(index: Int) -> [String : AnyObject] {
-            return [
-                kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
-                kCMTimeValueKey : 6000 + index * 12000,
-                kCMTimeScaleKey : 6000,
-                kCMTimeEpochKey : 0
-            ]
-        }
-        
-        for index in 0..<numSegments {
-            let instructionCommand = [
-                MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
-                MIJSONKeyReceiverObject : movieEditorObject,
-                MIJSONPropertyMovieTimeRange : [
-                    MIJSONPropertyMovieTimeRangeStart :
-                        makePassthruStartTimeFromIndex(index),
-                    MIJSONPropertyMovieTimeRangeDuration : instructionDuration
-                ],
-                MIJSONPropertyMovieEditorLayerInstructions : [
-                    makePassthruLayerInstructionForIndex(index)
-                ]
-            ]
-            commandList.append(instructionCommand)
-        }
-        
-        let lastTime : [String : AnyObject] = [
-            kCMTimeFlagsKey : Int(CMTimeFlags.Valid.rawValue),
-            kCMTimeValueKey : numSegments * 12000,
-            kCMTimeScaleKey : 6000,
-            kCMTimeEpochKey : 0
-        ]
-        
-        let addEndInstructionCommand = [
-            MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
-            MIJSONKeyReceiverObject : movieEditorObject,
-            MIJSONPropertyMovieTimeRange : [
-                MIJSONPropertyMovieTimeRangeStart : lastTime,
-                MIJSONPropertyMovieTimeRangeDuration : instructionDuration
-            ],
-            MIJSONPropertyMovieEditorLayerInstructions : [
-                makePassthruLayerInstructionForIndex(numSegments - 1)
-            ]
-        ]
-        commandList.append(addEndInstructionCommand)
-*/
         // All the passthrough only instructions have been made. Now the more
         // complex instructions need to be made, these will be done one at a time.
         
-        func fromTrackForIndex(index: Int) -> [String : Int] {
-            return trackList[index % 2] as! [String : Int]
+        func fromTrackForIndex(index: Int) -> [String : AnyObject] {
+            return trackList[index % 2] as! [String : AnyObject]
         }
         
-        func toTrackForIndex(index: Int) -> [String : Int] {
-            return trackList[(index + 1) % 2] as! [String : Int]
+        func toTrackForIndex(index: Int) -> [String : AnyObject] {
+            return trackList[(index + 1) % 2] as! [String : AnyObject]
         }
         
-        func makePassThruLayerInstructionWithTrack(track: [NSString : Int])
-        ->  [NSString : AnyObject] {
+        func makePassThruLayerInstructionWithTrack(track: [String : AnyObject])
+        ->  [String : AnyObject] {
             return [
                 MIJSONKeyMovieEditorLayerInstructionType :
                                 MIJSONValueMovieEditorPassthruInstruction,
@@ -1970,36 +1910,23 @@ class MovingImagesMovieEditor: XCTestCase {
             MIJSONPropertyMovieEditorInstructionValue : 0.5,
             MIJSONPropertyMovieTime : makeStartTimeInSeconds(2)
         ]
-        
-        let opacityTimeRange : [String : AnyObject] = [
-            MIJSONPropertyMovieTimeRangeStart : makeStartTimeInSeconds(2),
-            MIJSONPropertyMovieTimeRangeDuration : instructionDuration
-        ]
-        
+
         let addOpacityInstructionCommand : [String : AnyObject] = [
             MIJSONKeyCommand : MIJSONValueAddMovieInstruction as String,
             MIJSONKeyReceiverObject : movieEditorObject,
-            MIJSONPropertyMovieTimeRange : opacityTimeRange,
+            MIJSONPropertyMovieTimeRange : makeTimeRangeStartingWith(2),
             MIJSONPropertyMovieEditorLayerInstructions : [
                 opacityLayerInstruction,
                 makePassThruLayerInstructionWithTrack(toTrackForIndex(0))
             ]
         ]
         commandList.append(addOpacityInstructionCommand)
-
-        let addLastInstructionCommand = [
-            MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
-            MIJSONKeyReceiverObject : movieEditorObject,
-            MIJSONPropertyMovieTimeRange : [
-                MIJSONPropertyMovieTimeRangeStart : makeStartTimeInSeconds(2),
-                MIJSONPropertyMovieTimeRangeDuration : instructionDuration
-            ],
-            MIJSONPropertyMovieEditorLayerInstructions : [
-                makePassthruLayerInstructionForIndex(1)
-            ]
-        ]
-        commandList.append(addLastInstructionCommand)
-
+        commandList.append(makePassthruInstructionCommandForTrack(
+            trackForIndex(1), startTime: 3))
+        
+        commandList.append(makePassthruInstructionCommandForTrack(
+            trackForIndex(1), startTime: 4))
+        
         let movieExportPath = GetMoviePathInMoviesDir(
             fileName: "movieeditor_videoinstruction.mov")
 
