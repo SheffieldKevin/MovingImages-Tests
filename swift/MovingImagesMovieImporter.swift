@@ -287,11 +287,11 @@ class MovingImagesMovieImporter: XCTestCase {
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting properties of a movie importer object.")
         let resultValue = MIGetDictionaryValueFromReplyDictionary(result)!
-        let objectName:String = resultValue[MIJSONKeyObjectName] as String
+        let objectName:String = resultValue[MIJSONKeyObjectName] as! String
         XCTAssert(objectName == "test001.movie", "Object name different")
-        let objectType:String = resultValue[MIJSONKeyObjectType] as String
+        let objectType:String = resultValue[MIJSONKeyObjectType] as! String
         XCTAssert(objectType == MIMovieImporterKey, "Object type different")
-        let numTracks = resultValue[MIJSONPropertyMovieNumberOfTracks] as NSNumber
+        let numTracks = resultValue[MIJSONPropertyMovieNumberOfTracks] as! NSNumber
         XCTAssert(numTracks.integerValue == 2, "Number of tracks should be 2")
     }
     
@@ -895,7 +895,7 @@ class MovingImagesMovieImporter: XCTestCase {
     func testGetMovieFrameFromTrackAt5Secs() -> Void {
         let frameTime = 5.0
         let tracks = [ trackIdentDict ]
-        let options = [
+        let options : [NSString : AnyObject] = [
             MIJSONPropertyMovieFrameTime : [ MIJSONPropertyMovieTime : frameTime ],
             MIJSONPropertyMovieTracks : tracks
         ]
@@ -920,10 +920,11 @@ class MovingImagesMovieImporter: XCTestCase {
     func testGetMovieFrameNextSample3Times() -> Void {
         let frameTime = 0.0
         let tracks = [ trackIdentDict ]
-        let options = [
+        let options : [NSString : AnyObject] = [
             MIJSONPropertyMovieFrameTime : MIJSONValueMovieNextSample,
             MIJSONPropertyMovieTracks : tracks
         ]
+
         let frameGrab = MICGImageFromObjectAndOptions(
             theContext, receiverObject, options, nil)
         let frameGrab2 = MICGImageFromObjectAndOptions(

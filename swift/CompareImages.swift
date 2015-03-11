@@ -93,14 +93,14 @@ func compareImages(#image1:CGImage, #image2:CGImage) -> Int {
     let context = CGBitmapContextCreate(&buf, 1, 1, 8, 16, colorSpace, bitmapInfo)
     
     // Now create the core image context CIContext from the bitmap context.
-    let ciContextOpts = [
+    let ciContextOpts : [NSString : AnyObject] = [
           kCIContextWorkingColorSpace : colorSpace,
         kCIContextUseSoftwareRenderer : false
     ]
     let ciContext = CIContext(CGContext: context, options: ciContextOpts)
     
     // Get the output CIImage and draw that to the Core Image context.
-    let valueImage = areaMaxFilter.valueForKey(kCIOutputImageKey)! as CIImage
+    let valueImage = areaMaxFilter.valueForKey(kCIOutputImageKey) as! CIImage
     ciContext.drawImage(valueImage, inRect: CGRectMake(0,0,1,1),
         fromRect: valueImage.extent())
     
@@ -114,13 +114,13 @@ func compareImages(#image1:CGImage, #image2:CGImage) -> Int {
 }
 #endif
 
-func makeURLFromNamedFile(namedFile: NSString, #fileExtension: NSString) -> NSURL {
+func makeURLFromNamedFile(namedFile: String, #fileExtension: String) -> NSURL {
     let testBundle = NSBundle(forClass: MovingImagesFrameworkiOSSwift.self)
     let url = testBundle.URLForResource(namedFile, withExtension:fileExtension)!
     return url
 }
 
-func createCGImageFromNamedFile(namedImage: NSString, #fileExtension: NSString)
+func createCGImageFromNamedFile(namedImage: String, #fileExtension: String)
     -> CGImage? {
     let theURL = makeURLFromNamedFile(namedImage, fileExtension: fileExtension)
     let imageSource = CGImageSourceCreateWithURL(theURL, nil)
@@ -128,11 +128,11 @@ func createCGImageFromNamedFile(namedImage: NSString, #fileExtension: NSString)
     return myImage
 }
 
-func createCGImageFromNamedJPEGImage(namedImage: NSString) -> CGImage! {
+func createCGImageFromNamedJPEGImage(namedImage: String) -> CGImage! {
     return createCGImageFromNamedFile(namedImage, fileExtension:"jpg")
 }
 
-func createCGImageFromNamedPNGImage(namedImage: NSString) -> CGImage! {
+func createCGImageFromNamedPNGImage(namedImage: String) -> CGImage! {
     return createCGImageFromNamedFile(namedImage, fileExtension:"png")
 }
 
@@ -163,12 +163,12 @@ func makeSaveFileURLPath(fileName: String) -> NSURL {
 #endif
 }
 
-func saveCGImageToAPNGFile(theImage: CGImageRef, #fileName: NSString) -> Void {
-    saveCGImage(theImage, makeSaveFileURLPath(fileName), kUTTypePNG)
+func saveCGImageToAPNGFile(theImage: CGImageRef, #fileName: String) -> Void {
+    saveCGImage(theImage, makeSaveFileURLPath(fileName), kUTTypePNG as String)
 }
 
-func saveCGImageToAJPEGFile(theImage: CGImageRef, #fileName: NSString) -> Void {
-    saveCGImage(theImage, makeSaveFileURLPath(fileName), kUTTypePNG)
+func saveCGImageToAJPEGFile(theImage: CGImageRef, #fileName: String) -> Void {
+    saveCGImage(theImage, makeSaveFileURLPath(fileName), kUTTypePNG as String)
 }
 
 #else

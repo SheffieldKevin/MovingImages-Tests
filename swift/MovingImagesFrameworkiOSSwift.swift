@@ -70,15 +70,15 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
 
     class func createDictionaryFromJSON(jsonFileName: NSString) -> NSDictionary {
         let testBundle = NSBundle(forClass: MovingImagesFrameworkiOSSwift.self)
-        let jsonURL = testBundle.URLForResource(jsonFileName,
+        let jsonURL = testBundle.URLForResource(jsonFileName as String,
                                                 withExtension:"json")!
         let inStream = NSInputStream(URL: jsonURL)!
         inStream.open()
         var jsonReadingError:NSError?
         let container:[NSString : NSObject] =
-        NSJSONSerialization.JSONObjectWithStream(inStream,
-            options: NSJSONReadingOptions.allZeros,
-            error: &jsonReadingError) as [NSString : NSObject]
+            NSJSONSerialization.JSONObjectWithStream(inStream,
+                        options: NSJSONReadingOptions.allZeros,
+                          error: &jsonReadingError) as! [NSString : NSObject]
         return container
     }
 
@@ -100,7 +100,8 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
 
     func testHandleCreateBitmapContextAndGetPropertiesCommand() -> Void {
         // Create the bitmap context
-        let commandDict = [ MIJSONKeyCommand : MIJSONValueCreateCommand,
+        let commandDict : [String : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueCreateCommand,
             MIJSONKeyObjectType : MICGBitmapContextKey,
             MIJSONKeyObjectName : "my.test.bitmapcontext",
             MIJSONKeySize : [
@@ -118,10 +119,12 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
         let objectReference = MIGetNumericReplyValueFromDictionary(resultDict)
         
         // Get properties from the context, first get the height.
-        let getWidthDict = [ MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
-            MIJSONKeyReceiverObject :
-                            [ MIJSONKeyObjectReference : objectReference],
-            MIJSONPropertyKey : MIJSONKeyHeight ]
+        let getWidthDict : [String : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
+            MIJSONKeyReceiverObject : [
+                MIJSONKeyObjectReference : objectReference],
+                MIJSONPropertyKey : MIJSONKeyHeight
+        ]
         let heightResultDict = MIMovingImagesHandleCommand(nil, getWidthDict)
 
         // Check that there was no error getting the context height.
@@ -132,11 +135,15 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
 
         // Lets now refer to the context by type and name, and get the preset.
         // The preset should be the same as that used to create the context
-        let getPresetDict = [ MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
-            MIJSONKeyReceiverObject :
-              [ MIJSONKeyObjectType : MICGBitmapContextKey,
-                MIJSONKeyObjectName : "my.test.bitmapcontext" ],
-                  MIJSONPropertyKey : MIJSONPropertyPreset ]
+        let getPresetDict : [String : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
+            MIJSONKeyReceiverObject : [
+                MIJSONKeyObjectType : MICGBitmapContextKey,
+                MIJSONKeyObjectName : "my.test.bitmapcontext"
+            ],
+            MIJSONPropertyKey : MIJSONPropertyPreset
+        ]
+
         let presetResultDict = MIMovingImagesHandleCommand(nil, getPresetDict)
         let errorCode3 = MIGetErrorCodeFromReplyDictionary(presetResultDict)
         XCTAssertEqual(errorCode3.rawValue, 0,
@@ -239,7 +246,8 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
 */
     func testRoundedRectShapeDrawingPerformance() {
         let commandDict = MovingImagesFrameworkiOSSwift.createDictionaryFromJSON(
-                            "draw_elements")
+            "draw_elements") as! [String : AnyObject]
+
         self.measureBlock() {
             let commandResult = MIMovingImagesHandleCommands(nil, commandDict, nil)
         }
@@ -249,7 +257,8 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
         let commandDict = MovingImagesFrameworkiOSSwift.createDictionaryFromJSON(
             "draw_elements")
         let theContext:MIContext = MICreateContext()
-        let commandResult = MIMovingImagesHandleCommands(theContext, commandDict,
+        let commandResult = MIMovingImagesHandleCommands(theContext,
+            commandDict as [NSObject : AnyObject],
             nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(commandResult)
         XCTAssertEqual(errorCode.rawValue, 0,
@@ -310,10 +319,12 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
     // each rounded rectangle to be drawn. Drawing round cornered rectangles
     // without 11 equations to evaluate is about 10 times faster.
     func testAsynchronousShapeDrawing() -> Void {
-        let container = MovingImagesFrameworkiOSSwift.createDictionaryFromJSON(
-                                                "drawelements_asynchronous")
+        let container : [NSString : AnyObject] =
+            MovingImagesFrameworkiOSSwift.createDictionaryFromJSON(
+                        "drawelements_asynchronous") as! [NSString : AnyObject]
         let expectation = self.expectationWithDescription(
                                     "Rounded rectangle with equation drawing")
+
         MIMovingImagesHandleCommands(nil, container) {
             (replyDict: [NSObject : AnyObject]!) -> Void in
             let result = MIGetErrorCodeFromReplyDictionary(replyDict)
@@ -379,7 +390,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
 
     func testDrawingABundleImage() -> Void {
         let commandDict1 = MovingImagesFrameworkiOSSwift.createDictionaryFromJSON(
-                                                "draw_bundleimage1")
+                            "draw_bundleimage1") as! [NSString : AnyObject]
         let result = MIMovingImagesHandleCommands(nil, commandDict1, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0, "Error creating the bitmap context")
@@ -391,7 +402,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
         let image = createCGImageFromNamedJPEGImage("curlycat")
         theContext.assignCGImage(image, identifier: imageID)
         let commandDict2 = MovingImagesFrameworkiOSSwift.createDictionaryFromJSON(
-                                                "draw_bundleimage2")
+                                "draw_bundleimage2") as! [NSString : AnyObject]
         let result2 = MIMovingImagesHandleCommands(theContext, commandDict2, nil)
         theContext.removeImageWithIdentifier(imageID)
         let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)

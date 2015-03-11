@@ -87,12 +87,12 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         MIJSONPropertyFileType : AVFileTypeMPEG4
     ]
 
-    let closeVideoWriter = [
+    let closeVideoWriter : [String : AnyObject] = [
         MIJSONKeyCommand : MIJSONValueCloseCommand,
         MIJSONKeyReceiverObject : videoWriterObject
     ]
     
-    let getVideoWriterProperties = [
+    let getVideoWriterProperties : [String : AnyObject] = [
         MIJSONKeyCommands : [
             [
                 MIJSONKeyCommand : MIJSONValueGetPropertiesCommand,
@@ -102,7 +102,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         ]
     ]
 
-    let getVideoWriterPropertiesAsDict = [
+    let getVideoWriterPropertiesAsDict : [String : AnyObject] = [
             MIJSONKeyCommand : MIJSONValueGetPropertiesCommand,
             MIJSONKeyReceiverObject : videoWriterObject,
             MIJSONKeySaveResultsType : MIJSONPropertyDictionaryObject
@@ -373,8 +373,8 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         
         let filePath = GetMoviePathInMoviesDir()
         
-        let dictionaryRes:NSDictionary = MIGetDictionaryValueFromReplyDictionary(
-            result2)
+        let dictionaryRes = MIGetDictionaryValueFromReplyDictionary(result2) as! [String : AnyObject]
+
         let previousResult:NSDictionary = [
             MIJSONKeyObjectName : "test001.movievideoframeswriter",
             MIJSONKeyObjectType : "videoframeswriter",
@@ -458,7 +458,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         let dictResult2: NSDictionary = MIGetDictionaryValueFromReplyDictionary(
             result2)
     
-        let previousDict: NSDictionary = [
+        let previousDict : [NSString : AnyObject] = [
             "objectname" : "test001.movievideoframeswriter",
             "objecttype" : "videoframeswriter",
             "videosettings" : [
