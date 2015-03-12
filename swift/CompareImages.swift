@@ -207,18 +207,18 @@ func moveImageFileToPhotoLibrary(fileURL: NSURL) -> Void {
 }
 
 // This version is for saving a file when running on an iOS device.
-func saveCGImageToAPNGFile(theImage: CGImageRef, #fileName: NSString) -> Void {
+func saveCGImageToAPNGFile(theImage: CGImageRef, #fileName: String) -> Void {
     let fileURL = makeSaveFileURLPath(fileName)
-    saveCGImage(theImage, fileURL, kUTTypePNG)
+    saveCGImage(theImage, fileURL, String(kUTTypePNG))
 
     // Now move the image to the photos library.
     moveImageFileToPhotoLibrary(fileURL)
 }
 
 // This version is for saving a file when running on an iOS device.
-func saveCGImageToAJPEGFile(theImage: CGImageRef, #fileName: NSString) -> Void {
+func saveCGImageToAJPEGFile(theImage: CGImageRef, #fileName: String) -> Void {
     let fileURL = makeSaveFileURLPath(fileName)
-    saveCGImage(theImage, fileURL, kUTTypeJPEG)
+    saveCGImage(theImage, fileURL, String(kUTTypeJPEG))
 
     // Now move the image to the photos library.
     moveImageFileToPhotoLibrary(fileURL)
