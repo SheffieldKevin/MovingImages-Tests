@@ -116,7 +116,7 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
         let errorCode = MIGetErrorCodeFromReplyDictionary(resultDict)
         XCTAssertEqual(errorCode.rawValue, 0,
                        "Expected no error creating bitmap context")
-        let objectReference = MIGetNumericReplyValueFromDictionary(resultDict)
+        let objectReference = MIGetNumericReplyValueFromDictionary(resultDict)!
         
         // Get properties from the context, first get the height.
         let getWidthDict : [String : AnyObject] = [
@@ -130,7 +130,7 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
         // Check that there was no error getting the context height.
         let errorCode2 = MIGetErrorCodeFromReplyDictionary(heightResultDict)
         XCTAssertEqual(errorCode2.rawValue, 0, "Expected no error getting height")
-        let contextHeight = MIGetNumericReplyValueFromDictionary(heightResultDict)
+        let contextHeight = MIGetNumericReplyValueFromDictionary(heightResultDict)!
         XCTAssertEqual(contextHeight.integerValue, 200)
 
         // Lets now refer to the context by type and name, and get the preset.
@@ -148,7 +148,7 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
         let errorCode3 = MIGetErrorCodeFromReplyDictionary(presetResultDict)
         XCTAssertEqual(errorCode3.rawValue, 0,
                                 "Expected no error getting context preset");
-        let preset = MIGetStringFromReplyDictionary(presetResultDict)!
+        let preset = MIGetStringFromReplyDictionary(presetResultDict)
         XCTAssertEqual(MIAlphaPreMulFirstRGB8bpc32bppInteger, preset,
                             "Context preset different to preset used to create")
 
@@ -187,7 +187,7 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
         let errorCode2 = MIGetErrorCodeFromReplyDictionary(numResultsDict)
         XCTAssertEqual(errorCode2.rawValue, 0,
                         "Error getting number of bitmap context objects")
-        let numObjects = MIGetNumericReplyValueFromDictionary(numResultsDict)
+        let numObjects = MIGetNumericReplyValueFromDictionary(numResultsDict)!
         XCTAssertEqual(numObjects.integerValue, 0,
                         "Closeing bitmap object failed")
     }
@@ -326,7 +326,7 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
                                     "Rounded rectangle with equation drawing")
 
         MIMovingImagesHandleCommands(nil, container) {
-            (replyDict: [NSObject : AnyObject]!) -> Void in
+            (replyDict: [NSObject : AnyObject]) -> Void in
             let result = MIGetErrorCodeFromReplyDictionary(replyDict)
             XCTAssert(result == MIReplyErrorEnum.NoError,
                 "Drawing rounded rectangle with equations failed")
@@ -613,7 +613,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
         let errorCode3 = MIGetErrorCodeFromReplyDictionary(result3)
         XCTAssertEqual(errorCode3, MIReplyErrorEnum.NoError,
             "Error getting number of objects")
-        let resultValue3 = MIGetNumericReplyValueFromDictionary(result3)
+        let resultValue3 = MIGetNumericReplyValueFromDictionary(result3)!
         XCTAssertEqual(resultValue3.integerValue, 0,
             "Number of objects should be zero")
     }

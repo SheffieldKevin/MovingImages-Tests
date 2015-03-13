@@ -87,7 +87,7 @@ class MovingImagesMovieImporter: XCTestCase {
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting object reference of movie importer object")
-        let resultValue = MIGetNumericReplyValueFromDictionary(result)
+        let resultValue = MIGetNumericReplyValueFromDictionary(result)!
         XCTAssertEqual(resultValue.integerValue, 0,
             "Movie importer object reference should be zero")
         // Since we have the movie importer object's reference get the
@@ -177,7 +177,7 @@ class MovingImagesMovieImporter: XCTestCase {
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting number of tracks from a movie file")
-        let resultValue = MIGetNumericReplyValueFromDictionary(result)
+        let resultValue = MIGetNumericReplyValueFromDictionary(result)!
         XCTAssertEqual(resultValue.integerValue, 2,
             "Number of tracks returned not equal to 2, the expected value")
     }
@@ -199,7 +199,7 @@ class MovingImagesMovieImporter: XCTestCase {
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting number of tracks from a movie file")
-        let resultValue = MIGetNumericReplyValueFromDictionary(result)
+        let resultValue = MIGetNumericReplyValueFromDictionary(result)!
         XCTAssertEqual(resultValue.integerValue, 1,
             "Number of frame based tracks returned not equal to 1")
     }
@@ -282,7 +282,7 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)!
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting properties of a movie importer object.")
@@ -310,7 +310,7 @@ class MovingImagesMovieImporter: XCTestCase {
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting a video track's persistent track id.")
-        let numericResult = MIGetNumericReplyValueFromDictionary(result)
+        let numericResult = MIGetNumericReplyValueFromDictionary(result)!
         XCTAssertEqual(numericResult.integerValue, 2, "Persistent track ID diff")
     }
     
@@ -372,7 +372,7 @@ class MovingImagesMovieImporter: XCTestCase {
         let isEnabledStr = MIGetStringFromReplyDictionary(result)
         XCTAssertEqual(isEnabledStr, "YES",
             "First video track is enabled is different")
-        let isEnabled = MIGetNumericReplyValueFromDictionary(result)
+        let isEnabled = MIGetNumericReplyValueFromDictionary(result)!
         XCTAssertEqual(isEnabled.boolValue, true, "isEnabled should be true")
     }
 
@@ -545,7 +545,7 @@ class MovingImagesMovieImporter: XCTestCase {
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Failed for getting the preferred volume of an audio track.")
-        let volume = MIGetNumericReplyValueFromDictionary(result)
+        let volume = MIGetNumericReplyValueFromDictionary(result)!
         XCTAssertEqual(volume.doubleValue, 1.0000,
             "The preferred volume of the audible track should be 1.")
     }
@@ -565,7 +565,7 @@ class MovingImagesMovieImporter: XCTestCase {
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Failed to getting the video track's nominal frame rate.")
-        let nomFrameRate = MIGetNumericReplyValueFromDictionary(result)
+        let nomFrameRate = MIGetNumericReplyValueFromDictionary(result)!
         XCTAssertEqual(nomFrameRate.doubleValue, 24.0,
             "The nominal frame rate of the first video track is different.")
     }
@@ -610,7 +610,7 @@ class MovingImagesMovieImporter: XCTestCase {
         let isEnabledStr = MIGetStringFromReplyDictionary(result)
         XCTAssertEqual(isEnabledStr, "NO",
             "First video track requires frame reodering is different")
-        let isEnabled = MIGetNumericReplyValueFromDictionary(result)
+        let isEnabled = MIGetNumericReplyValueFromDictionary(result)!
         XCTAssertEqual(isEnabled.boolValue, false, "frame reordering should be false")
     }
 
@@ -852,16 +852,16 @@ class MovingImagesMovieImporter: XCTestCase {
             MIJSONPropertyMovieFrameTime : frameTimeDict
         ]
         let frameGrab = MICGImageFromObjectAndOptions(
-                        theContext, receiverObject, options, nil)
+                        theContext, receiverObject, options, nil)!
         let theImage = createCGImageFromNamedFile("FrameAt5Secs",
             fileExtension:"png")!
-        let sameMeta = doImagesHaveSameMeta(image1: frameGrab.CGImage(),
+        let sameMeta = doImagesHaveSameMeta(image1: frameGrab.CGImage()!,
             image2: theImage)
         XCTAssert(sameMeta,
                         "Frame grab and image should have same basic meta data")
         #if os(OSX)
         if sameMeta {
-            let theDiff = compareImages(image1: frameGrab.CGImage(),
+            let theDiff = compareImages(image1: frameGrab.CGImage()!,
                 image2: theImage)
             XCTAssert(theDiff < 54,
                                 "Images have different pixel values \(theDiff)")
@@ -875,16 +875,16 @@ class MovingImagesMovieImporter: XCTestCase {
             MIJSONPropertyMovieFrameTime : [ MIJSONPropertyMovieTime : frameTime ]
         ]
         let frameGrab = MICGImageFromObjectAndOptions(
-            theContext, receiverObject, options, nil)
+            theContext, receiverObject, options, nil)!
         let theImage = createCGImageFromNamedFile("FrameAt5Secs",
             fileExtension:"png")!
-        let sameMeta = doImagesHaveSameMeta(image1: frameGrab.CGImage(),
+        let sameMeta = doImagesHaveSameMeta(image1: frameGrab.CGImage()!,
             image2: theImage)
         XCTAssert(sameMeta,
             "Frame grab and image should have same basic meta data")
         #if os(OSX)
         if sameMeta {
-            let theDiff = compareImages(image1: frameGrab.CGImage(),
+            let theDiff = compareImages(image1: frameGrab.CGImage()!,
                 image2: theImage)
             XCTAssert(theDiff < 54,
                                 "Images have different pixel values \(theDiff)")
@@ -900,16 +900,16 @@ class MovingImagesMovieImporter: XCTestCase {
             MIJSONPropertyMovieTracks : tracks
         ]
         let frameGrab = MICGImageFromObjectAndOptions(
-            theContext, receiverObject, options, nil)
+            theContext, receiverObject, options, nil)!
         let theImage = createCGImageFromNamedFile("FrameAt5Secs",
                                     fileExtension:"png")!
-        let sameMeta = doImagesHaveSameMeta(image1: frameGrab.CGImage(),
+        let sameMeta = doImagesHaveSameMeta(image1: frameGrab.CGImage()!,
             image2: theImage)
         XCTAssert(sameMeta,
             "Frame grab and image should have same basic meta data")
         #if os(OSX)
         if sameMeta {
-            let theDiff = compareImages(image1: frameGrab.CGImage(),
+            let theDiff = compareImages(image1: frameGrab.CGImage()!,
                 image2: theImage)
             XCTAssert(theDiff < 54,
                 "Images have different pixel values \(theDiff)")

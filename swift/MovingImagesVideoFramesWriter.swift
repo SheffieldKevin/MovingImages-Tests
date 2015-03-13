@@ -170,7 +170,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             "Error getting properties of a video frames writer.")
         // let stringResult4 = MIGetStringFromReplyDictionary(result4)
         
-        let dictResult4 = MIGetDictionaryValueFromReplyDictionary(result4)
+        let dictResult4 = MIGetDictionaryValueFromReplyDictionary(result4)!
         let previousResult : NSDictionary = [
             "file" : GetMoviePathInMoviesDir(),
             "objectname" : videoWriterName,
@@ -456,7 +456,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             "Error getting properties of a video frames writer.")
         
         let dictResult2: NSDictionary = MIGetDictionaryValueFromReplyDictionary(
-            result2)
+            result2)!
     
         let previousDict : [NSString : AnyObject] = [
             "objectname" : "test001.movievideoframeswriter",

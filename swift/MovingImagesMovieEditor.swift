@@ -92,7 +92,7 @@ class MovingImagesMovieEditor: XCTestCase {
         var videoTrackID:CMPersistentTrackID = 0
         if errorCode == MIReplyErrorEnum.NoError
         {
-            let resultValue = MIGetNumericReplyValueFromDictionary(result)
+            let resultValue = MIGetNumericReplyValueFromDictionary(result)!
             videoTrackID = resultValue.intValue
             println(resultValue.intValue)
         }
@@ -151,7 +151,7 @@ class MovingImagesMovieEditor: XCTestCase {
             "Error attempting to get the number of tracks in a movie editor.")
         if errorCode4 == MIReplyErrorEnum.NoError
         {
-            let resultValue = MIGetNumericReplyValueFromDictionary(result4)
+            let resultValue = MIGetNumericReplyValueFromDictionary(result4)!
             XCTAssertEqual(resultValue.integerValue, 2,
                 "The number of tracks should be 3")
         }
@@ -331,7 +331,7 @@ class MovingImagesMovieEditor: XCTestCase {
             "{\"flags\":1,\"value\":0,\"timescale\":1,\"epoch\":0}",
             "Get movie duration as json returned diff")
         
-        let movieDurationNumber = MIGetNumericReplyValueFromDictionary(result7)
+        let movieDurationNumber = MIGetNumericReplyValueFromDictionary(result7)!
         XCTAssertEqual(movieDurationNumber.doubleValue, 0.0,
             "Get movie duration as json returned diff")
 
@@ -350,7 +350,7 @@ class MovingImagesMovieEditor: XCTestCase {
         XCTAssertEqual(errorCode8.rawValue, MIReplyErrorEnum.NoError.rawValue,
             "Error getting properties from a movie editor.")
 
-        let trackID = MIGetNumericReplyValueFromDictionary(result8)
+        let trackID = MIGetNumericReplyValueFromDictionary(result8)!
         XCTAssertEqual(trackID.intValue, Int32(1),
             "Persistent track id should be equal to 2.")
 
@@ -644,7 +644,7 @@ class MovingImagesMovieEditor: XCTestCase {
         
         let result7 = MIMovingImagesHandleCommand(context, getTrackTransform)
         let resultStr7 = MIGetStringFromReplyDictionary(result7)
-        let resultDict7 = MIGetDictionaryValueFromReplyDictionary(result7)
+        let resultDict7 = MIGetDictionaryValueFromReplyDictionary(result7)!
         let origDict7 : NSDictionary = [
             MIJSONKeyAffineTransformM11 : 1,
             MIJSONKeyAffineTransformM12 : 0,
@@ -811,7 +811,7 @@ class MovingImagesMovieEditor: XCTestCase {
         ]
         let result14 = MIMovingImagesHandleCommand(context, getTrackTransform2)
         let resultStr14 = MIGetStringFromReplyDictionary(result14)
-        let resultDict14 = MIGetDictionaryValueFromReplyDictionary(result14)
+        let resultDict14 = MIGetDictionaryValueFromReplyDictionary(result14)!
         let origDict14 : NSDictionary = [
             MIJSONKeyAffineTransformM11 : 0.5,
             MIJSONKeyAffineTransformM12 : 0,
@@ -2465,7 +2465,8 @@ class MovingImagesMovieEditor: XCTestCase {
             MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
             MIJSONKeyReceiverObject : movieEditorObject,
             MIJSONPropertyMovieTimeRange : [
-                MIJSONPropertyMovieTimeRangeStart : makeTimeInSeconds(numSegments * 2),
+                MIJSONPropertyMovieTimeRangeStart : makeTimeInSeconds(
+                    numSegments * 2),
                 MIJSONPropertyMovieTimeRangeDuration : instructionDuration
             ],
             MIJSONPropertyMovieEditorLayerInstructions : [
@@ -2515,7 +2516,7 @@ class MovingImagesMovieEditor: XCTestCase {
             "Error occured generating and creating movie with instructions.")
         #if os(iOS)
             let moviePath = GetMoviePathInMoviesDir(fileName:
-            "movieeditor_ramptransitions.mov")
+            "movieeditor_videoramptransitions.mov")
             saveMovieFileToSharedPhotoLibrary(filePath: moviePath)
             
             // Now check to see if the file exists and delete it.
