@@ -564,12 +564,31 @@ class MovingImagesMovieEditor: XCTestCase {
             MIJSONPropertyMovieSourceTrack : sourceTrackID,
             MIJSONPropertyMovieSourceTimeRange : sourceSegmentTimeRange,
             MIJSONPropertyMovieInsertionTime : insertionTime,
-            MIJSONPropertyMovieAddPassthruInstruction : true
+            // MIJSONPropertyMovieAddPassthruInstruction : true
+        ]
+
+        let passthruInstructionTimeRange = [
+            MIJSONPropertyMovieTimeRangeStart : insertionTime,
+            MIJSONPropertyMovieTimeRangeDuration : segmentDurationTime
+        ]
+        
+        let addPassthruInstructionCommand : [String : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : passthruInstructionTimeRange,
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                [
+                    MIJSONKeyMovieEditorLayerInstructionType :
+                    MIJSONValueMovieEditorPassthruInstruction,
+                    MIJSONPropertyMovieTrack : videoTrackID
+                ]
+            ]
         ]
 
         let commandDict4 = [
             MIJSONKeyCommands : [
                 insertSegmentCommand,
+                addPassthruInstructionCommand,
                 getNaturalSizeCommand
             ]
         ]
@@ -997,7 +1016,25 @@ class MovingImagesMovieEditor: XCTestCase {
             MIJSONPropertyMovieSourceTrack : sourceTrackID,
             MIJSONPropertyMovieSourceTimeRange : sourceSegmentTimeRange,
             MIJSONPropertyMovieInsertionTime : insertionTime,
-            MIJSONPropertyMovieAddPassthruInstruction : true
+            // MIJSONPropertyMovieAddPassthruInstruction : true
+        ]
+
+        let passthruInstructionTimeRange = [
+            MIJSONPropertyMovieTimeRangeStart : insertionTime,
+            MIJSONPropertyMovieTimeRangeDuration : segmentDurationTime
+        ]
+        
+        let addPassthruInstructionCommand : [String : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : passthruInstructionTimeRange,
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                [
+                    MIJSONKeyMovieEditorLayerInstructionType :
+                    MIJSONValueMovieEditorPassthruInstruction,
+                    MIJSONPropertyMovieTrack : videoTrackID
+                ]
+            ]
         ]
 
         let insertSegment2Command = [
@@ -1008,7 +1045,25 @@ class MovingImagesMovieEditor: XCTestCase {
             MIJSONPropertyMovieSourceTrack : sourceTrackID,
             MIJSONPropertyMovieSourceTimeRange : sourceSegment2TimeRange,
             MIJSONPropertyMovieInsertionTime : insertionTime2,
-            MIJSONPropertyMovieAddPassthruInstruction : true
+            // MIJSONPropertyMovieAddPassthruInstruction : true
+        ]
+        
+        let passthruInstructionTimeRange2 = [
+            MIJSONPropertyMovieTimeRangeStart : insertionTime2,
+            MIJSONPropertyMovieTimeRangeDuration : segmentDurationTime
+        ]
+        
+        let addPassthruInstructionCommand2 : [String : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : passthruInstructionTimeRange2,
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                [
+                    MIJSONKeyMovieEditorLayerInstructionType :
+                    MIJSONValueMovieEditorPassthruInstruction,
+                    MIJSONPropertyMovieTrack : videoTrackID
+                ]
+            ]
         ]
 
         // Prepare adding an empty segment in the middle of another segment.
@@ -1069,6 +1124,8 @@ class MovingImagesMovieEditor: XCTestCase {
                 addVideoTrackToEditorCommand,
                 insertSegmentCommand,
                 insertSegment2Command,
+                addPassthruInstructionCommand,
+                addPassthruInstructionCommand2,
                 exportMovieCommand,
                 getVideoTrackSegmentsProperty
             ],
@@ -1993,7 +2050,7 @@ class MovingImagesMovieEditor: XCTestCase {
                 MIJSONPropertyMovieEditorLayerInstructions : [
                     [
                         MIJSONKeyMovieEditorLayerInstructionType :
-                        MIJSONValueMovieEditorPassthruInstruction,
+                                        MIJSONValueMovieEditorPassthruInstruction,
                         MIJSONPropertyMovieTrack : track
                     ]
                 ]
@@ -2326,9 +2383,6 @@ class MovingImagesMovieEditor: XCTestCase {
         commandList.append(makePassthruInstructionCommandForTrack(
             trackList[tIndex], startTime: tIndex * 2 + 1))
 
-        // All the passthrough only instructions have been made. Now the more
-        // complex instructions need to be made, these will be done one at a time.
-        
         func fromTrackForIndex(index: Int) -> [String : Int] {
             return trackList[index % 2]
         }
@@ -2345,8 +2399,6 @@ class MovingImagesMovieEditor: XCTestCase {
                 MIJSONPropertyMovieTrack : track
             ]
         }
-        
-        // Now the ramp instructions.
         
         // lets start with the opacity ramp.
         
