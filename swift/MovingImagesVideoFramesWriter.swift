@@ -192,7 +192,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
 
 #if os(OSX)
     func testAddingVideoWriterProRes4444PresetInput() -> Void {
-        let frameDuration = [ "time" : 0.0333334 ]
+        let frameDuration = [ "timeinseconds" : 0.0333334 ]
         let commandsDict = [
             MIJSONKeyCommands : [
                 createVideoWriterCommand,
@@ -591,8 +591,9 @@ class MovingImagesVideoFramesWriter: XCTestCase {
                 MIJSONPropertyImageIdentifier : imageId,
             ]
             let frameInstructions = [
-                MIJSONPropertyMovieFrameTime :
-                                        [ MIJSONPropertyMovieTime : frameTime ],
+                MIJSONPropertyMovieFrameTime : [
+                    MIJSONPropertyMovieTimeInSeconds : frameTime
+                ],
                 MIJSONKeyCommands : [ commandDict ]
             ]
             frameProcessInstructions.append(frameInstructions)

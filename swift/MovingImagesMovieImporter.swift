@@ -872,7 +872,8 @@ class MovingImagesMovieImporter: XCTestCase {
     func testGetMovieFrameAt5Secs2() -> Void {
         let frameTime = 5.0
         let options = [
-            MIJSONPropertyMovieFrameTime : [ MIJSONPropertyMovieTime : frameTime ]
+            MIJSONPropertyMovieFrameTime : [
+                MIJSONPropertyMovieTimeInSeconds : frameTime ]
         ]
         let frameGrab = MICGImageFromObjectAndOptions(
             theContext, receiverObject, options, nil)!
@@ -896,7 +897,9 @@ class MovingImagesMovieImporter: XCTestCase {
         let frameTime = 5.0
         let tracks = [ trackIdentDict ]
         let options : [NSString : AnyObject] = [
-            MIJSONPropertyMovieFrameTime : [ MIJSONPropertyMovieTime : frameTime ],
+            MIJSONPropertyMovieFrameTime : [
+                MIJSONPropertyMovieTimeInSeconds : frameTime
+            ],
             MIJSONPropertyMovieTracks : tracks
         ]
         let frameGrab = MICGImageFromObjectAndOptions(

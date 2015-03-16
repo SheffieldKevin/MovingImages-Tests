@@ -536,7 +536,7 @@ class MovingImagesMovieEditor: XCTestCase {
         
         // Get the video frame data from 4 seconds into the imported movie
         let segmentStartTime = [
-            MIJSONPropertyMovieTime : 4.0
+            MIJSONPropertyMovieTimeInSeconds : 4.0
         ]
         
         let segmentDurationTime : [String : AnyObject] = [
@@ -970,12 +970,12 @@ class MovingImagesMovieEditor: XCTestCase {
         
         // Since the duration of first segment is 2 seconds, start 2nd at 2 secs
         let insertionTime2 = [
-            MIJSONPropertyMovieTime : 2.0
+            MIJSONPropertyMovieTimeInSeconds : 2.0
         ]
         
         // Get the video frame data from 4 seconds into the imported movie
         let segmentStartTime = [
-            MIJSONPropertyMovieTime : 4.0
+            MIJSONPropertyMovieTimeInSeconds : 4.0
         ]
 
         let segment2StartTime : [String : AnyObject] = [
@@ -1078,7 +1078,7 @@ class MovingImagesMovieEditor: XCTestCase {
         ]
         
         let emptySegmentDuration = [
-            MIJSONPropertyMovieTime : 0.5
+            MIJSONPropertyMovieTimeInSeconds : 0.5
         ]
         
         let emptySegmentTimeRange = [
