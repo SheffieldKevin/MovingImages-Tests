@@ -564,7 +564,6 @@ class MovingImagesMovieEditor: XCTestCase {
             MIJSONPropertyMovieSourceTrack : sourceTrackID,
             MIJSONPropertyMovieSourceTimeRange : sourceSegmentTimeRange,
             MIJSONPropertyMovieInsertionTime : insertionTime,
-            // MIJSONPropertyMovieAddPassthruInstruction : true
         ]
 
         let passthruInstructionTimeRange = [
