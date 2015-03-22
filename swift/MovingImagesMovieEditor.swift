@@ -1105,7 +1105,8 @@ class MovingImagesMovieEditor: XCTestCase {
             fileName: "movieeditor_export.mp4")
         
         let theUUID = CFUUIDCreate(kCFAllocatorDefault)
-        let pathSubsKey : String = CFUUIDCreateString(kCFAllocatorDefault, theUUID) as String
+        let pathSubsKey : String = CFUUIDCreateString(kCFAllocatorDefault,
+            theUUID) as String
         
         let exportMovieCommand = [
             MIJSONKeyCommand : MIJSONValueExportCommand,
