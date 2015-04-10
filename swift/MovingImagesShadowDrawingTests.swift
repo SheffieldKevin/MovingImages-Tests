@@ -152,7 +152,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
                 MIJSONKeyFillColor : shadowColour
             ]
         ]
-        
+        // writeJSONToFile(drawElement)
         let drawElementCommand = [
             MIJSONKeyCommand : MIJSONValueDrawElementCommand,
             MIJSONKeyReceiverObject : bitmapObject,

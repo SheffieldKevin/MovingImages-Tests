@@ -17,6 +17,16 @@ import Foundation
 import ImageIO
 import AVFoundation
 
+func writeJSONToFile(jsonObject: [String:AnyObject]) -> Void {
+    if NSJSONSerialization.isValidJSONObject(jsonObject) {
+        if let outputStream = NSOutputStream(toFileAtPath: "/Users/ktam/Desktop/DrawShadow.json", append: false) {
+            outputStream.open()
+            NSJSONSerialization.writeJSONObject(jsonObject, toStream: outputStream, options: NSJSONWritingOptions.PrettyPrinted, error:nil)
+            outputStream.close()
+        }
+    }
+}
+
 func GetImageFileURL() -> NSURL? {
     let fm = NSFileManager.defaultManager()
     var error:NSError?
