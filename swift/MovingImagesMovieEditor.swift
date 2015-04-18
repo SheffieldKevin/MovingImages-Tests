@@ -36,7 +36,8 @@ class MovingImagesMovieEditor: XCTestCase {
             ]
         ]
         let theContext = MIContext()
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0, "Error creating a movie editor.")
         if errorCode == MIReplyErrorEnum.NoError
@@ -56,7 +57,7 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
             let result2 = MIMovingImagesHandleCommands(theContext, commandsDict2,
-                nil)
+                nil, nil)
             let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
             XCTAssertEqual(errorCode.rawValue, 0, "Error closing movie editor.")
         }
@@ -85,7 +86,7 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0,
             "Error adding a video track to a movie editor.")
@@ -128,7 +129,7 @@ class MovingImagesMovieEditor: XCTestCase {
             ]
         ]
         
-        let result3 = MIMovingImagesHandleCommands(nil, commandsDict3, nil)
+        let result3 = MIMovingImagesHandleCommands(nil, commandsDict3, nil, nil)
         let errorCode3 = MIGetErrorCodeFromReplyDictionary(result3)
         XCTAssertEqual(errorCode3.rawValue,
             MIReplyErrorEnum.NoError.rawValue,
@@ -144,7 +145,7 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
-        let result4 = MIMovingImagesHandleCommands(nil, commandsDict4, nil)
+        let result4 = MIMovingImagesHandleCommands(nil, commandsDict4, nil, nil)
         let errorCode4 = MIGetErrorCodeFromReplyDictionary(result4)
         XCTAssertEqual(errorCode4.rawValue,
             MIReplyErrorEnum.NoError.rawValue,
@@ -165,7 +166,7 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
-        let result5 = MIMovingImagesHandleCommands(nil, commandsDict5, nil)
+        let result5 = MIMovingImagesHandleCommands(nil, commandsDict5, nil, nil)
         let errorCode5 = MIGetErrorCodeFromReplyDictionary(result5)
         XCTAssertEqual(errorCode5.rawValue, MIReplyErrorEnum.NoError.rawValue,
             "Error closing the movie editor object.")
@@ -189,7 +190,7 @@ class MovingImagesMovieEditor: XCTestCase {
         ]
 
         let theContext = MIContext()
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0, "Error creating a movie editor.")
 
@@ -220,7 +221,8 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
-        let result3 = MIMovingImagesHandleCommands(theContext, commandsDict3, nil)
+        let result3 = MIMovingImagesHandleCommands(theContext, commandsDict3,
+            nil, nil)
         let errorCode3 = MIGetErrorCodeFromReplyDictionary(result3)
         XCTAssertEqual(errorCode3.rawValue, 0,
             "Error adding an video track to a movie editor.")
@@ -239,7 +241,8 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
-        let result4 = MIMovingImagesHandleCommands(theContext, commandsDict4, nil)
+        let result4 = MIMovingImagesHandleCommands(theContext, commandsDict4,
+            nil, nil)
         let errorCode4 = MIGetErrorCodeFromReplyDictionary(result4)
         XCTAssertEqual(errorCode4.rawValue, 0,
             "Error getting properties from a movie editor.")
@@ -262,7 +265,8 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
-        let result5 = MIMovingImagesHandleCommands(theContext, commandsDict5, nil)
+        let result5 = MIMovingImagesHandleCommands(theContext, commandsDict5,
+            nil, nil)
         let errorCode5 = MIGetErrorCodeFromReplyDictionary(result5)
         XCTAssertEqual(errorCode5.rawValue, 0,
             "Error getting properties from a movie editor.")
@@ -321,7 +325,8 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
-        let result7 = MIMovingImagesHandleCommands(theContext, commandsDict7, nil)
+        let result7 = MIMovingImagesHandleCommands(theContext, commandsDict7,
+            nil, nil)
         let errorCode7 = MIGetErrorCodeFromReplyDictionary(result7)
         XCTAssertEqual(errorCode7.rawValue, 0,
             "Error getting movie duration from a movie editor.")
@@ -345,7 +350,8 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
-        let result8 = MIMovingImagesHandleCommands(theContext, commandsDict8, nil)
+        let result8 = MIMovingImagesHandleCommands(theContext, commandsDict8,
+            nil, nil)
         let errorCode8 = MIGetErrorCodeFromReplyDictionary(result8)
         XCTAssertEqual(errorCode8.rawValue, MIReplyErrorEnum.NoError.rawValue,
             "Error getting properties from a movie editor.")
@@ -454,7 +460,8 @@ class MovingImagesMovieEditor: XCTestCase {
         // After running the listed commands above check that the natural size
         // is 0,0 as we've not added any content yet or specified the natural size.
         let context = MIContext()
-        let result1 = MIMovingImagesHandleCommands(context, commandsDict1, nil)
+        let result1 = MIMovingImagesHandleCommands(context, commandsDict1, nil,
+            nil)
         let resultStr1 = MIGetStringFromReplyDictionary(result1)
 
         let origRes1 = "{\"width\":0,\"height\":0}"
@@ -484,7 +491,8 @@ class MovingImagesMovieEditor: XCTestCase {
             ]
         ]
         
-        let result2 = MIMovingImagesHandleCommands(context, commandsDict2, nil)
+        let result2 = MIMovingImagesHandleCommands(context, commandsDict2, nil,
+            nil)
         let resultStr2 = MIGetStringFromReplyDictionary(result2)
         
         let origRes2 = "{\"width\":1920,\"height\":1080}"
@@ -514,7 +522,8 @@ class MovingImagesMovieEditor: XCTestCase {
             ]
         ]
 
-        let result3 = MIMovingImagesHandleCommands(context, commandsDict3, nil)
+        let result3 = MIMovingImagesHandleCommands(context, commandsDict3, nil,
+            nil)
         let resultStr3 = MIGetStringFromReplyDictionary(result3)
         
         XCTAssertEqual(resultStr3, origRes1,
@@ -591,8 +600,8 @@ class MovingImagesMovieEditor: XCTestCase {
                 getNaturalSizeCommand
             ]
         ]
-        let result4 = MIMovingImagesHandleCommands(context,
-            commandDict4, nil)
+        let result4 = MIMovingImagesHandleCommands(context, commandDict4, nil,
+            nil)
         let resultStr4 = MIGetStringFromReplyDictionary(result4)
         
         XCTAssertEqual(resultStr4, origRes2,
@@ -623,7 +632,7 @@ class MovingImagesMovieEditor: XCTestCase {
         ]
         
         let result5 = MIMovingImagesHandleCommands(context,
-            commandDict5, nil)
+            commandDict5, nil, nil)
     
         let resultStr5 = MIGetStringFromReplyDictionary(result5)
         let origRes3 = "{\"width\":960,\"height\":540}"
@@ -816,7 +825,8 @@ class MovingImagesMovieEditor: XCTestCase {
             ]
         ]
 
-        let result13 = MIMovingImagesHandleCommands(context, commandDict13, nil)
+        let result13 = MIMovingImagesHandleCommands(context, commandDict13,
+            nil, nil)
         let result13Str = MIGetStringFromReplyDictionary(result13)
         XCTAssertEqual(result13Str, origRes2,
             "Track natural size not expected.")
@@ -896,7 +906,8 @@ class MovingImagesMovieEditor: XCTestCase {
             ]
         ]
         
-        let result16 = MIMovingImagesHandleCommands(context, cleanupCommands, nil)
+        let result16 = MIMovingImagesHandleCommands(context, cleanupCommands,
+            nil, nil)
         let error16 = MIGetErrorCodeFromReplyDictionary(result16)
         XCTAssertEqual(error16, MIReplyErrorEnum.NoError,
             "Error occurred when exporting the movie.")
@@ -1152,7 +1163,8 @@ class MovingImagesMovieEditor: XCTestCase {
         ]
         
         let context = MIContext()
-        let result1 = MIMovingImagesHandleCommands(context, commandsDict1, nil)
+        let result1 = MIMovingImagesHandleCommands(context, commandsDict1,
+            nil, nil)
         let resultStr1 = MIGetStringFromReplyDictionary(result1)
         let origResult1 = "[{\"sourcetimerange\":{\"start\":{\"flags\":1," +
         "\"value\":24000,\"timescale\":6000,\"epoch\":0},\"duration\"" +
@@ -1187,7 +1199,8 @@ class MovingImagesMovieEditor: XCTestCase {
         "\"targettimerange\":{\"start\":{\"flags\":1,\"value\":15000," +
         "\"timescale\":6000,\"epoch\":0},\"duration\":{\"flags\":1," +
         "\"value\":12000,\"timescale\":6000,\"epoch\":0}}}]"
-        let result3 = MIMovingImagesHandleCommands(context, commandsDict3, nil)
+        let result3 = MIMovingImagesHandleCommands(context, commandsDict3,
+            nil, nil)
         let resultStr3 = MIGetStringFromReplyDictionary(result3)
         XCTAssertEqual(origResult3, resultStr3,
             "Segments of the video track with empty segments differ")
@@ -1197,7 +1210,7 @@ class MovingImagesMovieEditor: XCTestCase {
         let vars2 = [ pathSubsKey : movieExportPath2 ]
         context.appendVariables(vars2)
         let cleanupResult = MIMovingImagesHandleCommands(context,
-            cleanupCommands, nil)
+            cleanupCommands, nil, nil)
         context.dropVariablesDictionary(vars2)
         let error4 = MIGetErrorCodeFromReplyDictionary(cleanupResult)
         XCTAssertEqual(error4.rawValue, MIReplyErrorEnum.OperationFailed.rawValue,
@@ -1510,7 +1523,7 @@ class MovingImagesMovieEditor: XCTestCase {
         ]
         
         let instructionResult = MIMovingImagesHandleCommands(nil,
-            videoInstructionCommands, nil)
+            videoInstructionCommands, nil, nil)
         let defaultContext = MIContext.defaultContext()
         let theImage = defaultContext.getCGImageWithIdentifier(compositionMapKey)
         saveCGImageToAJPEGFile(theImage, baseName: "TransformCompositionMap")
@@ -1825,7 +1838,7 @@ class MovingImagesMovieEditor: XCTestCase {
         ]
         
         let instructionResult = MIMovingImagesHandleCommands(nil,
-            videoInstructionCommands, nil)
+            videoInstructionCommands, nil, nil)
         let defaultContext = MIContext.defaultContext()
         let theImage = defaultContext.getCGImageWithIdentifier(compositionMapKey)
         saveCGImageToAJPEGFile(theImage, baseName: "OpacityCompositionMap")
@@ -2151,7 +2164,7 @@ class MovingImagesMovieEditor: XCTestCase {
         
         let theContext = MIContext()
         let instructionResult = MIMovingImagesHandleCommands(theContext,
-            videoInstructionCommands, nil)
+            videoInstructionCommands, nil, nil)
         let theImage = theContext.getCGImageWithIdentifier(compositionMapKey)
         saveCGImageToAJPEGFile(theImage, baseName: "CropCompositionMap")
         theContext.removeImageWithIdentifier(compositionMapKey)
@@ -2487,7 +2500,7 @@ class MovingImagesMovieEditor: XCTestCase {
         
         let theContext = MIContext()
         let instructionResult = MIMovingImagesHandleCommands(theContext,
-            videoInstructionCommands, nil)
+            videoInstructionCommands, nil, nil)
         let theImage = theContext.getCGImageWithIdentifier(compositionMapKey)
         saveCGImageToAJPEGFile(theImage, baseName: "CropRampCompositionMap")
         theContext.removeImageWithIdentifier(compositionMapKey)
@@ -2893,7 +2906,7 @@ class MovingImagesMovieEditor: XCTestCase {
         
         let theContext = MIContext()
         let instructionResult = MIMovingImagesHandleCommands(theContext,
-            videoInstructionCommands, nil)
+            videoInstructionCommands, nil, nil)
         let theImage = theContext.getCGImageWithIdentifier(compositionMapKey)
         saveCGImageToAJPEGFile(theImage, baseName: "RampTransitionCompositionMap")
         theContext.removeImageWithIdentifier(compositionMapKey)

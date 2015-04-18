@@ -115,7 +115,8 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             ]
         ]
         let theContext = MIContext()
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0, "Error creating a movie editor.")
         // println("Reply string: \(MIGetStringFromReplyDictionary(result))")
@@ -137,7 +138,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
                 ]
             ]
             let result2 = MIMovingImagesHandleCommands(theContext, commandsDict2,
-                nil)
+                nil, nil)
             let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
             XCTAssertEqual(errorCode2.rawValue, 0, "Error closing movie editor.")
         }
@@ -157,7 +158,8 @@ class MovingImagesVideoFramesWriter: XCTestCase {
                 createVideoWriterCommand2
             ]
         ]
-        let result3 = MIMovingImagesHandleCommands(theContext, commandsDict3, nil)
+        let result3 = MIMovingImagesHandleCommands(theContext, commandsDict3,
+            nil, nil)
         let errorCode3 = MIGetErrorCodeFromReplyDictionary(result3)
         XCTAssertEqual(errorCode3.rawValue, 0,
                        "Error creating video frames writer.")
@@ -208,13 +210,14 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             ]
         ]
         let theContext = MIContext()
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil,
+            nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0,
             "Error adding a ProRes4444 writer input to the video frame writer.")
 
         let result2 = MIMovingImagesHandleCommands(theContext,
-            getVideoWriterProperties, nil)
+            getVideoWriterProperties, nil, nil)
         let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
         XCTAssertEqual(errorCode2.rawValue, 0,
             "Error getting properties of a video frames writer.")
@@ -259,7 +262,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             ]
         ]
 
-        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0,
             "Error adding a ProRes422 writer input to the video frame writer.")
@@ -290,7 +293,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             ]
         ]
 
-        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0,
             "Error adding a JPEG writer input to the video frame writer.")
@@ -324,7 +327,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             ]
         ]
         
-        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0,
             "Error adding a ProRes422 writer input to the video frame writer.")
@@ -360,7 +363,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             ]
         ]
         
-        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0,
             "Error adding a custom h264  writer input to the video frame writer.")
@@ -444,7 +447,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             ]
         ]
         
-        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0,
             "Error adding a custom h264  writer input to the video frame writer.")
@@ -620,7 +623,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
                 closeMovieImporterCommand
             ]
         ]
-        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil, nil)
         let resultString = MIGetStringFromReplyDictionary(result)
         // println("===========================================================")
         // println(resultString)
@@ -973,7 +976,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
                 closeMovieImporterCommand
             ]
         ]
-        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error generating movie generated with copied frame durations.")
@@ -1275,7 +1278,8 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             ]
         ]
         let theContext = MIContext()
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil,
+            nil)
         let resultString = MIGetStringFromReplyDictionary(result)
         println("===========================================================")
         println(resultString)
@@ -1559,7 +1563,8 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             ]
         ]
         let theContext = MIContext()
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil,
+            nil)
         let resultString = MIGetStringFromReplyDictionary(result)
         println("===========================================================")
         println(resultString)

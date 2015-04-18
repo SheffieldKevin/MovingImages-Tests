@@ -180,7 +180,7 @@
     theCommands = @{ MIJSONKeyCommands : @[ createBitmapContext ],
                      MIJSONKeyCleanupCommands : @[ closeCommand ] };
     NSDictionary *resultDict;
-    resultDict = MIMovingImagesHandleCommands(nil, theCommands, nil);
+    resultDict = MIMovingImagesHandleCommands(nil, theCommands, nil, nil);
 
     // First check whether an error occurred when asking for the list of presets
     MIReplyErrorEnum errorCode = MIGetErrorCodeFromReplyDictionary(resultDict);
@@ -267,7 +267,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
         dictionary = container;
 
     [self measureBlock:^{
-        MIMovingImagesHandleCommands(nil, dictionary, nil);
+        MIMovingImagesHandleCommands(nil, dictionary, nil, nil);
     }];
 }
 
@@ -289,7 +289,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
         dictionary = container;
     
     MIContext *context = MICreateContext();
-    NSDictionary *results = MIMovingImagesHandleCommands(context, dictionary, nil);
+    NSDictionary *results = MIMovingImagesHandleCommands(context, dictionary, nil, nil);
     // First check whether an error occurred when asking for the list of presets
     MIReplyErrorEnum errorCode = MIGetErrorCodeFromReplyDictionary(results);
     XCTAssertEqual(errorCode, 0, "Error drawing rounded rects in a MIContext");
@@ -324,7 +324,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
 
     XCTestExpectation *expectation = [self expectationWithDescription:
                                       @"Rounded rectangle with equation drawing"];
-    MIMovingImagesHandleCommands(nil, dictionary, ^(NSDictionary *reply) {
+    MIMovingImagesHandleCommands(nil, dictionary, nil, ^(NSDictionary *reply) {
         MIReplyErrorEnum result = MIGetErrorCodeFromReplyDictionary(reply);
         XCTAssert(result == MIReplyErrorNoError);
         [expectation fulfill];

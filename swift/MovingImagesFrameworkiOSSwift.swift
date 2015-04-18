@@ -1,10 +1,6 @@
-//
 //  MovingImagesFrameworkiOSSwift.swift
 //  MovingImagesFramework
-//
-//  Created by Kevin Meaney on 08/10/2014.
-//  Copyright (c) 2014 Apple Inc. All rights reserved.
-//
+//  Copyright (c) 2014-2015 Kevin Meaney
 
 #if os(iOS)
 import UIKit
@@ -184,7 +180,8 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
             MIJSONKeyReceiverObject : bitmapObject ]
         let theCommands = [ MIJSONKeyCommands : [ createBitmapContext ],
             MIJSONKeyCleanupCommands : [ closeCommand] ]
-        let resultDict = MIMovingImagesHandleCommands(nil, theCommands, nil)
+        let resultDict = MIMovingImagesHandleCommands(nil, theCommands, nil,
+            nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(resultDict)
         XCTAssertEqual(errorCode.rawValue, 0,
                                         "Error creating/close bitmap context")
@@ -259,7 +256,8 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
             "draw_elements") as! [String : AnyObject]
 
         self.measureBlock() {
-            let commandResult = MIMovingImagesHandleCommands(nil, commandDict, nil)
+            let commandResult = MIMovingImagesHandleCommands(nil, commandDict,
+                nil, nil)
         }
     }
 
@@ -269,7 +267,7 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
         let theContext:MIContext = MICreateContext()
         let commandResult = MIMovingImagesHandleCommands(theContext,
             commandDict as [NSObject : AnyObject],
-            nil)
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(commandResult)
         XCTAssertEqual(errorCode.rawValue, 0,
             "Error running commands in context")
@@ -295,7 +293,7 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
         ]
         let theContext:MIContext = MICreateContext()
         let commandResult = MIMovingImagesHandleCommands(theContext, commandDict,
-            nil)
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(commandResult)
         XCTAssertEqual(errorCode.rawValue, 0,
             "Error using the CIBloom filter.")
@@ -335,7 +333,7 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
         let expectation = self.expectationWithDescription(
                                     "Rounded rectangle with equation drawing")
 
-        MIMovingImagesHandleCommands(nil, container) {
+        MIMovingImagesHandleCommands(nil, container, nil) {
             (replyDict: [NSObject : AnyObject]) -> Void in
             let result = MIGetErrorCodeFromReplyDictionary(replyDict)
             XCTAssert(result == MIReplyErrorEnum.NoError,
@@ -401,7 +399,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
     func testDrawingABundleImage() -> Void {
         let commandDict1 = MovingImagesFrameworkiOSSwift.createDictionaryFromJSON(
                             "draw_bundleimage1") as! [NSString : AnyObject]
-        let result = MIMovingImagesHandleCommands(nil, commandDict1, nil)
+        let result = MIMovingImagesHandleCommands(nil, commandDict1, nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0, "Error creating the bitmap context")
         let objectDict = ["objecttype":"bitmapcontext",
@@ -413,7 +411,8 @@ open(filePath, 'w') { |f| f.puts jsonString }
         theContext.assignCGImage(image, identifier: imageID)
         let commandDict2 = MovingImagesFrameworkiOSSwift.createDictionaryFromJSON(
                                 "draw_bundleimage2") as! [NSString : AnyObject]
-        let result2 = MIMovingImagesHandleCommands(theContext, commandDict2, nil)
+        let result2 = MIMovingImagesHandleCommands(theContext, commandDict2,
+            nil, .None)
         theContext.removeImageWithIdentifier(imageID)
         let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
         XCTAssertEqual(errorCode2.rawValue, 0, "Error drawing bundle image.")
@@ -430,7 +429,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0,
                         "Error getting list movie import types")
@@ -473,7 +472,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0,
                        "Error getting list movie import types")
@@ -517,7 +516,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(nil, commandsDict, nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0,
             "Error getting list movie import types")
@@ -535,7 +534,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
                 ]
             ]
         ]
-        let result2 = MIMovingImagesHandleCommands(nil, commandsDict2, nil)
+        let result2 = MIMovingImagesHandleCommands(nil, commandsDict2, nil, nil)
         let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
         XCTAssertEqual(errorCode2.rawValue, 0,
             "Error getting list movie import types")
@@ -576,7 +575,8 @@ open(filePath, 'w') { |f| f.puts jsonString }
             ]
         ]
         let theContext = MIContext()
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0,
             "Error creating or getting properties of a movie file")
@@ -595,14 +595,14 @@ open(filePath, 'w') { |f| f.puts jsonString }
             ]
         ]
         let result2 = MIMovingImagesHandleCommands(theContext, commandsDict2,
-            nil)
+            nil, nil)
         let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
         XCTAssertEqual(errorCode2.rawValue, 0,
             "Error closing the movie importer object")
         
         // Lets try running that command again, we should get an error.
         let result25 = MIMovingImagesHandleCommands(theContext, commandsDict2,
-            nil)
+            nil, nil)
         let errorCode25 = MIGetErrorCodeFromReplyDictionary(result25)
         XCTAssertEqual(errorCode25.rawValue, 246,
             "Error closing the movie importer object")
@@ -619,7 +619,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
             ]
         ]
         let result3 = MIMovingImagesHandleCommands(theContext, commandsDict3,
-            nil)
+            nil, nil)
         let errorCode3 = MIGetErrorCodeFromReplyDictionary(result3)
         XCTAssertEqual(errorCode3, MIReplyErrorEnum.NoError,
             "Error getting number of objects")
@@ -656,7 +656,8 @@ open(filePath, 'w') { |f| f.puts jsonString }
         let theContext = MIContext()
         let variables = [ pathSubstitutionKey : filePath ]
         theContext.appendVariables(variables)
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0,
             "Error creating or getting properties of a movie file")
@@ -675,7 +676,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
             ]
         ]
         let result2 = MIMovingImagesHandleCommands(theContext, commandsDict2,
-            nil)
+            nil, nil)
         let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
         XCTAssertEqual(errorCode2.rawValue, 0,
             "Error closing the movie importer object")
@@ -751,7 +752,8 @@ open(filePath, 'w') { |f| f.puts jsonString }
             ]
         ]
         let theContext = MIContext()
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         let resStr = MIGetStringFromReplyDictionary(result)
         

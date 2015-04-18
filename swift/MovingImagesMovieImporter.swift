@@ -47,7 +47,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
                                             "Error createing movie importer")
@@ -64,7 +65,7 @@ class MovingImagesMovieImporter: XCTestCase {
             ]
         ]
         let result2 = MIMovingImagesHandleCommands(theContext, commandsDict2,
-            nil)
+            nil, nil)
         let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
         // We confirm that this works in a different test. But just do the check
         // anyway.
@@ -83,7 +84,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting object reference of movie importer object")
@@ -106,7 +108,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result2 = MIMovingImagesHandleCommands(theContext, commandsDict2, nil)
+        let result2 = MIMovingImagesHandleCommands(theContext, commandsDict2,
+            nil, nil)
         let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
         XCTAssertEqual(errorCode2, MIReplyErrorEnum.NoError,
             "Error getting object name of movie importer object")
@@ -123,7 +126,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result3 = MIMovingImagesHandleCommands(theContext, commandsDict3, nil)
+        let result3 = MIMovingImagesHandleCommands(theContext, commandsDict3,
+            nil, nil)
         let errorCode3 = MIGetErrorCodeFromReplyDictionary(result3)
         XCTAssertEqual(errorCode3, MIReplyErrorEnum.NoError,
             "Error getting object type of movie importer object")
@@ -142,7 +146,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting movie metadata")
@@ -173,7 +178,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting number of tracks from a movie file")
@@ -195,7 +201,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting number of tracks from a movie file")
@@ -215,7 +222,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting movie duration")
@@ -236,7 +244,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting number of tracks from a movie file")
@@ -259,7 +268,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
                             "Error getting number of tracks from a movie file")
@@ -282,7 +292,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil,
+            nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting properties of a movie importer object.")
@@ -306,7 +317,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil);
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil,
+            nil);
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting a video track's persistent track id.")
@@ -325,7 +337,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil);
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil);
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting media type of a track from a movie file")
@@ -345,7 +358,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil);
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil);
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting formats from the first video track of a movie file")
@@ -365,7 +379,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil);
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil);
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting whether the first video track is enabled.")
@@ -387,7 +402,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil);
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil);
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting the time range of first video track in movie.")
@@ -410,7 +426,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil);
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil);
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting language code of first video track in movie.")
@@ -430,7 +447,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil);
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil);
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting language code of first video track in movie.")
@@ -454,7 +472,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil);
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil,
+            nil);
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting language code of first audio track in movie.")
@@ -474,7 +493,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil);
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil);
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting natural size of first video track in movie.")
@@ -499,7 +519,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil);
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil,
+            nil);
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.InvalidProperty,
             "A track that is audible shouldn't have a natural size.")
@@ -516,7 +537,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil);
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil);
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting affine transform of first video track in movie.")
@@ -541,7 +563,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil);
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil);
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Failed for getting the preferred volume of an audio track.")
@@ -561,7 +584,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil);
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil);
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Failed to getting the video track's nominal frame rate.")
@@ -581,7 +605,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil);
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil);
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Assertion failed for getting the video track's min frame duration.")
@@ -603,7 +628,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil);
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil);
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting whether frames will need reordering.")
@@ -625,7 +651,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil);
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil);
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Assertion failed for getting the video track's segment mappings.")
@@ -651,7 +678,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting number of tracks from a movie file")
@@ -675,7 +703,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting number of tracks from a movie file")
@@ -698,7 +727,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil,
+            nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting number of tracks from a movie file")
@@ -725,7 +755,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting metadata formats from audio track")
@@ -753,7 +784,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting metadata for format.")
@@ -780,7 +812,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting audio track metadata from a movie file")
@@ -802,7 +835,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil,
+            nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting video track properties")
@@ -831,7 +865,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting audio track properties")
@@ -944,7 +979,8 @@ class MovingImagesMovieImporter: XCTestCase {
                 ]
             ]
         ]
-        let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil)
+        let result = MIMovingImagesHandleCommands(theContext, commandsDict,
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting object reference of movie importer object")

@@ -179,7 +179,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
         
         let theContext = MIContext()
         let result = MIMovingImagesHandleCommands(theContext, commandInstructions,
-            nil)
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssert(MIReplyErrorEnum.NoError == errorCode, "Failed to create image")
         let theImage = theContext.getCGImageWithIdentifier(imageIdentifier)
@@ -295,7 +295,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
         
         let theContext = MIContext()
         let result = MIMovingImagesHandleCommands(theContext, commandInstructions,
-            nil)
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssert(MIReplyErrorEnum.NoError == errorCode, "Failed to create image")
         if errorCode == MIReplyErrorEnum.NoError
@@ -383,7 +383,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
         
         let theContext = MIContext()
         let result = MIMovingImagesHandleCommands(theContext, commandInstructions,
-            nil)
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssert(MIReplyErrorEnum.NoError == errorCode, "Failed to create image")
         if errorCode == MIReplyErrorEnum.NoError
@@ -520,7 +520,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
         
         let theContext = MIContext()
         let result = MIMovingImagesHandleCommands(theContext, commandInstructions,
-            nil)
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssert(MIReplyErrorEnum.NoError == errorCode, "Failed to create image")
         if errorCode == MIReplyErrorEnum.NoError
@@ -663,7 +663,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
         
         let theContext = MIContext()
         let result = MIMovingImagesHandleCommands(theContext, commandInstructions,
-            nil)
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssert(MIReplyErrorEnum.NoError == errorCode, "Failed to create image")
         if errorCode == MIReplyErrorEnum.NoError
@@ -764,7 +764,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
         
         let theContext = MIContext()
         let result = MIMovingImagesHandleCommands(theContext, commandInstructions,
-            nil)
+            nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssert(MIReplyErrorEnum.NoError == errorCode, "Failed to create image")
         
