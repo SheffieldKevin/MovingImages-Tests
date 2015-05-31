@@ -814,8 +814,9 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             ]
         ]
         
+/*
         let textBoxBitmapName = "testVideoWriter.bitmap.textboxname"
-        
+
         let createTextBoxCommand = [
             MIJSONKeyCommand : MIJSONValueCreateCommand,
             MIJSONKeyObjectType : MICGBitmapContextKey,
@@ -823,7 +824,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             MIJSONPropertyPreset : MIPlatformDefaultBitmapContext,
             MIJSONKeySize : boxSize
         ]
-        
+
         let textBoxBitmapObject = [
             MIJSONKeyObjectType : MICGBitmapContextKey,
             MIJSONKeyObjectName : textBoxBitmapName
@@ -840,7 +841,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             MIJSONKeyCommand : MIJSONValueCloseCommand,
             MIJSONKeyReceiverObject : textBoxBitmapObject
         ]
-        
+*/
         // An array of commands to be run before processing the frames.
         let preProcessCommands = [
             createVideoWriterCommand3,
