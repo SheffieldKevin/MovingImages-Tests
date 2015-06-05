@@ -1,10 +1,7 @@
-//
 //  CompareImages.swift
 //  MovingImagesFramework
 //
-//  Created by Kevin Meaney on 10/12/2014.
-//  Copyright (c) 2014 Apple Inc. All rights reserved.
-//
+//  Copyright (c) 2015 Zukini Ltd.
 
 import Foundation
 import QuartzCore
