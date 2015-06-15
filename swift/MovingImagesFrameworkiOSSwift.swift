@@ -1,6 +1,6 @@
 //  MovingImagesFrameworkiOSSwift.swift
 //  MovingImagesFramework
-//  Copyright (c) 2014-2015 Kevin Meaney
+//  Copyright (c) 2015 Zukini Ltd.
 
 #if os(iOS)
 import UIKit
