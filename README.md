@@ -7,4 +7,5 @@ These tests are provided in their own public repository intended to be included 
 
 These tests are far from complete. The coverage of the public API of the MovingImages framework for the video related functionality is reasonably complete.
 
-Within the private MovingImages Framework repository there are a much larger number of tests written in that cover all the functionality of the framework.
+There is greater test coverage of the MovingImages framework via the MovingImages LaunchAgent with test scripts written in ruby.
+
