@@ -883,18 +883,16 @@ class MovingImagesMovieImporter: XCTestCase {
         let options = [
             MIJSONPropertyMovieFrameTime : frameTimeDict
         ]
-        let frameGrab = MICGImageFromObjectAndOptions(
+        let frameGrab = MICreateImageFromObjectAndOptions(
                         theContext, receiverObject, options, nil)!
         let theImage = createCGImageFromNamedFile("FrameAt5Secs",
             fileExtension:"png")!
-        let sameMeta = doImagesHaveSameMeta(image1: frameGrab.CGImage()!,
-            image2: theImage)
+        let sameMeta = doImagesHaveSameMeta(image1: frameGrab, image2: theImage)
         XCTAssert(sameMeta,
                         "Frame grab and image should have same basic meta data")
         #if os(OSX)
         if sameMeta {
-            let theDiff = compareImages(image1: frameGrab.CGImage()!,
-                image2: theImage)
+            let theDiff = compareImages(image1: frameGrab, image2: theImage)
             XCTAssert(theDiff < 54,
                                 "Images have different pixel values \(theDiff)")
         }
@@ -907,18 +905,16 @@ class MovingImagesMovieImporter: XCTestCase {
             MIJSONPropertyMovieFrameTime : [
                 MIJSONPropertyMovieTimeInSeconds : frameTime ]
         ]
-        let frameGrab = MICGImageFromObjectAndOptions(
+        let frameGrab = MICreateImageFromObjectAndOptions(
             theContext, receiverObject, options, nil)!
         let theImage = createCGImageFromNamedFile("FrameAt5Secs",
             fileExtension:"png")!
-        let sameMeta = doImagesHaveSameMeta(image1: frameGrab.CGImage()!,
-            image2: theImage)
+        let sameMeta = doImagesHaveSameMeta(image1: frameGrab, image2: theImage)
         XCTAssert(sameMeta,
             "Frame grab and image should have same basic meta data")
         #if os(OSX)
         if sameMeta {
-            let theDiff = compareImages(image1: frameGrab.CGImage()!,
-                image2: theImage)
+            let theDiff = compareImages(image1: frameGrab, image2: theImage)
             XCTAssert(theDiff < 54,
                                 "Images have different pixel values \(theDiff)")
         }
@@ -934,18 +930,16 @@ class MovingImagesMovieImporter: XCTestCase {
             ],
             MIJSONPropertyMovieTracks : tracks
         ]
-        let frameGrab = MICGImageFromObjectAndOptions(
+        let frameGrab = MICreateImageFromObjectAndOptions(
             theContext, receiverObject, options, nil)!
         let theImage = createCGImageFromNamedFile("FrameAt5Secs",
                                     fileExtension:"png")!
-        let sameMeta = doImagesHaveSameMeta(image1: frameGrab.CGImage()!,
-            image2: theImage)
+        let sameMeta = doImagesHaveSameMeta(image1: frameGrab, image2: theImage)
         XCTAssert(sameMeta,
             "Frame grab and image should have same basic meta data")
         #if os(OSX)
         if sameMeta {
-            let theDiff = compareImages(image1: frameGrab.CGImage()!,
-                image2: theImage)
+            let theDiff = compareImages(image1: frameGrab, image2: theImage)
             XCTAssert(theDiff < 54,
                 "Images have different pixel values \(theDiff)")
         }
@@ -960,11 +954,11 @@ class MovingImagesMovieImporter: XCTestCase {
             MIJSONPropertyMovieTracks : tracks
         ]
 
-        let frameGrab = MICGImageFromObjectAndOptions(
+        let frameGrab = MICreateImageFromObjectAndOptions(
             theContext, receiverObject, options, nil)
-        let frameGrab2 = MICGImageFromObjectAndOptions(
+        let frameGrab2 = MICreateImageFromObjectAndOptions(
             theContext, receiverObject, options, nil)
-        let frameGrab3 = MICGImageFromObjectAndOptions(
+        let frameGrab3 = MICreateImageFromObjectAndOptions(
             theContext, receiverObject, options, nil)
         
         let commandsDict = [
