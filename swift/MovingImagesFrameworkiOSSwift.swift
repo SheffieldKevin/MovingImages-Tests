@@ -388,7 +388,7 @@ bitmap_object = SmigIDHash.make_objectid(objecttype: :bitmapcontext,
                                          objectname: :movingimages_framework_test)
 
 draw_cmd = MovingImagesPerformance.create_drawbundleimage_command(bitmap_object,
-                    imageident: "yvs.movingimages.framework.tests.imageident1")
+                    imageident: "zukini.movingimages.framework.tests.imageident1")
 smig_commands.add_command(draw_cmd)
 
 jsonString = JSON.pretty_generate(smig_commands.commandshash)
@@ -406,7 +406,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
             "objectname":"movingimages_framework_test"]
         
         let theContext = MIContext.defaultContext()
-        let imageID = "yvs.movingimages.framework.tests.imageident1"
+        let imageID = "zukini.movingimages.framework.tests.imageident1"
         let image = createCGImageFromNamedJPEGImage("curlycat")
         theContext.assignCGImage(image, identifier: imageID)
         let commandDict2 = MovingImagesFrameworkiOSSwift.createDictionaryFromJSON(

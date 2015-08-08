@@ -8,7 +8,7 @@
       },
       "drawinstructions": {
         "elementtype": "drawimage",
-        "imageidentifier": "yvs.movingimages.framework.tests.imageident1",
+        "imageidentifier": "zukini.movingimages.framework.tests.imageident1",
         "destinationrectangle": {
           "origin": {
             "x": 0,
