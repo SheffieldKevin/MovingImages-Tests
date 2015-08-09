@@ -93,7 +93,7 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
             MIJSONPropertyKey : MIJSONPropertyVersion ]
         let resultDict = MIMovingImagesHandleCommand(nil, commandDict)
         let resultString = MIGetStringFromReplyDictionary(resultDict)
-        XCTAssertEqual(resultString, "0.3a", "Version numbers differ")
+        XCTAssertEqual(resultString, "1.0", "Version numbers differ")
     }
 
     func testHandleGet0NumberOfObjectCommand() -> Void {

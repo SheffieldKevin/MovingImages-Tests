@@ -50,7 +50,7 @@
     NSDictionary *resultDict = MIMovingImagesHandleCommand(nil, commandDict);
     NSString *resultString = MIGetStringFromReplyDictionary(resultDict);
     
-    XCTAssertEqualObjects(resultString, @"0.3a", @"Version numbers differ");
+    XCTAssertEqualObjects(resultString, @"1.0", @"Version numbers differ");
 }
 
 // Get the number of existing objects and confirm that it is zero.
