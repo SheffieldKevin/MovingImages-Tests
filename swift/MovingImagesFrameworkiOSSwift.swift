@@ -66,7 +66,7 @@ func saveImageFileToSharedPhotoLibrary(#filePath: String) -> Void {
 class MovingImagesFrameworkiOSSwift: XCTestCase {
 
     override func setUp() {
-        MIInitializeCocoaLumberjack()
+        // MIInitializeCocoaLumberjack()
         super.setUp()
     }
     
