@@ -16,7 +16,7 @@ import Photos
  @brief Returns true if images have same meta. Width, Height, bit depth.
  @discussion Assumes images are non null.
 */
-func doImagesHaveSameMeta(#image1:CGImage, #image2:CGImage) -> Bool {
+func doImagesHaveSameMeta(image1 image1:CGImage, image2:CGImage) -> Bool {
     if CGImageGetWidth(image1) != CGImageGetWidth(image2) {
         return false
     }
@@ -41,7 +41,7 @@ func doImagesHaveSameMeta(#image1:CGImage, #image2:CGImage) -> Bool {
 }
 
 #if os(iOS)
-func compareImages(#image1:CGImage, #image2:CGImage) -> Int {
+func compareImages(image1 image1:CGImage, image2:CGImage) -> Int {
     if doImagesHaveSameMeta(image1: image1, image2: image2)
     {
         return 0
@@ -58,7 +58,7 @@ func compareImages(#image1:CGImage, #image2:CGImage) -> Int {
  the images passed into this function. OSX only as iOS doesn't have the
  CIAreaMaximum filter.
 */
-func compareImages(#image1:CGImage, #image2:CGImage) -> Int {
+func compareImages(image1 image1:CGImage, image2:CGImage) -> Int {
     var diff = 0
 
     // First create the CIImage representations of the CGImage.
@@ -66,13 +66,13 @@ func compareImages(#image1:CGImage, #image2:CGImage) -> Int {
     let ciImage2 = CIImage(CGImage: image2)
     
     // Create the difference blend mode filter and set its properties.
-    let diffFilter = CIFilter(name: "CIDifferenceBlendMode")
+    let diffFilter = CIFilter(name: "CIDifferenceBlendMode")!
     diffFilter.setDefaults()
     diffFilter.setValue(ciImage1, forKey: kCIInputImageKey)
     diffFilter.setValue(ciImage2, forKey: kCIInputBackgroundImageKey)
     
     // Create the area max filter and set its properties.
-    let areaMaxFilter = CIFilter(name: "CIAreaMaximum")
+    let areaMaxFilter = CIFilter(name: "CIAreaMaximum")!
     areaMaxFilter.setDefaults()
     areaMaxFilter.setValue(diffFilter.valueForKey(kCIOutputImageKey),
         forKey: kCIInputImageKey)
@@ -87,19 +87,19 @@ func compareImages(#image1:CGImage, #image2:CGImage) -> Int {
     let bitmapInfo = CGBitmapInfo(rawValue: alphaInfo.rawValue)
     let colorSpace = CGColorSpaceCreateDeviceRGB()
     var buf: [CUnsignedChar] = Array<CUnsignedChar>(count: 16, repeatedValue: 255)
-    let context = CGBitmapContextCreate(&buf, 1, 1, 8, 16, colorSpace, bitmapInfo)
+    let context = CGBitmapContextCreate(&buf, 1, 1, 8, 16, colorSpace, bitmapInfo.rawValue)
     
     // Now create the core image context CIContext from the bitmap context.
-    let ciContextOpts : [NSString : AnyObject] = [
+    let ciContextOpts : [String : AnyObject] = [
           kCIContextWorkingColorSpace : colorSpace,
-        kCIContextUseSoftwareRenderer : false
+        kCIContextUseSoftwareRenderer : bool
     ]
     let ciContext = CIContext(CGContext: context, options: ciContextOpts)
     
     // Get the output CIImage and draw that to the Core Image context.
     let valueImage = areaMaxFilter.valueForKey(kCIOutputImageKey) as! CIImage
     ciContext.drawImage(valueImage, inRect: CGRectMake(0,0,1,1),
-        fromRect: valueImage.extent())
+        fromRect: valueImage.extent)
     
     // This will have modified the contents of the buffer used for the CGContext.
     // Find the maximum value of the different color components. Remember that
@@ -111,13 +111,13 @@ func compareImages(#image1:CGImage, #image2:CGImage) -> Int {
 }
 #endif
 
-func makeURLFromNamedFile(namedFile: String, #fileExtension: String) -> NSURL {
+func makeURLFromNamedFile(namedFile: String, fileExtension: String) -> NSURL {
     let testBundle = NSBundle(forClass: MovingImagesFrameworkiOSSwift.self)
     let url = testBundle.URLForResource(namedFile, withExtension:fileExtension)!
     return url
 }
 
-func createCGImageFromNamedFile(namedImage: String, #fileExtension: String)
+func createCGImageFromNamedFile(namedImage: String, fileExtension: String)
     -> CGImage? {
     let theURL = makeURLFromNamedFile(namedImage, fileExtension: fileExtension)
     let imageSource = CGImageSourceCreateWithURL(theURL, nil)
@@ -156,16 +156,16 @@ func makeSaveFileURLPath(fileName: String) -> NSURL {
     return NSURL.fileURLWithPath("/Users/ktam/Desktop/Current/iOSSim/" + fileName)!
 #else
     let fp = "~/Desktop/Current/OSX/".stringByExpandingTildeInPath + "/" + fileName
-    return NSURL.fileURLWithPath(fp)!
+    return NSURL.fileURLWithPath(fp)
 #endif
 }
 
-func saveCGImageToAPNGFile(theImage: CGImageRef, #fileName: String) -> Void {
-    saveCGImage(theImage, makeSaveFileURLPath(fileName), kUTTypePNG as String)
+func saveCGImageToAPNGFile(theImage: CGImageRef, fileName: String) -> Void {
+    saveCGImage(theImage, fileURL: makeSaveFileURLPath(fileName), uti: kUTTypePNG as String)
 }
 
-func saveCGImageToAJPEGFile(theImage: CGImageRef, #fileName: String) -> Void {
-    saveCGImage(theImage, makeSaveFileURLPath(fileName), kUTTypePNG as String)
+func saveCGImageToAJPEGFile(theImage: CGImageRef, fileName: String) -> Void {
+    saveCGImage(theImage, fileURL: makeSaveFileURLPath(fileName), uti: kUTTypePNG as String)
 }
 
 #else
@@ -204,7 +204,7 @@ func moveImageFileToPhotoLibrary(fileURL: NSURL) -> Void {
 }
 
 // This version is for saving a file when running on an iOS device.
-func saveCGImageToAPNGFile(theImage: CGImageRef, #fileName: String) -> Void {
+func saveCGImageToAPNGFile(theImage: CGImageRef, fileName: String) -> Void {
     let fileURL = makeSaveFileURLPath(fileName)
     saveCGImage(theImage, fileURL, String(kUTTypePNG))
 
@@ -213,7 +213,7 @@ func saveCGImageToAPNGFile(theImage: CGImageRef, #fileName: String) -> Void {
 }
 
 // This version is for saving a file when running on an iOS device.
-func saveCGImageToAJPEGFile(theImage: CGImageRef, #fileName: String) -> Void {
+func saveCGImageToAJPEGFile(theImage: CGImageRef, fileName: String) -> Void {
     let fileURL = makeSaveFileURLPath(fileName)
     saveCGImage(theImage, fileURL, String(kUTTypeJPEG))
 
@@ -223,20 +223,20 @@ func saveCGImageToAJPEGFile(theImage: CGImageRef, #fileName: String) -> Void {
 
 #endif
 
-func makeFileName(#baseName: String) -> String {
+func makeFileName(baseName baseName: String) -> String {
     return baseName + platformSuffix
 }
 
-func makeFileNameWithExtension(baseName: String, #extn: String) -> String {
+func makeFileNameWithExtension(baseName: String, extn: String) -> String {
     return makeFileName(baseName: baseName) + extn;
 }
 
-func saveCGImageToAPNGFile(theImage: CGImageRef, #baseName: String) -> Void {
+func saveCGImageToAPNGFile(theImage: CGImageRef, baseName: String) -> Void {
     let fileName = makeFileNameWithExtension(baseName, extn: ".png")
     saveCGImageToAPNGFile(theImage, fileName: fileName)
 }
 
-func saveCGImageToAJPEGFile(theImage: CGImageRef, #baseName: String) -> Void {
+func saveCGImageToAJPEGFile(theImage: CGImageRef, baseName: String) -> Void {
     let fileName = makeFileNameWithExtension(baseName, extn: ".jpg")
     saveCGImageToAJPEGFile(theImage, fileName: fileName)
 }

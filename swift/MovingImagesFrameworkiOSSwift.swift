@@ -28,17 +28,20 @@ func GetImageFileURL() -> NSURL? {
     var error:NSError?
     
     #if os(iOS)
-        return fm.URLForDirectory(NSSearchPathDirectory.CachesDirectory,
-        inDomain: NSSearchPathDomainMask.UserDomainMask,
-        appropriateForURL: .None,
-        create: false,
-        error: &error)
+    return fm.URLForDirectory(NSSearchPathDirectory.CachesDirectory,
+                inDomain: NSSearchPathDomainMask.UserDomainMask,
+       appropriateForURL: .None,
+                  create: false,
+                   error: &error)
     #else
-        return fm.URLForDirectory(NSSearchPathDirectory.PicturesDirectory,
+    do {
+        return try fm.URLForDirectory(NSSearchPathDirectory.PicturesDirectory,
             inDomain: NSSearchPathDomainMask.UserDomainMask,
             appropriateForURL: .None,
-            create: false,
-            error: &error)
+            create: false)
+    } catch _ {
+        return nil
+    }
     #endif
 }
 
@@ -47,7 +50,7 @@ func GetImageFilePathInPictures(fileName: String = "videowriter.mov") -> String 
 }
 
 #if os(iOS)
-func saveImageFileToSharedPhotoLibrary(#filePath: String) -> Void {
+func saveImageFileToSharedPhotoLibrary(filePath filePath: String) -> Void {
     let url = NSURL.fileURLWithPath(filePath)
     
     let wait = dispatch_semaphore_create(0)
@@ -82,9 +85,8 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
         inStream.open()
         var jsonReadingError:NSError?
         let container:[NSString : NSObject] =
-            NSJSONSerialization.JSONObjectWithStream(inStream,
-                        options: NSJSONReadingOptions.allZeros,
-                          error: &jsonReadingError) as! [NSString : NSObject]
+            try! NSJSONSerialization.JSONObjectWithStream(inStream,
+                        options: NSJSONReadingOptions()) as! [NSString : NSObject]
         return container
     }
 
@@ -280,7 +282,7 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
         
         let fileURL = makeURLFromNamedFile("DSCN0724", fileExtension: "JPG")
         let filePath = fileURL.path!
-        let outPath = GetImageFilePathInPictures(fileName: "DSCN0724CIBloom.jpg")
+        let outPath = GetImageFilePathInPictures("DSCN0724CIBloom.jpg")
         let variablesDict = [
             "test.inputimage.coreimage.cibloom" : filePath,
             "test.outputimage.coreimage.cibloom" : outPath
@@ -312,7 +314,7 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
         }
         else
         {
-            println(MIGetStringFromReplyDictionary(commandResult))
+            print(MIGetStringFromReplyDictionary(commandResult))
         }
 
     }
@@ -768,7 +770,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
             "\"kCGColorSpaceSRGB\",\"bitsperpixel\":32},\"columnnames\":" +
             "[\"x\",\"y\",\"Blue\",\"Green\",\"Red\",\"Alpha\"]}"
         #endif
-        println(resStr)
+        print(resStr)
 
         XCTAssertEqual(resStr, previousRes,
             "Returned a different pixel data result to original.")

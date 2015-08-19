@@ -156,8 +156,8 @@ class MovingImagesMovieImporter: XCTestCase {
         
         let jsonURL = testBundle.URLForResource("410_clip4_metadata",
             withExtension:"json")!
-        let testResult = NSString(contentsOfFile: jsonURL.path!,
-            encoding: NSUTF8StringEncoding, error: nil)!
+        let testResult = try! NSString(contentsOfFile: jsonURL.path!,
+            encoding: NSUTF8StringEncoding)
         
         XCTAssert(resultString == testResult, "Metadata returned diff: " +
             resultString)
@@ -840,8 +840,8 @@ class MovingImagesMovieImporter: XCTestCase {
         let resultValue = MIGetStringFromReplyDictionary(result)
         let jsonURL = testBundle.URLForResource("410_clip4_videotrack_properties",
             withExtension:"json")!
-        let testResult = NSString(contentsOfFile: jsonURL.path!,
-            encoding: NSUTF8StringEncoding, error: nil)!
+        let testResult = try! NSString(contentsOfFile: jsonURL.path!,
+            encoding: NSUTF8StringEncoding)
         XCTAssert(resultValue == testResult,
             "The properties for the first video track is diff: " +
             resultValue)
@@ -870,8 +870,8 @@ class MovingImagesMovieImporter: XCTestCase {
         let resultValue = MIGetStringFromReplyDictionary(result)
         let jsonURL = testBundle.URLForResource("410_clip4_audiotrack_properties",
             withExtension:"json")!
-        let testResult = NSString(contentsOfFile: jsonURL.path!,
-            encoding: NSUTF8StringEncoding, error: nil)!
+        let testResult = try! NSString(contentsOfFile: jsonURL.path!,
+            encoding: NSUTF8StringEncoding)
         XCTAssert(resultValue == testResult,
             "The properties for the first audio track is diff: " +
             resultValue)
@@ -879,7 +879,7 @@ class MovingImagesMovieImporter: XCTestCase {
 
     func testGetMovieFrameAt5Secs() -> Void {
         let frameTime = CMTimeMake(3000, 600)
-        let frameTimeDict = CMTimeCopyAsDictionary(frameTime, kCFAllocatorDefault)
+        let frameTimeDict = CMTimeCopyAsDictionary(frameTime, kCFAllocatorDefault) as! [NSString:AnyObject]
         let options = [
             MIJSONPropertyMovieFrameTime : frameTimeDict
         ]
@@ -947,8 +947,10 @@ class MovingImagesMovieImporter: XCTestCase {
     }
 
     func testGetMovieFrameNextSample3Times() -> Void {
-        let frameTime = 0.0
+        // let frameTime = 0.0
+/*
         let tracks = [ trackIdentDict ]
+
         let options : [NSString : AnyObject] = [
             MIJSONPropertyMovieFrameTime : MIJSONValueMovieNextSample,
             MIJSONPropertyMovieTracks : tracks
@@ -960,7 +962,7 @@ class MovingImagesMovieImporter: XCTestCase {
             theContext, receiverObject, options, nil)
         let frameGrab3 = MICreateImageFromObjectAndOptions(
             theContext, receiverObject, options, nil)
-        
+*/
         let commandsDict = [
             MIJSONKeyCommands : [
                 [

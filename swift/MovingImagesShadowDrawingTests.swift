@@ -200,7 +200,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
         }
         else
         {
-            println(MIGetStringFromReplyDictionary(result))
+            print(MIGetStringFromReplyDictionary(result))
         }
     }
     
@@ -317,7 +317,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
         }
         else
         {
-            println(MIGetStringFromReplyDictionary(result))
+            print(MIGetStringFromReplyDictionary(result))
         }
     }
 
@@ -404,7 +404,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
         }
         else
         {
-            println(MIGetStringFromReplyDictionary(result))
+            print(MIGetStringFromReplyDictionary(result))
         }
     }
 
@@ -541,7 +541,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
         }
         else
         {
-            println(MIGetStringFromReplyDictionary(result))
+            print(MIGetStringFromReplyDictionary(result))
         }
     }
 
@@ -569,13 +569,14 @@ class MovingImagesShadowDrawingTests: XCTestCase {
             MIJSONKeyColorColorProfileName : "kCGColorSpaceGenericRGB"
         ]
 
+        /*
         let whiteColour = [
             MIJSONKeyRed : 1.0,
             MIJSONKeyGreen : 1.0,
             MIJSONKeyBlue : 1.0,
             MIJSONKeyColorColorProfileName : "kCGColorSpaceGenericRGB"
         ]
-        
+        */
         let fillColour = goldColour
         let shadowColour = blackColour // whiteColour
         
@@ -685,7 +686,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
         }
         else
         {
-            println(MIGetStringFromReplyDictionary(result))
+            print(MIGetStringFromReplyDictionary(result))
         }
     }
 
@@ -786,7 +787,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
         }
         else
         {
-            println(MIGetStringFromReplyDictionary(result))
+            print(MIGetStringFromReplyDictionary(result))
         }
     }
 }

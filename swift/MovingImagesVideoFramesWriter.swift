@@ -32,11 +32,14 @@ func GetMoviesURL() -> NSURL? {
                   create: false,
                    error: &error)
     #else
-    return fm.URLForDirectory(NSSearchPathDirectory.MoviesDirectory,
-                inDomain: NSSearchPathDomainMask.UserDomainMask,
-       appropriateForURL: .None,
-                  create: false,
-                   error: &error)
+    do {
+        return try fm.URLForDirectory(NSSearchPathDirectory.MoviesDirectory,
+                    inDomain: NSSearchPathDomainMask.UserDomainMask,
+           appropriateForURL: .None,
+                      create: false)
+    } catch _ {
+        return nil
+    }
     #endif
 }
 
@@ -45,7 +48,7 @@ func GetMoviePathInMoviesDir(fileName: String = "videowriter.mov") -> String {
 }
 
 #if os(iOS)
-func saveMovieFileToSharedPhotoLibrary(#filePath: String) -> Void {
+func saveMovieFileToSharedPhotoLibrary(filePath filePath: String) -> Void {
     let url = NSURL.fileURLWithPath(filePath)
     
     let wait = dispatch_semaphore_create(0)
@@ -82,7 +85,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         MIJSONKeyCommand : MIJSONValueCreateCommand,
         MIJSONKeyObjectType : MIMovieVideoFramesWriterKey,
         MIJSONKeyObjectName : videoWriterName,
-        MIJSONPropertyFile : GetMoviePathInMoviesDir(fileName: "videowriter.mp4"),
+        MIJSONPropertyFile : GetMoviePathInMoviesDir("videowriter.mp4"),
         MIJSONPropertyFileType : AVFileTypeMPEG4
     ]
 
@@ -298,7 +301,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             "Error adding a JPEG writer input to the video frame writer.")
         if (errorCode != MIReplyErrorEnum.NoError)
         {
-            println(MIGetStringFromReplyDictionary(result))
+            print(MIGetStringFromReplyDictionary(result))
         }
         let closeResult = MIMovingImagesHandleCommand(nil, closeVideoWriter)
         let errorCode2 = MIGetErrorCodeFromReplyDictionary(closeResult)
@@ -644,7 +647,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         }
         else
         {
-            println(MIGetStringFromReplyDictionary(result))
+            print(MIGetStringFromReplyDictionary(result))
         }
     }
 
@@ -876,20 +879,20 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         let lastFrameDurationKey = CFUUIDCreateString(kCFAllocatorDefault,
             frameDurationUUID)
         
-        func xPosFromSampleIndex(#index : Int) -> Double {
+        func xPosFromSampleIndex(index index : Int) -> Double {
             let xStart = Double(boxWidth) / 2.0
             let xDif = Double(width) -  Double(boxWidth)
             return xStart + xDif * Double(index) / (numVideoSamplesF - 1.0)
         }
         
-        func yPosFromSampleIndex(#index : Int) -> Double {
+        func yPosFromSampleIndex(index index : Int) -> Double {
             let yStart = Double(boxHeight) / 2.0
             let yDif = Double(height) - Double(boxHeight)
             let linPos = Double(index) / (numVideoSamplesF - 1.0)
             return yStart + yDif * linPos * linPos
         }
         
-        func rotationFromIndex(#index : Int) -> Double {
+        func rotationFromIndex(index index : Int) -> Double {
             return 2.0 * M_PI * Double(index) / (numVideoSamplesF - 1.0)
         }
         
@@ -997,7 +1000,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         }
         else
         {
-            println(MIGetStringFromReplyDictionary(result))
+            print(MIGetStringFromReplyDictionary(result))
         }
     }
 #endif // #if !(os(iOS) && arch(x86_64)
@@ -1040,7 +1043,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         ]
 
         let exPath = GetMoviePathInMoviesDir(
-                    fileName: "videowriter-prores4444.mov")
+                    "videowriter-prores4444.mov")
         let createVideoWriterCommandLocal = [
             MIJSONKeyCommand : MIJSONValueCreateCommand,
             MIJSONKeyObjectType : MIMovieVideoFramesWriterKey,
@@ -1178,20 +1181,20 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         let lastFrameDurationKey = CFUUIDCreateString(kCFAllocatorDefault,
             frameDurationUUID)
         
-        func xPosFromSampleIndex(#index : Int) -> Double {
+        func xPosFromSampleIndex(index index : Int) -> Double {
             let xStart = Double(boxWidth) / 2.0
             let xDif = Double(width) -  Double(boxWidth)
             return xStart + xDif * Double(index) / (numVideoSamplesF - 1.0)
         }
         
-        func yPosFromSampleIndex(#index : Int) -> Double {
+        func yPosFromSampleIndex(index index : Int) -> Double {
             let yStart = Double(boxHeight) / 2.0
             let yDif = Double(height) - Double(boxHeight)
             let linPos = Double(index) / (numVideoSamplesF - 1.0)
             return yStart + yDif * linPos * linPos
         }
         
-        func rotationFromIndex(#index : Int) -> Double {
+        func rotationFromIndex(index index : Int) -> Double {
             return 2.0 * M_PI * Double(index) / (numVideoSamplesF - 1.0)
         }
         
@@ -1281,8 +1284,8 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil,
             nil)
         let resultString = MIGetStringFromReplyDictionary(result)
-        println("===========================================================")
-        println(resultString)
+        print("===========================================================")
+        print(resultString)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error generating movie generated with copied frame durations.")
@@ -1325,7 +1328,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             MIJSONPropertyFile : inputMovieFilePath
         ]
         
-        let exPath = GetMoviePathInMoviesDir(fileName: "videowriter-prores422.mov")
+        let exPath = GetMoviePathInMoviesDir("videowriter-prores422.mov")
         let createVideoWriterCommandLocal = [
             MIJSONKeyCommand : MIJSONValueCreateCommand,
             MIJSONKeyObjectType : MIMovieVideoFramesWriterKey,
@@ -1463,20 +1466,20 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         let lastFrameDurationKey = CFUUIDCreateString(kCFAllocatorDefault,
             frameDurationUUID)
         
-        func xPosFromSampleIndex(#index : Int) -> Double {
+        func xPosFromSampleIndex(index index : Int) -> Double {
             let xStart = Double(boxWidth) / 2.0
             let xDif = Double(width) -  Double(boxWidth)
             return xStart + xDif * Double(index) / (numVideoSamplesF - 1.0)
         }
         
-        func yPosFromSampleIndex(#index : Int) -> Double {
+        func yPosFromSampleIndex(index index : Int) -> Double {
             let yStart = Double(boxHeight) / 2.0
             let yDif = Double(height) - Double(boxHeight)
             let linPos = Double(index) / (numVideoSamplesF - 1.0)
             return yStart + yDif * linPos * linPos
         }
         
-        func rotationFromIndex(#index : Int) -> Double {
+        func rotationFromIndex(index index : Int) -> Double {
             return 2.0 * M_PI * Double(index) / (numVideoSamplesF - 1.0)
         }
         
@@ -1566,8 +1569,8 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         let result = MIMovingImagesHandleCommands(theContext, commandsDict, nil,
             nil)
         let resultString = MIGetStringFromReplyDictionary(result)
-        println("===========================================================")
-        println(resultString)
+        print("===========================================================")
+        print(resultString)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error generating movie generated with copied frame durations.")

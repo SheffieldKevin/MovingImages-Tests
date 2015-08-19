@@ -58,9 +58,8 @@ class MovingImagesMovieEditor: XCTestCase {
             let result2 = MIMovingImagesHandleCommands(theContext, commandsDict2,
                 nil, nil)
             let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
-            XCTAssertEqual(errorCode.rawValue, 0, "Error closing movie editor.")
+            XCTAssertEqual(errorCode2.rawValue, 0, "Error closing movie editor.")
         }
-        let resultString = MIGetStringFromReplyDictionary(result)
     }
     
     func testAddingAudioAndVideoTracksToAMovieEditor() -> Void {
@@ -94,9 +93,10 @@ class MovingImagesMovieEditor: XCTestCase {
         {
             let resultValue = MIGetNumericReplyValueFromDictionary(result)!
             videoTrackID = resultValue.intValue
-            println(resultValue.intValue)
+            print(resultValue.intValue)
         }
 
+        /*
         // Now add an audio track to the movie editor. Should be error free.
         let commandsDict2 = [
             MIJSONKeyCommands : [
@@ -107,6 +107,7 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
+        */
         
         // Version 1.0 of MovingImages will not manipulate audio tracks.
         // So adding audio tracks has been dropped for now.
@@ -193,6 +194,7 @@ class MovingImagesMovieEditor: XCTestCase {
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0, "Error creating a movie editor.")
 
+        /*
         // Now add an audio track to the movie editor. Should be error free.
         let commandsDict2 = [
             MIJSONKeyCommands : [
@@ -203,7 +205,8 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
-        
+        */
+
         // let result2 = MIMovingImagesHandleCommands(theContext,
         //     commandsDict2, nil)
         // let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
@@ -283,11 +286,12 @@ class MovingImagesMovieEditor: XCTestCase {
             "\"framerate\":0}",
             "Get video track properties as json returned diff")
         
+        /*
         let audioTrackID = [
             MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeAudio,
             MIJSONPropertyMovieTrackIndex : 0
         ]
-        
+
         let commandsDict6 = [
             MIJSONKeyCommands : [
                 [
@@ -298,6 +302,7 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
+        */
 /*
         // Getting property of an audio track in video editor.
         // No longer possible.
@@ -360,10 +365,12 @@ class MovingImagesMovieEditor: XCTestCase {
             "Persistent track id should be equal to 2.")
 
         // lets attempt to access a track property from a track that doesn't exist
+/*
         let notATrackID = [
             MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeAudio,
             MIJSONPropertyMovieTrackIndex : 1
         ]
+
         let commandsDict9 = [
             MIJSONKeyCommands : [
                 [
@@ -374,6 +381,7 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
+*/
 /*
         // uncomment after audio track functionality added.
         let result9 = MIMovingImagesHandleCommands(theContext, commandsDict9, nil)
@@ -466,7 +474,7 @@ class MovingImagesMovieEditor: XCTestCase {
         let origRes1 = "{\"width\":0,\"height\":0}"
         XCTAssertEqual(resultStr1, origRes1,
             "Composition without content added should have width,height=(0,0)")
-        println(resultStr1)
+        print(resultStr1)
         
         //
         // Now set the natural size and then check that the assignment has taken.
@@ -497,7 +505,7 @@ class MovingImagesMovieEditor: XCTestCase {
         let origRes2 = "{\"width\":1920,\"height\":1080}"
         XCTAssertEqual(resultStr2, origRes2,
             "Composition should have width,height=(1920,1080)")
-        println(resultStr2)
+        print(resultStr2)
 
         //
         // Now set the natural size back to 0,0 and check the assignment has taken.
@@ -527,7 +535,7 @@ class MovingImagesMovieEditor: XCTestCase {
         
         XCTAssertEqual(resultStr3, origRes1,
             "Composition without content added should have width,height=(0,0)")
-        println(resultStr3)
+        print(resultStr3)
 
         //
         // Add video content & confirm natural size is picked up from content.
@@ -605,7 +613,7 @@ class MovingImagesMovieEditor: XCTestCase {
         
         XCTAssertEqual(resultStr4, origRes2,
             "Composition with content should have width,height=(1920,1080)")
-        println(resultStr4)
+        print(resultStr4)
         
         //
         // Now specify the natural size & check that overrides size from content.
@@ -637,7 +645,7 @@ class MovingImagesMovieEditor: XCTestCase {
         let origRes3 = "{\"width\":960,\"height\":540}"
         XCTAssertEqual(resultStr5, origRes3,
             "Composition with content should have width,height=(960,540)")
-        println(resultStr5)
+        print(resultStr5)
         
         //
         // Now get the natural size of the track with the added video content.
@@ -655,7 +663,7 @@ class MovingImagesMovieEditor: XCTestCase {
         let resultStr6 = MIGetStringFromReplyDictionary(result6)
         XCTAssertEqual(resultStr6, origRes2,
             "Track with segment added should have width,height=(1920,1080)")
-        println(resultStr6)
+        print(resultStr6)
         
         //
         // Now confirm that the video track transform remains as identity.
@@ -681,7 +689,7 @@ class MovingImagesMovieEditor: XCTestCase {
         ]
         XCTAssert(origDict7.isEqualToDictionary(resultDict7),
             "Track transform is unchanged after movie natural size changed")
-        println(resultStr7)
+        print(resultStr7)
         
         //
         // Get the list of compatible presets
@@ -719,7 +727,7 @@ class MovingImagesMovieEditor: XCTestCase {
 #endif
         XCTAssertEqual(resultStr8, origCompatiblePresets,
         "List of compatible presets for composition with video content differs")
-        println(resultStr8)
+        print(resultStr8)
         
         //
         // Get allowed export file types for a few different presets.
@@ -738,7 +746,7 @@ class MovingImagesMovieEditor: XCTestCase {
         
         XCTAssertEqual(resultStr9, origFileTypes,
             "List allowed movie export file types with the added video content")
-        println(resultStr9)
+        print(resultStr9)
 
 #if os(OSX)
         let getAllowedFileTypes2 : [String : AnyObject] = [
@@ -754,7 +762,7 @@ class MovingImagesMovieEditor: XCTestCase {
         
         XCTAssertEqual(resultStr10, origFileTypes2,
             "List allowed movie export file types with the added video content")
-        println(resultStr10)
+        print(resultStr10)
 
         let getAllowedFileTypes3 : [String : AnyObject] = [
             MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
@@ -770,12 +778,12 @@ class MovingImagesMovieEditor: XCTestCase {
         
         XCTAssertEqual(resultStr11, origFileTypes3,
             "List allowed movie export file types with the added video content")
-        println(resultStr11)
+        print(resultStr11)
 #endif
-        println("=====================================================")
+        print("=====================================================")
 
         let movieExportPath = GetMoviePathInMoviesDir(
-            fileName: "movieeditor_export1.mp4")
+            "movieeditor_export1.mp4")
         
         // I expect the exported movie to be cropped to the top left corner of
         // the supplied content into the video track.
@@ -788,7 +796,7 @@ class MovingImagesMovieEditor: XCTestCase {
         ]
 
         let result12 = MIMovingImagesHandleCommand(context, exportMovieCommand)
-        let result12Str = MIGetStringFromReplyDictionary(result12)
+        // let result12Str = MIGetStringFromReplyDictionary(result12)
         let error12 = MIGetErrorCodeFromReplyDictionary(result12)
         XCTAssertEqual(error12, MIReplyErrorEnum.NoError,
             "Error occurred when exporting the movie.")
@@ -849,10 +857,10 @@ class MovingImagesMovieEditor: XCTestCase {
         ]
         XCTAssert(origDict14.isEqualToDictionary(resultDict14),
             "Track transform is unchanged after movie natural size changed")
-        println(resultStr14)
+        print(resultStr14)
 
         let movieExportPath2 = GetMoviePathInMoviesDir(
-            fileName: "movieeditor_export2.mp4")
+            "movieeditor_export2.mp4")
         
         // I expect the exported movie to be cropped to the top left corner of
         // the supplied content into the video track.
@@ -882,7 +890,7 @@ class MovingImagesMovieEditor: XCTestCase {
         ]
         
         let movieExportPath3 = GetMoviePathInMoviesDir(
-            fileName: "movieeditor_export3.mp4")
+            "movieeditor_export3.mp4")
         
         // I expect the exported movie to be cropped to the top left corner of
         // the supplied content into the video track.
@@ -1112,7 +1120,7 @@ class MovingImagesMovieEditor: XCTestCase {
         ]
         
         let movieExportPath = GetMoviePathInMoviesDir(
-            fileName: "movieeditor_export.mp4")
+            "movieeditor_export.mp4")
         
         let theUUID = CFUUIDCreate(kCFAllocatorDefault)
         let pathSubsKey : String = CFUUIDCreateString(kCFAllocatorDefault,
@@ -1178,8 +1186,8 @@ class MovingImagesMovieEditor: XCTestCase {
         "\"value\":12000,\"timescale\":6000,\"epoch\":0}}}]"
         XCTAssertEqual(origResult1, resultStr1,
             "Segments of the video track with no empty segments differ")
-        println(resultStr1)
-        println("=============================================================")
+        print(resultStr1)
+        print("=============================================================")
 
         let origResult3 = "[{\"sourcetimerange\":{\"start\":{\"flags\":1," +
         "\"value\":24000,\"timescale\":6000,\"epoch\":0},\"duration\":" +
@@ -1203,9 +1211,9 @@ class MovingImagesMovieEditor: XCTestCase {
         let resultStr3 = MIGetStringFromReplyDictionary(result3)
         XCTAssertEqual(origResult3, resultStr3,
             "Segments of the video track with empty segments differ")
-        println("=============================================================")
+        print("=============================================================")
         let movieExportPath2 = GetMoviePathInMoviesDir(
-            fileName: "movieeditor_export_empty.mp4")
+            "movieeditor_export_empty.mp4")
         let vars2 = [ pathSubsKey : movieExportPath2 ]
         context.appendVariables(vars2)
         let cleanupResult = MIMovingImagesHandleCommands(context,
@@ -1408,7 +1416,7 @@ class MovingImagesMovieEditor: XCTestCase {
         }
         
         func makePassthruInstructionCommandForTrack(track: [String : AnyObject],
-            #startTime: Int) -> [String : AnyObject]
+            startTime: Int) -> [String : AnyObject]
         {
             let passThruInstruction : [String : AnyObject] = [
                 MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
@@ -1494,7 +1502,7 @@ class MovingImagesMovieEditor: XCTestCase {
             trackForIndex(1), startTime: numSegments * 2))
         
         let movieExportPath = GetMoviePathInMoviesDir(
-            fileName: "movieeditor_transformtransition.mov")
+            "movieeditor_transformtransition.mov")
         
         let theUUID = CFUUIDCreate(kCFAllocatorDefault)
         let compositionMapKey = CFUUIDCreateString(kCFAllocatorDefault,
@@ -1528,7 +1536,7 @@ class MovingImagesMovieEditor: XCTestCase {
         saveCGImageToAJPEGFile(theImage, baseName: "TransformCompositionMap")
         defaultContext.removeImageWithIdentifier(compositionMapKey)
         let resultStr = MIGetStringFromReplyDictionary(instructionResult)
-        println("Result: \(resultStr)")
+        print("Result: \(resultStr)")
         let errorCode = MIGetErrorCodeFromReplyDictionary(instructionResult)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error occured generating and creating movie with transfrom instruct.")
@@ -1738,7 +1746,7 @@ class MovingImagesMovieEditor: XCTestCase {
         }
         
         func makePassthruInstructionCommandForTrack(track: [String : AnyObject],
-            #startTime: Int) -> [String : AnyObject]
+            startTime: Int) -> [String : AnyObject]
         {
             let passThruInstruction : [String : AnyObject] = [
                 MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
@@ -1809,7 +1817,7 @@ class MovingImagesMovieEditor: XCTestCase {
             trackForIndex(1), startTime: numSegments * 2))
         
         let movieExportPath = GetMoviePathInMoviesDir(
-            fileName: "movieeditor_opacitytransition.mov")
+            "movieeditor_opacitytransition.mov")
         
         let theUUID = CFUUIDCreate(kCFAllocatorDefault)
         let compositionMapKey = CFUUIDCreateString(kCFAllocatorDefault,
@@ -1843,7 +1851,7 @@ class MovingImagesMovieEditor: XCTestCase {
         saveCGImageToAJPEGFile(theImage, baseName: "OpacityCompositionMap")
         defaultContext.removeImageWithIdentifier(compositionMapKey)
         let resultStr = MIGetStringFromReplyDictionary(instructionResult)
-        println("Result: \(resultStr)")
+        print("Result: \(resultStr)")
         let errorCode = MIGetErrorCodeFromReplyDictionary(instructionResult)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error occured generating and creating movie with opacity instruction.")
@@ -2053,7 +2061,7 @@ class MovingImagesMovieEditor: XCTestCase {
         }
         
         func makePassthruInstructionCommandForTrack(track: [String : AnyObject],
-            #startTime: Int) -> [String : AnyObject]
+            startTime: Int) -> [String : AnyObject]
         {
             let passThruInstruction : [String : AnyObject] = [
                 MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
@@ -2134,7 +2142,7 @@ class MovingImagesMovieEditor: XCTestCase {
             trackForIndex(1), startTime: numSegments * 2))
         
         let movieExportPath = GetMoviePathInMoviesDir(
-            fileName: "movieeditor_croptransition.mov")
+            "movieeditor_croptransition.mov")
         
         let theUUID = CFUUIDCreate(kCFAllocatorDefault)
         let compositionMapKey = CFUUIDCreateString(kCFAllocatorDefault,
@@ -2168,7 +2176,7 @@ class MovingImagesMovieEditor: XCTestCase {
         saveCGImageToAJPEGFile(theImage, baseName: "CropCompositionMap")
         theContext.removeImageWithIdentifier(compositionMapKey)
         let resultStr = MIGetStringFromReplyDictionary(instructionResult)
-        println("Result: \(resultStr)")
+        print("Result: \(resultStr)")
         let errorCode = MIGetErrorCodeFromReplyDictionary(instructionResult)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error occured generating and creating movie with crop instruction.")
@@ -2378,7 +2386,7 @@ class MovingImagesMovieEditor: XCTestCase {
         }
         
         func makePassthruInstructionCommandForTrack(track: [String : AnyObject],
-            #startTime: Int) -> [String : AnyObject]
+            startTime: Int) -> [String : AnyObject]
         {
             let passThruInstruction : [String : AnyObject] = [
                 MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
@@ -2470,7 +2478,7 @@ class MovingImagesMovieEditor: XCTestCase {
             trackForIndex(1), startTime: numSegments * 2))
         
         let movieExportPath = GetMoviePathInMoviesDir(
-            fileName: "movieeditor_cropramptransition.mov")
+            "movieeditor_cropramptransition.mov")
         
         let theUUID = CFUUIDCreate(kCFAllocatorDefault)
         let compositionMapKey = CFUUIDCreateString(kCFAllocatorDefault,
@@ -2504,7 +2512,7 @@ class MovingImagesMovieEditor: XCTestCase {
         saveCGImageToAJPEGFile(theImage, baseName: "CropRampCompositionMap")
         theContext.removeImageWithIdentifier(compositionMapKey)
         let resultStr = MIGetStringFromReplyDictionary(instructionResult)
-        println("Result: \(resultStr)")
+        print("Result: \(resultStr)")
         let errorCode = MIGetErrorCodeFromReplyDictionary(instructionResult)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error occured generating and creating movie with crop instruction.")
@@ -2707,7 +2715,7 @@ class MovingImagesMovieEditor: XCTestCase {
         }
         
         func makePassthruInstructionCommandForTrack(track: [String : AnyObject],
-            #startTime: Int) -> [String : AnyObject]
+            startTime: Int) -> [String : AnyObject]
         {
             let passThruInstruction : [String : AnyObject] = [
                 MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
@@ -2887,7 +2895,7 @@ class MovingImagesMovieEditor: XCTestCase {
         commandList.append(assignCompositionMapImageToImageCollection)
 
         let movieExportPath = GetMoviePathInMoviesDir(
-            fileName: "movieeditor_videoramptransitions.mov")
+            "movieeditor_videoramptransitions.mov")
         
         let exportMovieCommand = [
             MIJSONKeyCommand : MIJSONValueExportCommand,
@@ -2910,7 +2918,7 @@ class MovingImagesMovieEditor: XCTestCase {
         saveCGImageToAJPEGFile(theImage, baseName: "RampTransitionCompositionMap")
         theContext.removeImageWithIdentifier(compositionMapKey)
         let resultStr = MIGetStringFromReplyDictionary(instructionResult)
-        println("Result: \(resultStr)")
+        print("Result: \(resultStr)")
         let errorCode = MIGetErrorCodeFromReplyDictionary(instructionResult)
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error occured generating and creating movie with instructions.")
