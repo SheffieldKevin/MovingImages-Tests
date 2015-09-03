@@ -879,7 +879,7 @@ class MovingImagesMovieImporter: XCTestCase {
 
     func testGetMovieFrameAt5Secs() -> Void {
         let frameTime = CMTimeMake(3000, 600)
-        let frameTimeDict = CMTimeCopyAsDictionary(frameTime, kCFAllocatorDefault) as! [NSString:AnyObject]
+        let frameTimeDict = cmTimeAsDictionary(frameTime)
         let options = [
             MIJSONPropertyMovieFrameTime : frameTimeDict
         ]
@@ -890,13 +890,11 @@ class MovingImagesMovieImporter: XCTestCase {
         let sameMeta = doImagesHaveSameMeta(image1: frameGrab, image2: theImage)
         XCTAssert(sameMeta,
                         "Frame grab and image should have same basic meta data")
-        #if os(OSX)
         if sameMeta {
             let theDiff = compareImages(image1: frameGrab, image2: theImage)
-            XCTAssert(theDiff < 54,
+            XCTAssert(theDiff < 1,
                                 "Images have different pixel values \(theDiff)")
         }
-        #endif
     }
 
     func testGetMovieFrameAt5Secs2() -> Void {
@@ -912,13 +910,11 @@ class MovingImagesMovieImporter: XCTestCase {
         let sameMeta = doImagesHaveSameMeta(image1: frameGrab, image2: theImage)
         XCTAssert(sameMeta,
             "Frame grab and image should have same basic meta data")
-        #if os(OSX)
         if sameMeta {
             let theDiff = compareImages(image1: frameGrab, image2: theImage)
-            XCTAssert(theDiff < 54,
+            XCTAssert(theDiff < 2,
                                 "Images have different pixel values \(theDiff)")
         }
-        #endif
     }
 
     func testGetMovieFrameFromTrackAt5Secs() -> Void {
@@ -937,18 +933,15 @@ class MovingImagesMovieImporter: XCTestCase {
         let sameMeta = doImagesHaveSameMeta(image1: frameGrab, image2: theImage)
         XCTAssert(sameMeta,
             "Frame grab and image should have same basic meta data")
-        #if os(OSX)
         if sameMeta {
             let theDiff = compareImages(image1: frameGrab, image2: theImage)
-            XCTAssert(theDiff < 54,
+            XCTAssert(theDiff < 2,
                 "Images have different pixel values \(theDiff)")
         }
-        #endif
     }
 
     func testGetMovieFrameNextSample3Times() -> Void {
         // let frameTime = 0.0
-/*
         let tracks = [ trackIdentDict ]
 
         let options : [NSString : AnyObject] = [
@@ -956,13 +949,10 @@ class MovingImagesMovieImporter: XCTestCase {
             MIJSONPropertyMovieTracks : tracks
         ]
 
-        let frameGrab = MICreateImageFromObjectAndOptions(
-            theContext, receiverObject, options, nil)
-        let frameGrab2 = MICreateImageFromObjectAndOptions(
-            theContext, receiverObject, options, nil)
-        let frameGrab3 = MICreateImageFromObjectAndOptions(
-            theContext, receiverObject, options, nil)
-*/
+        MICreateImageFromObjectAndOptions(theContext, receiverObject, options, nil)
+        MICreateImageFromObjectAndOptions(theContext, receiverObject, options, nil)
+        MICreateImageFromObjectAndOptions(theContext, receiverObject, options, nil)
+
         let commandsDict = [
             MIJSONKeyCommands : [
                 [
@@ -978,12 +968,7 @@ class MovingImagesMovieImporter: XCTestCase {
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error getting object reference of movie importer object")
         let resultString = MIGetStringFromReplyDictionary(result)
-        #if os(iOS) && arch(arm64)
         XCTAssertEqual(resultString, "{\"flags\":1,\"value\":7500," +
-        "\"timescale\":90000,\"epoch\":0}", resultString)
-        #else
-        XCTAssertEqual(resultString, "{\"flags\":3,\"value\":7500," +
             "\"timescale\":90000,\"epoch\":0}", resultString)
-        #endif
     }
 }

@@ -16,7 +16,7 @@ import AVFoundation
 import XCTest
 
 let videoWriterName = "test001.movievideoframeswriter"
-let videoWriterObject = [
+let videoWriterObject : [NSString : AnyObject] = [
     MIJSONKeyObjectType : MIMovieVideoFramesWriterKey,
     MIJSONKeyObjectName : videoWriterName
 ]
@@ -246,21 +246,24 @@ class MovingImagesVideoFramesWriter: XCTestCase {
     }
 
     func testAddingVideoWriterProRes422PresetInput() -> Void {
-        // let frameDuration = [ "time" : 0.0333333 ]
         let frameDurationCM = CMTimeMake(1001, 30000)
-        let frameDuration = CMTimeCopyAsDictionary(frameDurationCM,
-            kCFAllocatorDefault)
+        let frameDuration = cmTimeAsDictionary(frameDurationCM)
+
+        let sizeDict = makeSizeDict(width: 1280, height: 720)
+        
+        let addInputToMovieFrameWriterCommand : [NSString : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddInputToMovieFrameWriterCommand,
+            MIJSONPropertyMovieVideoWriterPreset :
+                                MIJSONValueMovieVideoWriterPresetProRes422,
+            MIJSONKeySize : sizeDict,
+            MIJSONKeyReceiverObject : videoWriterObject,
+            MIJSONPropertyMovieFrameDuration : frameDuration
+        ]
+
         let commandsDict = [
             MIJSONKeyCommands : [
                 createVideoWriterCommand,
-                [
-                    MIJSONKeyCommand : MIJSONValueAddInputToMovieFrameWriterCommand,
-                    MIJSONKeyReceiverObject : videoWriterObject,
-                    MIJSONPropertyMovieVideoWriterPreset :
-                                    MIJSONValueMovieVideoWriterPresetProRes422,
-                    MIJSONKeySize : [ "width" : 1280, "height" : 720 ],
-                    MIJSONPropertyMovieFrameDuration : frameDuration
-                ]
+                addInputToMovieFrameWriterCommand
             ]
         ]
 
@@ -277,21 +280,23 @@ class MovingImagesVideoFramesWriter: XCTestCase {
 #endif
 
     func testAddingVideoWriterPresetJPEGInput() -> Void {
-        // let frameDuration = [ "time" : 0.0333333 ]
         let frameDurationCM = CMTimeMake(1001, 30000)
-        let frameDuration = CMTimeCopyAsDictionary(frameDurationCM,
-            kCFAllocatorDefault)
+        let frameDuration = cmTimeAsDictionary(frameDurationCM)
+        
+        let sizeDict = makeSizeDict(width: 960, height: 540)
+        let addInputToMovieFrameWriterCommand : [NSString : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddInputToMovieFrameWriterCommand,
+            MIJSONKeyReceiverObject : videoWriterObject,
+            MIJSONPropertyMovieVideoWriterPreset :
+                                    MIJSONValueMovieVideoWriterPresetJPEG,
+            MIJSONKeySize : sizeDict,
+            MIJSONPropertyMovieFrameDuration : frameDuration
+        ]
+
         let commandsDict = [
             MIJSONKeyCommands : [
                 createVideoWriterCommand,
-                [
-                    MIJSONKeyCommand : MIJSONValueAddInputToMovieFrameWriterCommand,
-                    MIJSONKeyReceiverObject : videoWriterObject,
-                    MIJSONPropertyMovieVideoWriterPreset :
-                                MIJSONValueMovieVideoWriterPresetJPEG,
-                    MIJSONKeySize : [ "width" : 960, "height" : 540 ],
-                    MIJSONPropertyMovieFrameDuration : frameDuration
-                ]
+                addInputToMovieFrameWriterCommand
             ]
         ]
 
@@ -310,22 +315,23 @@ class MovingImagesVideoFramesWriter: XCTestCase {
     }
 
     func testAddingVideoWriterH264SDPresetInput() -> Void {
-        // let frameDuration = [ "time" : 0.0333333 ]
         let frameDurationCM = CMTimeMake(1001, 30000)
-        let frameDuration = CMTimeCopyAsDictionary(frameDurationCM,
-            kCFAllocatorDefault)
+        let frameDuration = cmTimeAsDictionary(frameDurationCM)
+
+        let sizeDict = makeSizeDict(width: 640, height: 480)
+        let addInputToMovieFrameWriterCommand : [NSString : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddInputToMovieFrameWriterCommand,
+            MIJSONKeyReceiverObject : videoWriterObject,
+            MIJSONPropertyMovieVideoWriterPreset :
+                                    MIJSONValueMovieVideoWriterPresetH264_SD,
+            MIJSONKeySize : sizeDict,
+            MIJSONPropertyMovieFrameDuration : frameDuration
+        ]
+
         let commandsDict = [
             MIJSONKeyCommands : [
                 createVideoWriterCommand,
-                [
-                    MIJSONKeyCommand :
-                        MIJSONValueAddInputToMovieFrameWriterCommand,
-                    MIJSONKeyReceiverObject : videoWriterObject,
-                    MIJSONPropertyMovieVideoWriterPreset :
-                                        MIJSONValueMovieVideoWriterPresetH264_SD,
-                    MIJSONKeySize : [ "width" : 640, "height" : 480 ],
-                    MIJSONPropertyMovieFrameDuration : frameDuration
-                ]
+                addInputToMovieFrameWriterCommand
             ]
         ]
         
@@ -341,27 +347,27 @@ class MovingImagesVideoFramesWriter: XCTestCase {
     }
     
     func testAddingVideoWriterH264SDSettingsInput() -> Void {
-        // let frameDuration = [ "time" : 0.0333333 ]
         let frameDurationCM = CMTimeMake(1001, 30000)
-        let frameDuration = CMTimeCopyAsDictionary(frameDurationCM,
-            kCFAllocatorDefault)
+        let frameDuration = cmTimeAsDictionary(frameDurationCM)
         
         let width = 640
         let height = 480
         let sizeDict = [ "width" : width, "height" : height ]
         
+        let addInputToVideoWriterCommand : [NSString : AnyObject] = [
+            MIJSONKeyCommand :
+            MIJSONValueAddInputToMovieFrameWriterCommand,
+            MIJSONKeyReceiverObject : videoWriterObject,
+            MIJSONPropertyMovieVideoWriterPreset :
+            MIJSONValueMovieVideoWriterPresetH264_SD,
+            MIJSONKeySize : sizeDict,
+            MIJSONPropertyMovieFrameDuration : frameDuration
+        ]
+
         let commandsDict = [
             MIJSONKeyCommands : [
                 createVideoWriterCommand,
-                [
-                    MIJSONKeyCommand :
-                                MIJSONValueAddInputToMovieFrameWriterCommand,
-                    MIJSONKeyReceiverObject : videoWriterObject,
-                    MIJSONPropertyMovieVideoWriterPreset :
-                                        MIJSONValueMovieVideoWriterPresetH264_SD,
-                    MIJSONKeySize : sizeDict,
-                    MIJSONPropertyMovieFrameDuration : frameDuration
-                ]
+                addInputToVideoWriterCommand
             ]
         ]
         
@@ -409,7 +415,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             MIJSONPropertyMovieTime : [
                 "epoch" : 0,
                 "flags" : 1,
-                "timescale" : 6000,
+                "timescale" : 30000,
                 "value" : 0
             ]
         ]
@@ -427,25 +433,24 @@ class MovingImagesVideoFramesWriter: XCTestCase {
     func testAddingVideoWriterH264HDSettingsInput() -> Void {
         // let frameDuration = [ "time" : 0.0333333 ]
         let frameDurationCM = CMTimeMake(1001, 30000)
-        let frameDuration = CMTimeCopyAsDictionary(frameDurationCM,
-            kCFAllocatorDefault)
-        
+        let frameDuration = cmTimeAsDictionary(frameDurationCM)
         let width = 1280
         let height = 720
-        let sizeDict = [ "width" : width, "height" : height ]
+        let sizeDict = makeSizeDict(width: width, height: height)
+        let addVideoInputToFrameWriter: [NSString : AnyObject] = [
+            MIJSONKeyCommand :
+            MIJSONValueAddInputToMovieFrameWriterCommand,
+            MIJSONKeyReceiverObject : videoWriterObject,
+            MIJSONPropertyMovieVideoWriterPreset :
+            MIJSONValueMovieVideoWriterPresetH264_HD,
+            MIJSONKeySize : sizeDict,
+            MIJSONPropertyMovieFrameDuration : frameDuration
+        ]
         
         let commandsDict = [
             MIJSONKeyCommands : [
                 createVideoWriterCommand,
-                [
-                    MIJSONKeyCommand :
-                                    MIJSONValueAddInputToMovieFrameWriterCommand,
-                    MIJSONKeyReceiverObject : videoWriterObject,
-                    MIJSONPropertyMovieVideoWriterPreset :
-                                        MIJSONValueMovieVideoWriterPresetH264_HD,
-                    MIJSONKeySize : sizeDict,
-                    MIJSONPropertyMovieFrameDuration : frameDuration
-                ]
+                addVideoInputToFrameWriter
             ]
         ]
         
@@ -490,7 +495,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             MIJSONPropertyMovieTime : [
                 "epoch" : 0,
                 "flags" : 1,
-                "timescale" : 6000,
+                "timescale" : 30000,
                 "value" : 0
             ],
             MIJSONPropertyFile : GetMoviePathInMoviesDir(),
@@ -504,7 +509,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         
         let closeResult = MIMovingImagesHandleCommand(nil, closeVideoWriter)
         let errorCode3 = MIGetErrorCodeFromReplyDictionary(closeResult)
-        XCTAssertEqual(errorCode2.rawValue, 0,
+        XCTAssertEqual(errorCode3.rawValue, 0,
             "Error closing video frames writer.")
     }
     
@@ -525,8 +530,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         let frameDurationCM = CMTimeMake(
             Int64(timeScale * movieLength / numVideoSamples),
             Int32(timeScale))
-        let frameDuration = CMTimeCopyAsDictionary(frameDurationCM,
-            kCFAllocatorDefault)
+        let frameDuration = cmTimeAsDictionary(frameDurationCM)
 
         let addInputToMovieFrameWriterCommand = [
             MIJSONKeyCommand : MIJSONValueAddInputToMovieFrameWriterCommand,
@@ -626,7 +630,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             ]
         ]
         let result = MIMovingImagesHandleCommands(nil, commandsDict, nil, nil)
-        let resultString = MIGetStringFromReplyDictionary(result)
+        // let resultString = MIGetStringFromReplyDictionary(result)
         // println("===========================================================")
         // println(resultString)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
@@ -664,8 +668,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         let frameDurationCM = CMTimeMake(
             Int64(1001),
             Int32(30000))
-        let frameDuration = CMTimeCopyAsDictionary(frameDurationCM,
-            kCFAllocatorDefault)
+        let frameDuration = cmTimeAsDictionary(frameDurationCM)
 
         let addInputToMovieFrameWriterCommand = [
             MIJSONKeyCommand : MIJSONValueAddInputToMovieFrameWriterCommand,
@@ -1015,11 +1018,8 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         let numVideoSamplesF = Double(numVideoSamples)
         
         // Movie length is 4 seconds. frame duration is 1001/30000.
-        let frameDurationCM = CMTimeMake(
-            Int64(1001),
-            Int32(30000))
-        let frameDuration = CMTimeCopyAsDictionary(frameDurationCM,
-            kCFAllocatorDefault)
+        let frameDurationCM = CMTimeMake(Int64(1001), Int32(30000))
+        let frameDuration = cmTimeAsDictionary(frameDurationCM)
 
         let addInputToMovieFrameWriterCommand = [
             MIJSONKeyCommand : MIJSONValueAddInputToMovieFrameWriterCommand,
@@ -1301,11 +1301,8 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         let numVideoSamplesF = Double(numVideoSamples)
         
         // Movie length is 4 seconds. frame duration is 1001/30000.
-        let frameDurationCM = CMTimeMake(
-            Int64(1001),
-            Int32(30000))
-        let frameDuration = CMTimeCopyAsDictionary(frameDurationCM,
-            kCFAllocatorDefault)
+        let frameDurationCM = CMTimeMake(Int64(1001), Int32(30000))
+        let frameDuration = cmTimeAsDictionary(frameDurationCM)
         
         let addInputToMovieFrameWriterCommand = [
             MIJSONKeyCommand : MIJSONValueAddInputToMovieFrameWriterCommand,

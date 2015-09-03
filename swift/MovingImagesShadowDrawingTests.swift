@@ -191,7 +191,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
                 let origImage = createCGImageFromNamedPNGImage(namedImageName)
                 let imageDiff = compareImages(image1: origImage, image2: theImage)
                 // println("Max image difference: \(imageDiff)")
-                XCTAssert(imageDiff < 2, "Image file \(namedImageName) different")
+                XCTAssert(imageDiff < 1, "Image file \(namedImageName) different")
             }
             else
             {
@@ -307,7 +307,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
                 let origImage = createCGImageFromNamedPNGImage(namedImageName)
                 let imageDiff = compareImages(image1: origImage, image2: theImage)
                 // println("Max image difference: \(imageDiff)")
-                XCTAssert(imageDiff < 2,
+                XCTAssert(imageDiff < 1,
                     "Image file \(namedImageName) different: \(imageDiff)")
             }
             else
@@ -395,7 +395,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
                 let origImage = createCGImageFromNamedPNGImage(namedImageName)
                 let imageDiff = compareImages(image1: origImage, image2: theImage)
                 // println("Max image difference: \(imageDiff)")
-                XCTAssert(imageDiff < 2, "Image file \(namedImageName) different")
+                XCTAssert(imageDiff < 1, "Image file \(namedImageName) different")
             }
             else
             {
@@ -532,7 +532,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
                 let origImage = createCGImageFromNamedPNGImage(namedImageName)
                 let imageDiff = compareImages(image1: origImage, image2: theImage)
                 // println("Max image difference: \(imageDiff)")
-                XCTAssert(imageDiff < 2, "Image file \(namedImageName) different")
+                XCTAssert(imageDiff < 1, "Image file \(namedImageName) different")
             }
             else
             {
@@ -677,7 +677,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
                 let origImage = createCGImageFromNamedPNGImage(namedImageName)
                 let imageDiff = compareImages(image1: origImage, image2: theImage)
                 // println("Max image difference: \(imageDiff)")
-                XCTAssert(imageDiff < 2, "Image file \(namedImageName) different")
+                XCTAssert(imageDiff < 1, "Image file \(namedImageName) different")
             }
             else
             {
@@ -705,14 +705,7 @@ class MovingImagesShadowDrawingTests: XCTestCase {
             MIJSONKeyBlue : 0.1,
             MIJSONKeyColorColorProfileName : "kCGColorSpaceGenericRGB"
         ]
-        
-        let whiteColour = [
-            MIJSONKeyRed : 1.0,
-            MIJSONKeyGreen : 1.0,
-            MIJSONKeyBlue : 1.0,
-            MIJSONKeyColorColorProfileName : "kCGColorSpaceGenericRGB"
-        ]
-        
+
         let fillColour = redColour
         let shadowColour = darkGrayColour
         // let shadowColour = whiteColour

@@ -83,7 +83,6 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
                                                 withExtension:"json")!
         let inStream = NSInputStream(URL: jsonURL)!
         inStream.open()
-        var jsonReadingError:NSError?
         let container:[NSString : NSObject] =
             try! NSJSONSerialization.JSONObjectWithStream(inStream,
                         options: NSJSONReadingOptions()) as! [NSString : NSObject]
@@ -258,8 +257,7 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
             "draw_elements") as! [String : AnyObject]
 
         self.measureBlock() {
-            let commandResult = MIMovingImagesHandleCommands(nil, commandDict,
-                nil, nil)
+            MIMovingImagesHandleCommands(nil, commandDict, nil, nil)
         }
     }
 
@@ -404,8 +402,6 @@ open(filePath, 'w') { |f| f.puts jsonString }
         let result = MIMovingImagesHandleCommands(nil, commandDict1, nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0, "Error creating the bitmap context")
-        let objectDict = ["objecttype":"bitmapcontext",
-            "objectname":"movingimages_framework_test"]
         
         let theContext = MIContext.defaultContext()
         let imageID = "zukini.movingimages.framework.tests.imageident1"
@@ -458,7 +454,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
                          "dyn.age8046bv public.3gpp com.apple.itunes.audible " +
                          "public.mpeg-4-audio"
 #else
-        let testString = "public.mpeg dyn.agq81q4peqz1w88brrz2de7a dyn.agq80c6durvy0g2pyrf106p5rsa4a public.dv-movie public.pls-playlist dyn.age804qxb dyn.agq80c6durvy0g2pyrf106p52fz01a3phsz3g2 public.aifc-audio com.apple.mpeg-4-ringtone dyn.agq80c7perf1w865dsb0hg com.microsoft.waveform-audio public.3gpp public.3gpp2 dyn.age81s3pcs34hk dyn.agq80c7perf1w88brry4ge dyn.agq80c7perf1w88brs7u1q dyn.agq81q4peqz1w85pugf3u public.avi dyn.agq81q4peqz1w85mwsv3u dyn.agq80c7perf1w88brqru0q com.apple.itunes.audible public.aac-audio dyn.age80455e dyn.age81q7dy dyn.agq81q4peqz1w85pugm4a dyn.age8046p0 public.m3u-playlist com.apple.quicktime-movie public.aiff-audio dyn.agq81q4peqz1w88brrz2gn33w dyn.agq80c7perf1w82pbqr2a com.apple.m4v-video org.3gpp.adaptive-multi-rate-audio dyn.age8046db dyn.agq81q4peqz1w85pugm2a dyn.agq81q4peqz1w83d0 com.apple.coreaudio-format com.apple.itunes.m3u-playlist com.apple.m4a-audio com.apple.itunes.mp2 public.mpeg-4-audio dyn.agq81k3p2su11q7dy dyn.age81q55c public.mpeg-2-video public.mpeg-4 public.mp2 dyn.agq81q4peqz1w88brry3hk62 dyn.age8046bv dyn.age804qpb public.mp3 dyn.age804qxy public.au-audio public.avchd-mpeg-2-transport-stream public.mpeg-2-transport-stream public.ac3-audio dyn.agq80c7perf1w88brry4ha dyn.agq81q4peqz1w88brrz2dc62 com.apple.protected-mpeg-4-audio com.apple.itunes.pls-playlist dyn.agq81q4peqz1w88brrz2de6a"
+        let testString = "public.mpeg dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w88brrz2de7a public.dv-movie public.pls-playlist dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81k3p2su11g25d dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w85puqzx1n6xq public.aifc-audio com.apple.mpeg-4-ringtone dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr61046dfq63u dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w865dsb0hg com.microsoft.waveform-audio dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr611upprsbw0s public.3gpp public.3gpp2 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w83d0 dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr611g25urv3u dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr611upprsbw0sq2 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w88brrz2de6a dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c6durvy0g2pyrf106p52fz01a3phsz3g2 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brs7u1q public.avi dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge804qxb dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr610c2pd com.apple.itunes.audible dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c6durvy0g2pyrf106p50r3wc62pusb0gnpxrsbw0s7pwru public.aac-audio dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge8046db dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w88brry3hk62 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w88brrz2dc62 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c6durvy0g2pyrf106p5rsa4a dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr61046dh dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr610c2pdsa dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w88brrz2gn33w dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr611upprsbxu dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brqru0q public.m3u-playlist com.apple.quicktime-movie public.aiff-audio dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gk804xnuk6 dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr611upprsa3u dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge80n23x com.apple.m4v-video dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w85pugm2a dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr61046bx dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brrz2gn35zsm0a org.3gpp.adaptive-multi-rate-audio com.apple.coreaudio-format public.mpeg-4-audio dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge81g25d com.apple.m4a-audio com.apple.itunes.mp2 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge8046bv dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge81q55c dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w82pbqr2a dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge804qpb public.mpeg-2-video public.mpeg-4 public.mp2 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w85mwsv3u dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w85pugm4a public.mp3 public.au-audio dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge804qxy public.enhanced-ac3-audio public.avchd-mpeg-2-transport-stream dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge80455e public.mpeg-2-transport-stream dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge81s3pcs34hk dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brsrv1a5dx dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1a6dqrfv0c7dmr71c88brrz2gn35zsm0a public.ac3-audio dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge81q7dy dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gk804qxysq dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brry4ha dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr61046dfq6 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge81g23w com.apple.protected-mpeg-4-audio dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w85pugf3u dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brry4ge dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81k3p2su11q7dy dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge8046p0"
 #endif
         XCTAssert(resultString == testString, "Different list of movie types: " +
             resultString)
@@ -492,17 +488,7 @@ open(filePath, 'w') { |f| f.puts jsonString }
                          "audio/x-aac audio/3gpp audio/basic audio/x-m4a " +
                          "application/x-mpegurl"
 #else
-        let testString = "video/mp4 video/x-m4v video/mpg audio/x-m4r " +
-            "audio/AMR video/x-mpg video/3gpp2 video/mp2p video/mp1s audio/mpeg " +
-            "video/x-mp2p video/x-mp1s audio/scpls audio/wave video/x-mp2t " +
-            "video/x-mpeg2 audio/mpeg3 video/mpeg audio/aac video/x-m2ts " +
-            "audio/x-caf video/mp2t audio/3gpp application/x-mpegurl " +
-            "application/mp4 audio/mp3 video/avi application/vnd.apple.mpegurl " +
-            "audio/mp4 audio/x-aiff audio/mpg video/x-mpeg video/dv video/3gpp " +
-            "video/mpeg2 audio/x-mpg audio/x-mpeg audio/3gpp2 audio/x-aac " +
-            "audio/x-wav video/quicktime audio/x-mp3 audio/x-mpegurl audio/x-mpeg3 " +
-            "audio/x-m4a audio/x-m4p audio/mpegurl video/m2ts audio/aacp " +
-            "audio/x-m4b audio/aiff audio/x-scpls audio/basic audio/wav text/vtt"
+        let testString = "video/mp4 video/x-m4v video/mpg audio/x-m4r audio/AMR video/x-mpg video/3gpp2 video/mp2p video/mp1s audio/mpeg video/x-mp2p video/x-mp1s audio/scpls audio/wave video/x-mp2t video/x-mpeg2 audio/mpeg3 video/mpeg audio/aac video/x-m2ts audio/x-caf video/mp2t audio/3gpp application/x-mpegurl application/mp4 audio/mp3 video/avi application/vnd.apple.mpegurl audio/mp4 audio/x-aiff audio/mpg video/x-mpeg video/dv video/3gpp video/mpeg2 audio/x-mpg audio/x-mpeg audio/3gpp2 audio/x-aac audio/x-wav video/quicktime audio/x-mp3 text/scc audio/x-mpegurl audio/x-mpeg3 audio/x-m4a audio/x-m4p audio/mpegurl video/m2ts audio/aacp audio/x-m4b audio/aiff audio/x-scpls audio/basic audio/wav text/vtt"
 #endif
         XCTAssert(resultString == testString,
                   "Different list of movie mime types " + resultString)
@@ -582,7 +568,6 @@ open(filePath, 'w') { |f| f.puts jsonString }
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0,
             "Error creating or getting properties of a movie file")
-        let resultString = MIGetStringFromReplyDictionary(result)
        
         // Now close the movie importer object and its asset.
         let commandsDict2 = [
@@ -608,8 +593,6 @@ open(filePath, 'w') { |f| f.puts jsonString }
         let errorCode25 = MIGetErrorCodeFromReplyDictionary(result25)
         XCTAssertEqual(errorCode25.rawValue, 246,
             "Error closing the movie importer object")
-        let strResult25 = MIGetStringFromReplyDictionary(result25)
-        // println(strResult25) // "Error: Invalid receiver object"
 
         // Now check that we have closed all objects in the context
         let commandsDict3 = [
@@ -663,7 +646,6 @@ open(filePath, 'w') { |f| f.puts jsonString }
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0,
             "Error creating or getting properties of a movie file")
-        let resultString = MIGetStringFromReplyDictionary(result)
         
         // Now close the movie importer object and its asset.
         let commandsDict2 = [
@@ -757,6 +739,8 @@ open(filePath, 'w') { |f| f.puts jsonString }
         let result = MIMovingImagesHandleCommands(theContext, commandsDict,
             nil, nil)
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
+        XCTAssertEqual(errorCode.rawValue, 0,
+            "Error drawing into or getting pixel data from a bitmap context")
         let resStr = MIGetStringFromReplyDictionary(result)
         
         #if os(iOS)

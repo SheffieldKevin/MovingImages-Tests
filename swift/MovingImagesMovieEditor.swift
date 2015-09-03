@@ -717,13 +717,7 @@ class MovingImagesMovieEditor: XCTestCase {
         "AVAssetExportPreset1280x720 AVAssetExportPresetHighestQuality"
     #endif
 #else
-        let origCompatiblePresets = "AVAssetExportPresetAppleM4VWiFi " +
-        "AVAssetExportPresetAppleM4V480pSD AVAssetExportPresetAppleM4V1080pHD " +
-        "AVAssetExportPresetAppleM4VCellular AVAssetExportPreset1920x1080 " +
-        "AVAssetExportPreset1280x720 AVAssetExportPreset640x480 " +
-        "AVAssetExportPresetAppleM4ViPod AVAssetExportPreset3840x2160 " +
-        "AVAssetExportPresetAppleM4VAppleTV AVAssetExportPresetAppleM4V720pHD " +
-        "AVAssetExportPreset960x540 AVAssetExportPresetAppleProRes422LPCM"
+    let origCompatiblePresets = "AVAssetExportPreset1920x1080 AVAssetExportPresetLowQuality AVAssetExportPresetAppleM4V720pHD AVAssetExportPresetLowQuality_16x9 AVAssetExportPresetAppleM4VAppleTV AVAssetExportPreset640x480 AVAssetExportPresetAppleProRes422LPCM AVAssetExportPreset3840x2160 AVAssetExportPresetAppleM4VWiFi AVAssetExportPresetHighestQuality AVAssetExportPresetAppleM4VCellular AVAssetExportPreset1280x720 AVAssetExportPresetMediumQuality_16x9 AVAssetExportPresetMediumQuality AVAssetExportPresetAppleM4V1080pHD AVAssetExportPresetAppleM4V480pSD AVAssetExportPreset960x540 AVAssetExportPresetAppleM4ViPod"
 #endif
         XCTAssertEqual(resultStr8, origCompatiblePresets,
         "List of compatible presets for composition with video content differs")
