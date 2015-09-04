@@ -23,23 +23,17 @@ let videoWriterObject : [NSString : AnyObject] = [
 
 func GetMoviesURL() -> NSURL? {
     let fm = NSFileManager.defaultManager()
-    var error:NSError?
 
     #if os(iOS)
-        return fm.URLForDirectory(NSSearchPathDirectory.CachesDirectory,
+        return try? fm.URLForDirectory(NSSearchPathDirectory.CachesDirectory,
                 inDomain: NSSearchPathDomainMask.UserDomainMask,
        appropriateForURL: .None,
-                  create: false,
-                   error: &error)
+                  create: false)
     #else
-    do {
-        return try fm.URLForDirectory(NSSearchPathDirectory.MoviesDirectory,
+        return try? fm.URLForDirectory(NSSearchPathDirectory.MoviesDirectory,
                     inDomain: NSSearchPathDomainMask.UserDomainMask,
            appropriateForURL: .None,
                       create: false)
-    } catch _ {
-        return nil
-    }
     #endif
 }
 
@@ -53,13 +47,13 @@ func saveMovieFileToSharedPhotoLibrary(filePath filePath: String) -> Void {
     
     let wait = dispatch_semaphore_create(0)
     PHPhotoLibrary.sharedPhotoLibrary().performChanges({
-        let request =
         PHAssetChangeRequest.creationRequestForAssetFromVideoAtFileURL(url)
-    },
-    completionHandler: { success, error in
-        dispatch_semaphore_signal(wait)
-        Void.self
-    })
+        },
+        completionHandler: { success, error in
+            dispatch_semaphore_signal(wait)
+            Void.self
+        }
+    )
     dispatch_semaphore_wait(wait, DISPATCH_TIME_FOREVER)
 }
 #endif
@@ -645,7 +639,7 @@ class MovingImagesVideoFramesWriter: XCTestCase {
             let fm = NSFileManager.defaultManager()
             if (fm.fileExistsAtPath(moviePath))
             {
-                fm.removeItemAtPath(moviePath, error: nil)
+                let _ = try? fm.removeItemAtPath(moviePath)
             }
             #endif
         }
@@ -990,14 +984,14 @@ class MovingImagesVideoFramesWriter: XCTestCase {
         if (errorCode == MIReplyErrorEnum.NoError)
         {
             #if os(iOS)
-            let moviePath = GetMoviePathInMoviesDir(fileName: "videowriter.mp4")
+            let moviePath = GetMoviePathInMoviesDir("videowriter.mp4")
             saveMovieFileToSharedPhotoLibrary(filePath: moviePath)
 
             // Now check to see if the file exists and delete it.
             let fm = NSFileManager.defaultManager()
             if (fm.fileExistsAtPath(moviePath))
             {
-                fm.removeItemAtPath(moviePath, error: nil)
+                let _ = try? fm.removeItemAtPath(moviePath)
             }
             #endif
         }

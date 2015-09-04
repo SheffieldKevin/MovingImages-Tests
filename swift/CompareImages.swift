@@ -98,13 +98,21 @@ func compareImages(image1 image1:CGImage, image2:CGImage) -> Int {
           kCIContextWorkingColorSpace : colorSpace as! AnyObject,
         kCIContextUseSoftwareRenderer : false as AnyObject
     ]
-    let ciContext = CIContext(CGContext: context, options: ciContextOpts)
-    
+
     // Get the output CIImage and draw that to the Core Image context.
     // let valueImage = areaMaxFilter.valueForKey(kCIOutputImageKey) as! CIImage
     let valueImage = diffFilter.valueForKey(kCIOutputImageKey) as! CIImage
-    ciContext.drawImage(valueImage, inRect: CGRectMake(0,0,1,1),
-        fromRect: valueImage.extent)
+
+    let ciContext: CIContext
+    let inRect = CGRect(x: 0, y: 0, width: 1, height: 1)
+    #if os(iOS)
+        ciContext = CIContext(options: ciContextOpts)
+        let image = ciContext.createCGImage(valueImage, fromRect: valueImage.extent)
+        CGContextDrawImage(context, inRect, image)
+    #else
+        ciContext = CIContext(CGContext: context, options: ciContextOpts)
+        ciContext.drawImage(valueImage, inRect: inRect, fromRect: valueImage.extent)
+    #endif
     
     // This will have modified the contents of the buffer used for the CGContext.
     // Find the maximum value of the different color components. Remember that

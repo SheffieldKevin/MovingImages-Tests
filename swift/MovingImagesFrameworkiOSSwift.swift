@@ -25,24 +25,22 @@ func writeJSONToFile(jsonObject: [String:AnyObject]) -> Void {
 
 func GetImageFileURL() -> NSURL? {
     let fm = NSFileManager.defaultManager()
-    var error:NSError?
+    let searchPathDirectory:NSSearchPathDirectory
     
     #if os(iOS)
-    return fm.URLForDirectory(NSSearchPathDirectory.CachesDirectory,
+        searchPathDirectory = NSSearchPathDirectory.CachesDirectory
+    #else
+        searchPathDirectory = NSSearchPathDirectory.PicturesDirectory
+    #endif
+
+    do {
+        return try fm.URLForDirectory(searchPathDirectory,
                 inDomain: NSSearchPathDomainMask.UserDomainMask,
        appropriateForURL: .None,
-                  create: false,
-                   error: &error)
-    #else
-    do {
-        return try fm.URLForDirectory(NSSearchPathDirectory.PicturesDirectory,
-            inDomain: NSSearchPathDomainMask.UserDomainMask,
-            appropriateForURL: .None,
-            create: false)
+                  create: false)
     } catch _ {
         return nil
     }
-    #endif
 }
 
 func GetImageFilePathInPictures(fileName: String = "videowriter.mov") -> String {
@@ -55,13 +53,13 @@ func saveImageFileToSharedPhotoLibrary(filePath filePath: String) -> Void {
     
     let wait = dispatch_semaphore_create(0)
     PHPhotoLibrary.sharedPhotoLibrary().performChanges({
-        let request =
-            PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(url)
+        let _ = PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(url)
         },
         completionHandler: { success, error in
             dispatch_semaphore_signal(wait)
             Void.self
-    })
+        }
+    )
     dispatch_semaphore_wait(wait, DISPATCH_TIME_FOREVER)
 }
 #endif
@@ -306,7 +304,7 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
                 let fm = NSFileManager.defaultManager()
                 if (fm.fileExistsAtPath(outPath))
                 {
-                    fm.removeItemAtPath(outPath, error: nil)
+                    let _ = try? fm.removeItemAtPath(outPath)
                 }
             #endif
         }
@@ -314,7 +312,6 @@ class MovingImagesFrameworkiOSSwift: XCTestCase {
         {
             print(MIGetStringFromReplyDictionary(commandResult))
         }
-
     }
 
     // Check that running commands asynchronously works as expected.
@@ -433,31 +430,15 @@ open(filePath, 'w') { |f| f.puts jsonString }
                         "Error getting list movie import types")
         let resultString = MIGetStringFromReplyDictionary(result)
 #if os(iOS)
-        let testString = "dyn.agq80c6durvy0g2pyrf106p52fz01a3phsz3g2 " +
-                         "dyn.age81s3pcs34hk dyn.age804qpb " +
-                         "dyn.agq80c7perf1w88brry4ha " +
-                         "public.avi public.aifc-audio public.aac-audio " +
-                         "public.mpeg-4 public.m3u-playlist " +
-                         "dyn.agq80c7perf1w865dsb0hg com.apple.m4v-video " +
-                         "public.au-audio dyn.agq80c7perf1w88brqru0q " +
-                         "public.aiff-audio com.apple.quicktime-movie " +
-                         "dyn.age8046p0 com.apple.mpeg-4-ringtone " +
-                         "com.microsoft.waveform-audio public.mp2 " +
-                         "dyn.agq80c6durvy0g2pyrf106p5rsa4a public.pls-playlist " +
-                         "dyn.agq80c7perf1w82pbqr2a com.apple.m4a-audio " +
-                         "public.3gpp2 org.3gpp.adaptive-multi-rate-audio " +
-                         "public.ac3-audio com.apple.coreaudio-format " +
-                         "public.mp3 dyn.age81q7dy dyn.agq81k3p2su11q7dy " +
-                         "com.apple.protected-mpeg-4-audio " +
-                         "dyn.agq80c7perf1w88brry4ge dyn.age8046db " +
-                         "dyn.age804qxb dyn.agq80c7perf1w88brs7u1q " +
-                         "dyn.age8046bv public.3gpp com.apple.itunes.audible " +
-                         "public.mpeg-4-audio"
+    #if arch(x86_64)
+        let testString = "public.pls-playlist dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w85puqzx1n6xq public.aifc-audio com.apple.mpeg-4-ringtone dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr61046dfq63u dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w865dsb0hg com.microsoft.waveform-audio dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr611upprsbw0s public.3gpp public.3gpp2 dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr611g25urv3u dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr611upprsbw0sq2 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c6durvy0g2pyrf106p52fz01a3phsz3g2 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brs7u1q public.avi dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge804qxb dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr610c2pd com.apple.itunes.audible dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c6durvy0g2pyrf106p50r3wc62pusb0gnpxrsbw0s7pwru public.aac-audio dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge8046db dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c6durvy0g2pyrf106p5rsa4a dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr61046dh dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr610c2pdsa dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr611upprsbxu dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brqru0q public.m3u-playlist com.apple.quicktime-movie public.aiff-audio dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr611upprsa3u dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge80n23x com.apple.m4v-video dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr61046bx dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brrz2gn35zsm0a org.3gpp.adaptive-multi-rate-audio com.apple.coreaudio-format com.apple.m4a-audio public.mpeg-4-audio dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge8046bv dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w82pbqr2a dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge804qpb public.mpeg-4 public.mp2 public.mp3 public.au-audio public.enhanced-ac3-audio dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brsrv1a5dx dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1a6dqrfv0c7dmr71c88brrz2gn35zsm0a dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge81s3pcs34hk dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brry4ha dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr61046dfq6 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge81q7dy public.ac3-audio com.apple.protected-mpeg-4-audio dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brry4ge dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81k3p2su11q7dy dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge8046p0"
+    #else
+        let testString = "dyn.agq80c6durvy0g2pyrf106p52fz01a3phsz3g2 dyn.age81s3pcs34hk dyn.age804qpb dyn.agq80c7perf1w88brry4ha public.avi public.aifc-audio public.aac-audio public.mpeg-4 public.m3u-playlist dyn.agq80c7perf1w865dsb0hg com.apple.m4v-video public.au-audio dyn.agq80c7perf1w88brqru0q public.aiff-audio com.apple.quicktime-movie dyn.age8046p0 com.apple.mpeg-4-ringtone com.microsoft.waveform-audio public.mp2 dyn.agq80c6durvy0g2pyrf106p5rsa4a public.pls-playlist dyn.agq80c7perf1w82pbqr2a com.apple.m4a-audio public.3gpp2 org.3gpp.adaptive-multi-rate-audio public.ac3-audio com.apple.coreaudio-format public.mp3 dyn.age81q7dy dyn.agq81k3p2su11q7dy com.apple.protected-mpeg-4-audio dyn.agq80c7perf1w88brry4ge dyn.age8046db dyn.age804qxb dyn.agq80c7perf1w88brs7u1q dyn.age8046bv public.3gpp com.apple.itunes.audible public.mpeg-4-audio"
+    #endif
 #else
         let testString = "public.mpeg dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w88brrz2de7a public.dv-movie public.pls-playlist dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81k3p2su11g25d dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w85puqzx1n6xq public.aifc-audio com.apple.mpeg-4-ringtone dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr61046dfq63u dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w865dsb0hg com.microsoft.waveform-audio dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr611upprsbw0s public.3gpp public.3gpp2 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w83d0 dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr611g25urv3u dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr611upprsbw0sq2 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w88brrz2de6a dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c6durvy0g2pyrf106p52fz01a3phsz3g2 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brs7u1q public.avi dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge804qxb dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr610c2pd com.apple.itunes.audible dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c6durvy0g2pyrf106p50r3wc62pusb0gnpxrsbw0s7pwru public.aac-audio dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge8046db dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w88brry3hk62 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w88brrz2dc62 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c6durvy0g2pyrf106p5rsa4a dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr61046dh dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr610c2pdsa dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w88brrz2gn33w dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr611upprsbxu dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brqru0q public.m3u-playlist com.apple.quicktime-movie public.aiff-audio dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gk804xnuk6 dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr611upprsa3u dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge80n23x com.apple.m4v-video dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w85pugm2a dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr61046bx dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brrz2gn35zsm0a org.3gpp.adaptive-multi-rate-audio com.apple.coreaudio-format public.mpeg-4-audio dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge81g25d com.apple.m4a-audio com.apple.itunes.mp2 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge8046bv dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge81q55c dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w82pbqr2a dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge804qpb public.mpeg-2-video public.mpeg-4 public.mp2 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w85mwsv3u dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w85pugm4a public.mp3 public.au-audio dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge804qxy public.enhanced-ac3-audio public.avchd-mpeg-2-transport-stream dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge80455e public.mpeg-2-transport-stream dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge81s3pcs34hk dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brsrv1a5dx dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1a6dqrfv0c7dmr71c88brrz2gn35zsm0a public.ac3-audio dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge81q7dy dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gk804qxysq dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brry4ha dyn.ah62d46dzqm0gw23ssb0gc8pqrf31ksvxhzu1n3dmr61046dfq6 dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge81g23w com.apple.protected-mpeg-4-audio dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81q4peqz1w85pugf3u dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq80c7perf1w88brry4ge dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4gq81k3p2su11q7dy dyn.ah62d46dzqm0gw23sqf40k4pts3y1g7pbru00g55ssvw067b4ge8046p0"
 #endif
-        XCTAssert(resultString == testString, "Different list of movie types: " +
-            resultString)
+        XCTAssert(resultString == testString, "Different list of movie types: \(resultString)")
     }
 
     func testGetMovieAudioVisualMovieImportTypes() -> Void {

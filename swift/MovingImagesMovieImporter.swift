@@ -154,8 +154,13 @@ class MovingImagesMovieImporter: XCTestCase {
         // resultString.writeToFile("/Users/ktam/Desktop/410_clip4_metadata.json",
         //    atomically: true, encoding: NSUTF8StringEncoding, error: nil)
         
+        #if !arch(x86_64) && os(iOS)
+            let jsonURL = testBundle.URLForResource("410_clip4_metadata_iOS",
+                withExtension:"json")!
+        #else
         let jsonURL = testBundle.URLForResource("410_clip4_metadata",
             withExtension:"json")!
+        #endif
         let testResult = try! NSString(contentsOfFile: jsonURL.path!,
             encoding: NSUTF8StringEncoding)
         

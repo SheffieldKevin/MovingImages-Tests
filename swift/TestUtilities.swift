@@ -76,7 +76,7 @@ let platformSuffix = "OSX"
         // Don't use expand tilde version. iOS simulator homedir is not what we want.
         // let fp = "~/Desktop/".stringByExpandingTildeInPath + "/" + fileName
         #if os(iOS)
-            return NSURL.fileURLWithPath("/Users/ktam/Desktop/Current/iOSSim/" + fileName)!
+            return NSURL.fileURLWithPath("/Users/ktam/Desktop/Current/iOSSim/" + fileName)
             #else
             let fp = NSString(string: "~/Desktop/Current/OSX/").stringByExpandingTildeInPath + "/" + fileName
             return NSURL.fileURLWithPath(fp)
@@ -97,39 +97,36 @@ let platformSuffix = "iOS"
     // This version is for running on a iOS device.
     func makeSaveFileURLPath(fileName: String) -> NSURL {
         let fm = NSFileManager.defaultManager()
-        var error:NSError?
         
-        let folderURL = fm.URLForDirectory(NSSearchPathDirectory.CachesDirectory,
-            inDomain: NSSearchPathDomainMask.UserDomainMask,
+        let folderURL = try! fm.URLForDirectory(NSSearchPathDirectory.CachesDirectory,
+                     inDomain: NSSearchPathDomainMask.UserDomainMask,
             appropriateForURL: .None,
-            create: false,
-            error: &error)
+                       create: false)
         
-        return NSURL(string: fileName, relativeToURL:folderURL)!.absoluteURL!
+        return NSURL(string: fileName, relativeToURL:folderURL)!.absoluteURL
     }
     
     func moveImageFileToPhotoLibrary(fileURL: NSURL) -> Void {
         let wait = dispatch_semaphore_create(0)
         
         PHPhotoLibrary.sharedPhotoLibrary().performChanges({
-            let request =
-            PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(fileURL)
+                PHAssetChangeRequest.creationRequestForAssetFromImageAtFileURL(fileURL)
             },
             completionHandler: { success, error in
                 dispatch_semaphore_signal(wait)
                 Void.self
-        })
+            }
+        )
         
         dispatch_semaphore_wait(wait, DISPATCH_TIME_FOREVER)
         let fm = NSFileManager.defaultManager()
-        var error:NSError?
-        fm.removeItemAtURL(fileURL, error:&error)
+        let _ = try? fm.removeItemAtURL(fileURL)
     }
     
     // This version is for saving a file when running on an iOS device.
     func saveCGImageToAPNGFile(theImage: CGImageRef, fileName: String) -> Void {
         let fileURL = makeSaveFileURLPath(fileName)
-        saveCGImage(theImage, fileURL, String(kUTTypePNG))
+        saveCGImage(theImage, fileURL: fileURL, uti: String(kUTTypePNG))
         
         // Now move the image to the photos library.
         moveImageFileToPhotoLibrary(fileURL)
@@ -138,7 +135,7 @@ let platformSuffix = "iOS"
     // This version is for saving a file when running on an iOS device.
     func saveCGImageToAJPEGFile(theImage: CGImageRef, fileName: String) -> Void {
         let fileURL = makeSaveFileURLPath(fileName)
-        saveCGImage(theImage, fileURL, String(kUTTypeJPEG))
+        saveCGImage(theImage, fileURL: fileURL, uti: String(kUTTypeJPEG))
         
         // Now move the image to the photos library.
         moveImageFileToPhotoLibrary(fileURL)

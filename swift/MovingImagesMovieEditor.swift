@@ -706,10 +706,7 @@ class MovingImagesMovieEditor: XCTestCase {
         // ProRes4444 is not available, it is not a export preset option.
 #if os(iOS)
     #if arch(x86_64)
-        let origCompatiblePresets = "AVAssetExportPresetLowQuality " +
-        "AVAssetExportPresetHighestQuality AVAssetExportPresetMediumQuality " +
-        "AVAssetExportPreset1920x1080 AVAssetExportPreset1280x720 " +
-        "AVAssetExportPreset960x540 AVAssetExportPreset640x480"
+        let origCompatiblePresets = "AVAssetExportPreset1920x1080 AVAssetExportPresetLowQuality AVAssetExportPreset640x480 AVAssetExportPresetHighestQuality AVAssetExportPreset1280x720 AVAssetExportPresetMediumQuality AVAssetExportPreset960x540"
     #else
         let origCompatiblePresets = "AVAssetExportPresetLowQuality " +
         "AVAssetExportPreset960x540 AVAssetExportPreset640x480 " +
@@ -720,8 +717,7 @@ class MovingImagesMovieEditor: XCTestCase {
     let origCompatiblePresets = "AVAssetExportPreset1920x1080 AVAssetExportPresetLowQuality AVAssetExportPresetAppleM4V720pHD AVAssetExportPresetLowQuality_16x9 AVAssetExportPresetAppleM4VAppleTV AVAssetExportPreset640x480 AVAssetExportPresetAppleProRes422LPCM AVAssetExportPreset3840x2160 AVAssetExportPresetAppleM4VWiFi AVAssetExportPresetHighestQuality AVAssetExportPresetAppleM4VCellular AVAssetExportPreset1280x720 AVAssetExportPresetMediumQuality_16x9 AVAssetExportPresetMediumQuality AVAssetExportPresetAppleM4V1080pHD AVAssetExportPresetAppleM4V480pSD AVAssetExportPreset960x540 AVAssetExportPresetAppleM4ViPod"
 #endif
         XCTAssertEqual(resultStr8, origCompatiblePresets,
-        "List of compatible presets for composition with video content differs")
-        print(resultStr8)
+        "List of compatible presets for composition with video content differs \(resultStr8)")
         
         //
         // Get allowed export file types for a few different presets.
@@ -1535,15 +1531,14 @@ class MovingImagesMovieEditor: XCTestCase {
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error occured generating and creating movie with transfrom instruct.")
         #if os(iOS) && !arch(x86_64)
-            let moviePath = GetMoviePathInMoviesDir(fileName:
-                "movieeditor_transformtransition.mov")
+            let moviePath = GetMoviePathInMoviesDir("movieeditor_transformtransition.mov")
             saveMovieFileToSharedPhotoLibrary(filePath: moviePath)
             
             // Now check to see if the file exists and delete it.
             let fm = NSFileManager.defaultManager()
             if (fm.fileExistsAtPath(moviePath))
             {
-                fm.removeItemAtPath(moviePath, error: nil)
+                let _ = try? fm.removeItemAtPath(moviePath)
             }
         #endif
     }
@@ -1850,15 +1845,14 @@ class MovingImagesMovieEditor: XCTestCase {
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error occured generating and creating movie with opacity instruction.")
         #if os(iOS) && !arch(x86_64)
-            let moviePath = GetMoviePathInMoviesDir(fileName:
-                "movieeditor_opacitytransition.mov")
+            let moviePath = GetMoviePathInMoviesDir("movieeditor_opacitytransition.mov")
             saveMovieFileToSharedPhotoLibrary(filePath: moviePath)
             
             // Now check to see if the file exists and delete it.
             let fm = NSFileManager.defaultManager()
             if (fm.fileExistsAtPath(moviePath))
             {
-                fm.removeItemAtPath(moviePath, error: nil)
+                let _ = try? fm.removeItemAtPath(moviePath)
             }
         #endif
     }
@@ -2175,15 +2169,14 @@ class MovingImagesMovieEditor: XCTestCase {
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error occured generating and creating movie with crop instruction.")
         #if os(iOS) && !arch(x86_64)
-            let moviePath = GetMoviePathInMoviesDir(fileName:
-                "movieeditor_croptransition.mov")
+            let moviePath = GetMoviePathInMoviesDir("movieeditor_croptransition.mov")
             saveMovieFileToSharedPhotoLibrary(filePath: moviePath)
             
             // Now check to see if the file exists and delete it.
             let fm = NSFileManager.defaultManager()
             if (fm.fileExistsAtPath(moviePath))
             {
-                fm.removeItemAtPath(moviePath, error: nil)
+                let _ = try? fm.removeItemAtPath(moviePath)
             }
         #endif
     }
@@ -2511,15 +2504,14 @@ class MovingImagesMovieEditor: XCTestCase {
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error occured generating and creating movie with crop instruction.")
         #if os(iOS) && !arch(x86_64)
-            let moviePath = GetMoviePathInMoviesDir(fileName:
-            "movieeditor_croptransition.mov")
+            let moviePath = GetMoviePathInMoviesDir("movieeditor_croptransition.mov")
             saveMovieFileToSharedPhotoLibrary(filePath: moviePath)
             
             // Now check to see if the file exists and delete it.
             let fm = NSFileManager.defaultManager()
             if (fm.fileExistsAtPath(moviePath))
             {
-            fm.removeItemAtPath(moviePath, error: nil)
+                let _ = try? fm.removeItemAtPath(moviePath)
             }
         #endif
     }
@@ -2917,15 +2909,14 @@ class MovingImagesMovieEditor: XCTestCase {
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error occured generating and creating movie with instructions.")
         #if os(iOS) && !arch(x86_64)
-            let moviePath = GetMoviePathInMoviesDir(fileName:
-            "movieeditor_videoramptransitions.mov")
+            let moviePath = GetMoviePathInMoviesDir("movieeditor_videoramptransitions.mov")
             saveMovieFileToSharedPhotoLibrary(filePath: moviePath)
             
             // Now check to see if the file exists and delete it.
             let fm = NSFileManager.defaultManager()
             if (fm.fileExistsAtPath(moviePath))
             {
-                fm.removeItemAtPath(moviePath, error: nil)
+                let _ = try? fm.removeItemAtPath(moviePath)
             }
         #endif
     }
