@@ -17,6 +17,9 @@ import XCTest
 class MovingImagesMovieEditor: XCTestCase {
     override func setUp() {
         super.setUp()
+        #if !os(iOS)
+            MIInitializeCocoaLumberjack()
+        #endif
     }
     
     override func tearDown() {
@@ -96,7 +99,6 @@ class MovingImagesMovieEditor: XCTestCase {
             print(resultValue.intValue)
         }
 
-        /*
         // Now add an audio track to the movie editor. Should be error free.
         let commandsDict2 = [
             MIJSONKeyCommands : [
@@ -107,14 +109,13 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
-        */
         
         // Version 1.0 of MovingImages will not manipulate audio tracks.
         // So adding audio tracks has been dropped for now.
-        // let result2 = MIMovingImagesHandleCommands(nil, commandsDict2, nil)
-        // let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
-        // XCTAssertEqual(errorCode2.rawValue, 0,
-        //    "Error adding an audio track to a movie editor.")
+        let result2 = MIMovingImagesHandleCommands(nil, commandsDict2, nil, nil)
+        let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
+        XCTAssertEqual(errorCode2.rawValue, 0,
+            "Error adding an audio track to a movie editor.")
         
         // Now add a video track with the persistent track id returned above.
         // This should produce an error as the track id is already used.
@@ -153,7 +154,7 @@ class MovingImagesMovieEditor: XCTestCase {
         if errorCode4 == MIReplyErrorEnum.NoError
         {
             let resultValue = MIGetNumericReplyValueFromDictionary(result4)!
-            XCTAssertEqual(resultValue.integerValue, 2,
+            XCTAssertEqual(resultValue.integerValue, 3,
                 "The number of tracks should be 3")
         }
         
@@ -194,7 +195,6 @@ class MovingImagesMovieEditor: XCTestCase {
         let errorCode = MIGetErrorCodeFromReplyDictionary(result)
         XCTAssertEqual(errorCode.rawValue, 0, "Error creating a movie editor.")
 
-        /*
         // Now add an audio track to the movie editor. Should be error free.
         let commandsDict2 = [
             MIJSONKeyCommands : [
@@ -205,13 +205,11 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
-        */
 
-        // let result2 = MIMovingImagesHandleCommands(theContext,
-        //     commandsDict2, nil)
-        // let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
-        // XCTAssertEqual(errorCode2.rawValue, 0,
-        //    "Error adding an audio track to a movie editor.")
+        let result2 = MIMovingImagesHandleCommands(theContext, commandsDict2, nil, nil)
+        let errorCode2 = MIGetErrorCodeFromReplyDictionary(result2)
+        XCTAssertEqual(errorCode2.rawValue, 0,
+            "Error adding an audio track to a movie editor.")
         
         // Now add a video track.
         let commandsDict3 = [
@@ -251,10 +249,7 @@ class MovingImagesMovieEditor: XCTestCase {
         
         let propertiesJSON = MIGetStringFromReplyDictionary(result4)
         XCTAssertEqual(propertiesJSON,
-            "{\"objecttype\":\"movieeditor\",\"objectname\":" +
-            "\"test003.movieeditor\",\"numberoftracks\":1,\"objectreference\"" +
-            ":0,\"metadataformats\":\"\",\"duration\":{\"flags\":1,\"value\"" +
-            ":0,\"timescale\":1,\"epoch\":0}}",
+            "{\"objecttype\":\"movieeditor\",\"objectname\":\"test003.movieeditor\",\"numberoftracks\":2,\"objectreference\":0,\"metadataformats\":\"\",\"duration\":{\"flags\":1,\"value\":0,\"timescale\":1,\"epoch\":0}}",
             "Get movie editor properties as json returned diff")
         
         let commandsDict5 = [
@@ -280,13 +275,12 @@ class MovingImagesMovieEditor: XCTestCase {
             "\"mediatype\":\"vide\",\"timerange\":{\"start\":{\"flags\":0," +
             "\"value\":0,\"timescale\":0,\"epoch\":0},\"duration\":{\"flags\"" +
             ":0,\"value\":0,\"timescale\":0,\"epoch\":0}},\"trackid\":" +
-            "1,\"languagecode\":\"\",\"languagetag\":\"\",\"affinetransform\"" +
+            "2,\"languagecode\":\"\",\"languagetag\":\"\",\"affinetransform\"" +
             ":{\"m12\":0,\"m21\":0,\"m22\":1,\"tY\":0,\"m11\":1,\"tX\":" +
             "0},\"requiresframereordering\":false,\"trackenabled\":true," +
             "\"framerate\":0}",
             "Get video track properties as json returned diff")
         
-        /*
         let audioTrackID = [
             MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeAudio,
             MIJSONPropertyMovieTrackIndex : 0
@@ -302,11 +296,9 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
-        */
-/*
-        // Getting property of an audio track in video editor.
-        // No longer possible.
-        let result6 = MIMovingImagesHandleCommands(theContext, commandsDict6, nil)
+
+        // Getting property of an audio track.
+        let result6 = MIMovingImagesHandleCommands(theContext, commandsDict6, nil, nil)
         let errorCode6 = MIGetErrorCodeFromReplyDictionary(result6)
         XCTAssertEqual(errorCode6.rawValue, 0,
            "Error getting properties from a movie editor.")
@@ -319,7 +311,7 @@ class MovingImagesMovieEditor: XCTestCase {
             ":0}},\"trackid\":1,\"languagecode\":\"\",\"languagetag\":\"\"" +
             ",\"trackenabled\":true}",
             "Get video track properties as json returned diff")
-*/
+
         let commandsDict7 = [
             MIJSONKeyCommands : [
                 [
@@ -361,11 +353,10 @@ class MovingImagesMovieEditor: XCTestCase {
             "Error getting properties from a movie editor.")
 
         let trackID = MIGetNumericReplyValueFromDictionary(result8)!
-        XCTAssertEqual(trackID.intValue, Int32(1),
+        XCTAssertEqual(trackID.intValue, Int32(2),
             "Persistent track id should be equal to 2.")
 
         // lets attempt to access a track property from a track that doesn't exist
-/*
         let notATrackID = [
             MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeAudio,
             MIJSONPropertyMovieTrackIndex : 1
@@ -381,15 +372,14 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
-*/
-/*
+
+
         // uncomment after audio track functionality added.
-        let result9 = MIMovingImagesHandleCommands(theContext, commandsDict9, nil)
+        let result9 = MIMovingImagesHandleCommands(theContext, commandsDict9, nil, nil)
         let errorCode9 = MIGetErrorCodeFromReplyDictionary(result9)
         XCTAssertEqual(errorCode9.rawValue,
             MIReplyErrorEnum.OperationFailed.rawValue,
             "Error getting properties from a movie editor.")
-*/
     }
     
     func testGetCompatibleExportPresetsForEditorWithContent() -> Void {
@@ -908,6 +898,264 @@ class MovingImagesMovieEditor: XCTestCase {
         let error16 = MIGetErrorCodeFromReplyDictionary(result16)
         XCTAssertEqual(error16, MIReplyErrorEnum.NoError,
             "Error occurred when exporting the movie.")
+    }
+    
+    func testInsertingAudioSegmentsToAMovieEditorTrackAndExporing() -> Void {
+        // First we need to import a movie with audio so that we have a track to insert
+        let testBundle = NSBundle(forClass: MovingImagesMovieImporter.self)
+        let movieURL = testBundle.URLForResource("410_clip4",
+            withExtension:"mov")!
+        let movieFilePath = movieURL.path!
+        let movieImporterName = "test004.movieimporter.withaudio"
+        let context = MIContext()
+        
+        let createMovieImporterCommand = [
+            MIJSONKeyCommand : MIJSONValueCreateCommand,
+            MIJSONKeyObjectType : MIMovieImporterKey,
+            MIJSONKeyObjectName : movieImporterName,
+            MIJSONPropertyFile : movieFilePath
+        ]
+        let result1 = MIMovingImagesHandleCommand(context, createMovieImporterCommand)
+        let error1 = MIGetErrorCodeFromReplyDictionary(result1)
+        XCTAssertEqual(error1, MIReplyErrorEnum.NoError,
+            "Error occurred when creating the movie importer.")
+
+        guard error1 == MIReplyErrorEnum.NoError else {
+            // No point in continuing this test function if creating movieimporter fails.
+            return
+        }
+
+        let movieImporterObject = [
+            MIJSONKeyObjectReference : MIGetNumericReplyValueFromDictionary(result1)!
+        ]
+
+        let closeMovieImporterObjectCommand: [NSString : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueCloseCommand,
+            MIJSONKeyReceiverObject : movieImporterObject
+        ]
+        defer {
+            MIMovingImagesHandleCommand(context, closeMovieImporterObjectCommand)
+        }
+
+        let movieEditorName = "test004.movieeditor.withaudio"
+        
+        let createMovieEditorCommand = [
+            MIJSONKeyCommand : MIJSONValueCreateCommand,
+            MIJSONKeyObjectType : MIMovieEditorKey,
+            MIJSONKeyObjectName : movieEditorName
+        ]
+
+        let result2 = MIMovingImagesHandleCommand(context, createMovieEditorCommand)
+        let error2 = MIGetErrorCodeFromReplyDictionary(result2)
+        XCTAssertEqual(error2, MIReplyErrorEnum.NoError,
+            "Error occurred when creating the movie editor.")
+        
+        guard error2 == MIReplyErrorEnum.NoError else {
+            // No point in continuing this test if creating movie editor fails.
+            return
+        }
+
+        let movieEditorObject = [
+            MIJSONKeyObjectReference : MIGetNumericReplyValueFromDictionary(result2)!
+        ]
+        
+        let closeMovieEditorObjectCommand: [NSString : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueCloseCommand,
+            MIJSONKeyReceiverObject : movieEditorObject
+        ]
+        defer {
+            MIMovingImagesHandleCommand(context, closeMovieEditorObjectCommand)
+        }
+
+        let audioTrackPersistentID = 3
+        // Add an audio track with the persistent track id returned above.
+        let addAudioTrackToEditorCommand: [NSString : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueCreateTrackCommand,
+            MIJSONPropertyMovieTrackID : audioTrackPersistentID,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeAudio
+        ]
+
+        let result3 = MIMovingImagesHandleCommand(context, addAudioTrackToEditorCommand)
+        let error3 = MIGetErrorCodeFromReplyDictionary(result3)
+        XCTAssertEqual(error3, MIReplyErrorEnum.NoError,
+            "Error occurred when adding an audio track to the movie editor.")
+
+        guard error3 == MIReplyErrorEnum.NoError else {
+            // No point in continuing this test if adding audio track to movie editor fails.
+            return
+        }
+        
+        let audioTrackID = [
+            MIJSONPropertyMovieTrackID : audioTrackPersistentID
+        ]
+
+        // Prepare adding an audio track segment
+        
+        // The video data will be inserted at the begining of the track.
+        let insertionTime : [NSString : AnyObject] = [
+            kCMTimeFlagsKey as String : Int(CMTimeFlags.Valid.rawValue),
+            kCMTimeValueKey as String : 0,
+            kCMTimeScaleKey as String : 90000,
+            kCMTimeEpochKey as String : 0
+        ]
+
+        let segmentDurationTime : [NSString : AnyObject] = [
+            kCMTimeFlagsKey as String : Int(CMTimeFlags.Valid.rawValue),
+            kCMTimeValueKey as String : 180120,
+            kCMTimeScaleKey as String : 90000,
+            kCMTimeEpochKey as String : 0
+        ]
+        
+        let sourceSegmentTimeRange: [NSString : AnyObject] = [
+            MIJSONPropertyMovieTimeRangeStart : insertionTime,
+            MIJSONPropertyMovieTimeRangeDuration : segmentDurationTime
+        ]
+
+        let sourceTrackID: [NSString : AnyObject] = [
+            MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeAudio,
+            MIJSONPropertyMovieTrackIndex : 0
+        ]
+        
+        let insertSegmentCommand: [NSString : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueInsertTrackSegment,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTrack : audioTrackID,
+            MIJSONKeySourceObject : movieImporterObject,
+            MIJSONPropertyMovieSourceTrack : sourceTrackID,
+            MIJSONPropertyMovieSourceTimeRange : sourceSegmentTimeRange,
+            MIJSONPropertyMovieInsertionTime : insertionTime,
+        ]
+
+        let result4 = MIMovingImagesHandleCommand(context, insertSegmentCommand)
+        let error4 = MIGetErrorCodeFromReplyDictionary(result4)
+        XCTAssertEqual(error4, MIReplyErrorEnum.NoError,
+            "Error occurred when adding an audio segment to the track.")
+        
+        guard error4 == MIReplyErrorEnum.NoError else {
+            // No point in continuing this test if adding audio segment fails.
+            return
+        }
+
+        // So we have added content. Lets find out what we have added.
+        let getAudioTrackSegmentsProperty : [NSString : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
+            MIJSONPropertyKey : MIJSONPropertyMovieTrackSegmentMappings,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTrack : audioTrackID
+        ]
+        
+        let result5 = MIMovingImagesHandleCommand(context, getAudioTrackSegmentsProperty)
+        let error5 = MIGetErrorCodeFromReplyDictionary(result5)
+        XCTAssertEqual(error5, MIReplyErrorEnum.NoError,
+            "Error occurred when requesting audio track segments.")
+        
+        guard error5 == MIReplyErrorEnum.NoError else {
+            // No point in continuing this test if adding audio segment fails.
+            return
+        }
+        let strResult5 = MIGetStringFromReplyDictionary(result5)
+        XCTAssertEqual(strResult5, "[{\"sourcetimerange\":{\"start\":{\"flags\":1,\"value\":0,\"timescale\":90000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":180120,\"timescale\":90000,\"epoch\":0}},\"targettimerange\":{\"start\":{\"flags\":1,\"value\":0,\"timescale\":90000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":180120,\"timescale\":90000,\"epoch\":0}}}]", "Audio track segments different from expected.")
+
+        // Add a video track with the persistent track id returned above.
+        let addVideoTrackToEditorCommand: [NSString : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueCreateTrackCommand,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeVideo
+        ]
+
+        let result6 = MIMovingImagesHandleCommand(context, addVideoTrackToEditorCommand)
+        let error6 = MIGetErrorCodeFromReplyDictionary(result6)
+        XCTAssertEqual(error6, MIReplyErrorEnum.NoError,
+            "Error occurred when adding a video track.")
+        guard error6 == MIReplyErrorEnum.NoError else {
+            // No point in continuing this test if adding video segment fails.
+            return
+        }
+        
+        let videoTrackID: [NSString : AnyObject] = [
+            MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeVideo,
+            MIJSONPropertyMovieTrackIndex : 0
+        ]
+        
+        let insertVideoSegmentCommand: [NSString : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueInsertTrackSegment,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTrack : videoTrackID,
+            MIJSONKeySourceObject : movieImporterObject,
+            MIJSONPropertyMovieSourceTrack : videoTrackID,
+            MIJSONPropertyMovieSourceTimeRange : sourceSegmentTimeRange,
+            MIJSONPropertyMovieInsertionTime : insertionTime,
+            // MIJSONPropertyMovieAddPassthruInstruction : true
+        ]
+
+        let result7 = MIMovingImagesHandleCommand(context, insertVideoSegmentCommand)
+        let error7 = MIGetErrorCodeFromReplyDictionary(result7)
+        XCTAssertEqual(error7, MIReplyErrorEnum.NoError,
+            "Error occurred when inserting a segment into a video track.")
+        guard error7 == MIReplyErrorEnum.NoError else {
+            // No point in continuing this test if adding video segment fails.
+            return
+        }
+
+        let passthruInstructionTimeRange = [
+            MIJSONPropertyMovieTimeRangeStart : insertionTime,
+            MIJSONPropertyMovieTimeRangeDuration : segmentDurationTime
+        ]
+        
+        let addPassthruInstructionCommand : [String : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddMovieInstruction,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTimeRange : passthruInstructionTimeRange,
+            MIJSONPropertyMovieEditorLayerInstructions : [
+                [
+                    MIJSONKeyMovieEditorLayerInstructionType :
+                    MIJSONValueMovieEditorPassthruInstruction,
+                    MIJSONPropertyMovieTrack : videoTrackID
+                ]
+            ]
+        ]
+        let result8 = MIMovingImagesHandleCommand(context, addPassthruInstructionCommand)
+        let error8 = MIGetErrorCodeFromReplyDictionary(result8)
+        XCTAssertEqual(error8, MIReplyErrorEnum.NoError,
+            "Error occurred when adding a passthru instruction to a video layer.")
+        guard error8 == MIReplyErrorEnum.NoError else {
+            // No point in continuing this test if adding a passthru instruction fails.
+            return
+        }
+        
+        //
+        // Get the list of compatible presets
+        //
+        
+        let getCompatiblePresets : [String : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueGetPropertyCommand,
+            MIJSONPropertyKey : MIJSONPropertyMovieExportCompatiblePresets,
+            MIJSONKeyReceiverObject : movieEditorObject
+        ]
+        let result9 = MIMovingImagesHandleCommand(context, getCompatiblePresets)
+        let resultStr9 = MIGetStringFromReplyDictionary(result9)
+        XCTAssertEqual(resultStr9, "AVAssetExportPreset1920x1080 AVAssetExportPresetLowQuality AVAssetExportPresetAppleM4V720pHD AVAssetExportPresetLowQuality_16x9 AVAssetExportPresetAppleM4VAppleTV AVAssetExportPresetAppleM4A AVAssetExportPreset640x480 AVAssetExportPresetAppleProRes422LPCM AVAssetExportPreset3840x2160 AVAssetExportPresetAppleM4VWiFi AVAssetExportPresetHighestQuality AVAssetExportPresetAppleM4VCellular AVAssetExportPreset1280x720 AVAssetExportPresetMediumQuality_16x9 AVAssetExportPresetMediumQuality AVAssetExportPresetAppleM4V1080pHD AVAssetExportPresetAppleM4V480pSD AVAssetExportPreset960x540 AVAssetExportPresetAppleM4ViPod", "Export presets differ for audio only export")
+        
+        let movieExportPath = GetMoviePathInMoviesDir(
+            "audiocomposition_export.mov")
+        
+        let exportMovieCommand : [ NSString : AnyObject ] = [
+            MIJSONKeyCommand : MIJSONValueExportCommand,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieExportPreset : AVAssetExportPreset1280x720,
+            MIJSONPropertyFileType : AVFileTypeQuickTimeMovie,
+            MIJSONPropertyFile : movieExportPath
+        ]
+        
+        // Any output must have some video content.
+        // Not going to have any audio mixing, lets just see if we can export this content.
+        let result10 = MIMovingImagesHandleCommand(context, exportMovieCommand)
+        let resultStr10 = MIGetStringFromReplyDictionary(result10)
+        let error10 = MIGetErrorCodeFromReplyDictionary(result10)
+        XCTAssertEqual(error10, MIReplyErrorEnum.NoError,
+            "Error occurred when attempting to export movie.")
+        
     }
     
     func testInsertingSegmentsToAMovieEditorTrackAndExporting() -> Void {
