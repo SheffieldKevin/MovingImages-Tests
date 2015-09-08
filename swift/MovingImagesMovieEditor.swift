@@ -996,14 +996,14 @@ class MovingImagesMovieEditor: XCTestCase {
         let insertionTime : [NSString : AnyObject] = [
             kCMTimeFlagsKey as String : Int(CMTimeFlags.Valid.rawValue),
             kCMTimeValueKey as String : 0,
-            kCMTimeScaleKey as String : 90000,
+            kCMTimeScaleKey as String : 600,
             kCMTimeEpochKey as String : 0
         ]
 
         let segmentDurationTime : [NSString : AnyObject] = [
             kCMTimeFlagsKey as String : Int(CMTimeFlags.Valid.rawValue),
-            kCMTimeValueKey as String : 180120,
-            kCMTimeScaleKey as String : 90000,
+            kCMTimeValueKey as String : 1200,
+            kCMTimeScaleKey as String : 600,
             kCMTimeEpochKey as String : 0
         ]
         
@@ -1055,7 +1055,7 @@ class MovingImagesMovieEditor: XCTestCase {
             return
         }
         let strResult5 = MIGetStringFromReplyDictionary(result5)
-        XCTAssertEqual(strResult5, "[{\"sourcetimerange\":{\"start\":{\"flags\":1,\"value\":0,\"timescale\":90000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":180120,\"timescale\":90000,\"epoch\":0}},\"targettimerange\":{\"start\":{\"flags\":1,\"value\":0,\"timescale\":90000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":180120,\"timescale\":90000,\"epoch\":0}}}]", "Audio track segments different from expected.")
+        XCTAssertEqual(strResult5, "[{\"sourcetimerange\":{\"start\":{\"flags\":1,\"value\":0,\"timescale\":600,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":1200,\"timescale\":600,\"epoch\":0}},\"targettimerange\":{\"start\":{\"flags\":1,\"value\":0,\"timescale\":600,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":1200,\"timescale\":600,\"epoch\":0}}}]", "Audio track segments different from expected.")
 
         // Add a video track with the persistent track id returned above.
         let addVideoTrackToEditorCommand: [NSString : AnyObject] = [
@@ -1151,12 +1151,226 @@ class MovingImagesMovieEditor: XCTestCase {
         // Any output must have some video content.
         // Not going to have any audio mixing, lets just see if we can export this content.
         let result10 = MIMovingImagesHandleCommand(context, exportMovieCommand)
-        let resultStr10 = MIGetStringFromReplyDictionary(result10)
         let error10 = MIGetErrorCodeFromReplyDictionary(result10)
         XCTAssertEqual(error10, MIReplyErrorEnum.NoError,
             "Error occurred when attempting to export movie.")
+
+        // I have managed to export the audio and video file.
+        // Lets import the generated file and see if it has an audio track and
+        // that the content is just over two seconds long.
         
-    }
+        let movieImporterName2 = "zukini.movingimages.tests.importingsavedmovie"
+        let createMovieImporterCommand2: [NSString : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueCreateCommand,
+            MIJSONKeyObjectType : MIMovieImporterKey,
+            MIJSONKeyObjectName : movieImporterName2,
+            MIJSONPropertyFile : movieExportPath
+        ]
+        let result11 = MIMovingImagesHandleCommand(context, createMovieImporterCommand2)
+        let error11 = MIGetErrorCodeFromReplyDictionary(result11)
+        XCTAssertEqual(error11, MIReplyErrorEnum.NoError,
+            "Error occurred when creating the movie importer.")
+
+        let importer2Reference = MIGetNumericReplyValueFromDictionary(result11)!
+        let movieImporter2: [NSString:AnyObject] = [
+            MIJSONKeyObjectReference : importer2Reference
+        ]
+        let closeImporter2ObjectCommand: [NSString : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueCloseCommand,
+            MIJSONKeyReceiverObject : movieImporter2
+        ]
+        defer {
+            MIMovingImagesHandleCommand(context, closeImporter2ObjectCommand)
+        }
+        
+        let audioTrack: [NSString:AnyObject] = [
+            MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeAudio,
+            MIJSONPropertyMovieTrackIndex : 0
+        ]
+        
+        let getAudioTrackProperties: [NSString : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueGetPropertiesCommand,
+            MIJSONKeyReceiverObject : movieImporter2,
+            MIJSONKeySaveResultsType : MIJSONPropertyJSONString,
+            MIJSONPropertyMovieTrack : audioTrack
+        ]
+
+        let result12 = MIMovingImagesHandleCommand(context, getAudioTrackProperties)
+        let error12 = MIGetErrorCodeFromReplyDictionary(result12)
+        XCTAssertEqual(error12, MIReplyErrorEnum.NoError,
+            "Error getting audio track properties from movie importer.")
+        let resultStr12 = MIGetStringFromReplyDictionary(result12)
+        XCTAssertEqual(resultStr12, "{\"preferredvolume\":1,\"mediatype\":\"soun\",\"timerange\":{\"start\":{\"flags\":1,\"value\":0,\"timescale\":90000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":180000,\"timescale\":90000,\"epoch\":0}},\"trackid\":1,\"languagecode\":\"und\",\"languagetag\":\"\",\"trackenabled\":true}",
+            "Error: metadata for audio track is different")
+
+        // Add a second audio track and then mix the two tracks together.
+        // Add an audio track with the persistent track id returned above.
+        let addSecondAudioTrackToEditorCommand: [NSString : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueCreateTrackCommand,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieMediaType : MIJSONValueMovieMediaTypeAudio
+        ]
+        
+        let result13 = MIMovingImagesHandleCommand(context,
+            addSecondAudioTrackToEditorCommand)
+        let error13 = MIGetErrorCodeFromReplyDictionary(result13)
+        XCTAssertEqual(error13, MIReplyErrorEnum.NoError,
+            "Error occurred when adding secoond audio track to the movie editor.")
+
+        let secondAudioTrackID: [NSString : AnyObject] = [
+            MIJSONPropertyMovieTrackID : MIGetNumericReplyValueFromDictionary(result13)!
+        ]
+
+        // Next thing to do is add audio content from imported movie to the
+        // the second audio track. The audio content should come from 6.5 seconds
+        // into the imported movie. It should be added to the second video track.
+        
+        // The audio data will be inserted at the begining of the track.
+
+        let sourceTime : [NSString : AnyObject] = [
+            kCMTimeFlagsKey as String : Int(CMTimeFlags.Valid.rawValue),
+            kCMTimeValueKey as String : 3900, // 6.5 minutes
+            kCMTimeScaleKey as String : 600,
+            kCMTimeEpochKey as String : 0
+        ]
+
+        let sourceSegmentTimeRange2: [NSString : AnyObject] = [
+            MIJSONPropertyMovieTimeRangeStart : sourceTime,
+            MIJSONPropertyMovieTimeRangeDuration : segmentDurationTime
+        ]
+        
+        let insertAudioSegmentCommand: [NSString : AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueInsertTrackSegment,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTrack : secondAudioTrackID,
+            MIJSONKeySourceObject : movieImporterObject,
+            MIJSONPropertyMovieSourceTrack : sourceTrackID,
+            MIJSONPropertyMovieSourceTimeRange : sourceSegmentTimeRange2,
+            MIJSONPropertyMovieInsertionTime : insertionTime,
+        ]
+        
+        let result14 = MIMovingImagesHandleCommand(context, insertAudioSegmentCommand)
+        let error14 = MIGetErrorCodeFromReplyDictionary(result14)
+        XCTAssertEqual(error14, MIReplyErrorEnum.NoError,
+            "Error occurred when adding an audio segment to the track.")
+
+        let assignImageCommand: [NSString:AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAssignImageToCollectionCommand,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyImageIdentifier : "deletemeimage"
+        ]
+        let _ = MIMovingImagesHandleCommand(context, assignImageCommand)
+        saveImageInCollectionToPNGFile(context, identifier: "deletemeimage", baseName: "audio_compositionmap")
+        context.removeImageWithIdentifier("deletemeimage")
+    
+        let movieExportPath2 = GetMoviePathInMoviesDir(
+            "audiocomposition2_export.mov")
+        
+        let exportMovieCommand2 : [ NSString : AnyObject ] = [
+            MIJSONKeyCommand : MIJSONValueExportCommand,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieExportPreset : AVAssetExportPreset1280x720,
+            MIJSONPropertyFileType : AVFileTypeQuickTimeMovie,
+            MIJSONPropertyFile : movieExportPath2
+        ]
+        
+        // Not going to have any audio mixing, lets just see if we can export this content.
+        let result15 = MIMovingImagesHandleCommand(context, exportMovieCommand2)
+        let error15 = MIGetErrorCodeFromReplyDictionary(result15)
+        let resultStr15 = MIGetStringFromReplyDictionary(result15)
+        XCTAssertEqual(error15, MIReplyErrorEnum.NoError,
+            "Error occurred when attempting to export second audio movie. \(resultStr15)")
+        
+        // Lets now add three audio mixes. First one silences second track for 0.5.
+        // The first 1/2 second of the audio is audio track 1 at full volume and
+        // audio track 2 at 0 volume. The remaining 1.5 seconds ramps down
+        // audio track 1, and ramps up audio track 2.
+        
+        let addFirstAudioMix: [NSString:AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddAudioMixInstruction,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTrack : secondAudioTrackID,
+            MIJSONKeyMovieEditorAudioInstruction : MIJSONValueMovieEditorVolumeInstruction,
+            MIJSONPropertyMovieEditorInstructionValue : 0.0,
+            MIJSONPropertyMovieTime : insertionTime
+        ]
+
+        let result16 = MIMovingImagesHandleCommand(context, addFirstAudioMix)
+        let error16 = MIGetErrorCodeFromReplyDictionary(result16)
+        XCTAssertEqual(error16, MIReplyErrorEnum.NoError,
+            "Error occurred when adding the set volume to 0 audio instruction.")
+
+        let insertionTime2 : [NSString : AnyObject] = [
+            kCMTimeFlagsKey as String : Int(CMTimeFlags.Valid.rawValue),
+            kCMTimeValueKey as String : 300,
+            kCMTimeScaleKey as String : 600,
+            kCMTimeEpochKey as String : 0
+        ]
+
+        let insertionDuration2 : [NSString : AnyObject] = [
+            kCMTimeFlagsKey as String : Int(CMTimeFlags.Valid.rawValue),
+            kCMTimeValueKey as String : 900,
+            kCMTimeScaleKey as String : 600,
+            kCMTimeEpochKey as String : 0
+        ]
+
+        let insertionTimeRange : [NSString : AnyObject] = [
+            MIJSONPropertyMovieTimeRangeStart : insertionTime2,
+            MIJSONPropertyMovieTimeRangeDuration : insertionDuration2
+        ]
+        
+        let addSecondAudioMix: [NSString:AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddAudioMixInstruction,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTrack : audioTrackID,
+            MIJSONKeyMovieEditorAudioInstruction : MIJSONValueMovieEditorVolumeRampInstruction,
+            MIJSONPropertyMovieEditorStartRampValue : 1.0,
+            MIJSONPropertyMovieEditorEndRampValue : 0.0,
+            MIJSONPropertyMovieTimeRange : insertionTimeRange
+        ]
+        
+        let result17 = MIMovingImagesHandleCommand(context, addSecondAudioMix)
+        let error17 = MIGetErrorCodeFromReplyDictionary(result17)
+        XCTAssertEqual(error17, MIReplyErrorEnum.NoError,
+            "Error occurred when adding the set volume to 0 audio instruction.")
+
+        let addThirdAudioMix: [NSString:AnyObject] = [
+            MIJSONKeyCommand : MIJSONValueAddAudioMixInstruction,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieTrack : secondAudioTrackID,
+            MIJSONKeyMovieEditorAudioInstruction : MIJSONValueMovieEditorVolumeRampInstruction,
+            MIJSONPropertyMovieEditorStartRampValue : 0.0,
+            MIJSONPropertyMovieEditorEndRampValue : 1.0,
+            MIJSONPropertyMovieTimeRange : insertionTimeRange
+        ]
+        
+        let result18 = MIMovingImagesHandleCommand(context, addThirdAudioMix)
+        let error18 = MIGetErrorCodeFromReplyDictionary(result18)
+        XCTAssertEqual(error18, MIReplyErrorEnum.NoError,
+            "Error occurred when adding the set volume to 0 audio instruction.")
+        
+        let _ = MIMovingImagesHandleCommand(context, assignImageCommand)
+        saveImageInCollectionToPNGFile(context, identifier: "deletemeimage", baseName: "audio_compositionmap2")
+        context.removeImageWithIdentifier("deletemeimage")
+
+        let movieExportPath3 = GetMoviePathInMoviesDir(
+            "audiocomposition3_export.mov")
+        
+        let exportMovieCommand3 : [ NSString : AnyObject ] = [
+            MIJSONKeyCommand : MIJSONValueExportCommand,
+            MIJSONKeyReceiverObject : movieEditorObject,
+            MIJSONPropertyMovieExportPreset : AVAssetExportPreset1280x720,
+            MIJSONPropertyFileType : AVFileTypeQuickTimeMovie,
+            MIJSONPropertyFile : movieExportPath3
+        ]
+        
+        // Not going to have any audio mixing, lets just see if we can export this content.
+        let result19 = MIMovingImagesHandleCommand(context, exportMovieCommand3)
+        let error19 = MIGetErrorCodeFromReplyDictionary(result19)
+        let resultStr19 = MIGetStringFromReplyDictionary(result19)
+        XCTAssertEqual(error19, MIReplyErrorEnum.NoError,
+            "Error occurred when attempting to export third audio movie: \(resultStr19).")
+}
     
     func testInsertingSegmentsToAMovieEditorTrackAndExporting() -> Void {
         // First we need to import a movie so that we have a track to insert

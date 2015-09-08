@@ -160,3 +160,8 @@ func saveCGImageToAJPEGFile(theImage: CGImageRef, baseName: String) -> Void {
     let fileName = makeFileNameWithExtension(baseName, extn: ".jpg")
     saveCGImageToAJPEGFile(theImage, fileName: fileName)
 }
+
+func saveImageInCollectionToPNGFile(collection: MIContext, identifier: String, baseName: String) -> Void {
+    let cgImage = collection.getCGImageWithIdentifier(identifier)
+    saveCGImageToAPNGFile(cgImage, baseName: baseName)
+}
