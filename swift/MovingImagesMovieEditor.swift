@@ -1084,8 +1084,7 @@ class MovingImagesMovieEditor: XCTestCase {
             MIJSONKeySourceObject : movieImporterObject,
             MIJSONPropertyMovieSourceTrack : videoTrackID,
             MIJSONPropertyMovieSourceTimeRange : sourceSegmentTimeRange,
-            MIJSONPropertyMovieInsertionTime : insertionTime,
-            // MIJSONPropertyMovieAddPassthruInstruction : true
+            MIJSONPropertyMovieInsertionTime : insertionTime
         ]
 
         let result7 = MIMovingImagesHandleCommand(context, insertVideoSegmentCommand)
@@ -1114,6 +1113,7 @@ class MovingImagesMovieEditor: XCTestCase {
                 ]
             ]
         ]
+
         let result8 = MIMovingImagesHandleCommand(context, addPassthruInstructionCommand)
         let error8 = MIGetErrorCodeFromReplyDictionary(result8)
         XCTAssertEqual(error8, MIReplyErrorEnum.NoError,
@@ -1122,7 +1122,7 @@ class MovingImagesMovieEditor: XCTestCase {
             // No point in continuing this test if adding a passthru instruction fails.
             return
         }
-        
+
         //
         // Get the list of compatible presets
         //
