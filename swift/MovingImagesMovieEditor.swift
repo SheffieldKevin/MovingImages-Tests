@@ -373,7 +373,6 @@ class MovingImagesMovieEditor: XCTestCase {
             ]
         ]
 
-
         // uncomment after audio track functionality added.
         let result9 = MIMovingImagesHandleCommands(theContext, commandsDict9, nil, nil)
         let errorCode9 = MIGetErrorCodeFromReplyDictionary(result9)
@@ -1135,7 +1134,11 @@ class MovingImagesMovieEditor: XCTestCase {
         ]
         let result9 = MIMovingImagesHandleCommand(context, getCompatiblePresets)
         let resultStr9 = MIGetStringFromReplyDictionary(result9)
+#if os(iOS)
+        XCTAssertEqual(resultStr9, "AVAssetExportPreset1920x1080 AVAssetExportPresetLowQuality AVAssetExportPresetAppleM4A AVAssetExportPreset640x480 AVAssetExportPresetHighestQuality AVAssetExportPreset1280x720 AVAssetExportPresetMediumQuality AVAssetExportPreset960x540", "Export presets differ for audio only export")
+#else
         XCTAssertEqual(resultStr9, "AVAssetExportPreset1920x1080 AVAssetExportPresetLowQuality AVAssetExportPresetAppleM4V720pHD AVAssetExportPresetLowQuality_16x9 AVAssetExportPresetAppleM4VAppleTV AVAssetExportPresetAppleM4A AVAssetExportPreset640x480 AVAssetExportPresetAppleProRes422LPCM AVAssetExportPreset3840x2160 AVAssetExportPresetAppleM4VWiFi AVAssetExportPresetHighestQuality AVAssetExportPresetAppleM4VCellular AVAssetExportPreset1280x720 AVAssetExportPresetMediumQuality_16x9 AVAssetExportPresetMediumQuality AVAssetExportPresetAppleM4V1080pHD AVAssetExportPresetAppleM4V480pSD AVAssetExportPreset960x540 AVAssetExportPresetAppleM4ViPod", "Export presets differ for audio only export")
+#endif
         
         let movieExportPath = GetMoviePathInMoviesDir(
             "audiocomposition_export.mov")
@@ -1229,7 +1232,7 @@ class MovingImagesMovieEditor: XCTestCase {
 
         let sourceTime : [NSString : AnyObject] = [
             kCMTimeFlagsKey as String : Int(CMTimeFlags.Valid.rawValue),
-            kCMTimeValueKey as String : 3900, // 6.5 minutes
+            kCMTimeValueKey as String : 3900, // 6.5 seconds
             kCMTimeScaleKey as String : 600,
             kCMTimeEpochKey as String : 0
         ]
@@ -1370,6 +1373,17 @@ class MovingImagesMovieEditor: XCTestCase {
         let resultStr19 = MIGetStringFromReplyDictionary(result19)
         XCTAssertEqual(error19, MIReplyErrorEnum.NoError,
             "Error occurred when attempting to export third audio movie: \(resultStr19).")
+        #if os(iOS) && !arch(x86_64)
+            // let moviePath = GetMoviePathInMoviesDir("movieeditor_transformtransition.mov")
+            saveMovieFileToSharedPhotoLibrary(filePath: movieExportPath3)
+            
+            // Now check to see if the file exists and delete it.
+            let fm = NSFileManager.defaultManager()
+            if (fm.fileExistsAtPath(movieExportPath3))
+            {
+                let _ = try? fm.removeItemAtPath(movieExportPath3)
+            }
+        #endif
 }
     
     func testInsertingSegmentsToAMovieEditorTrackAndExporting() -> Void {
@@ -1625,39 +1639,12 @@ class MovingImagesMovieEditor: XCTestCase {
         let result1 = MIMovingImagesHandleCommands(context, commandsDict1,
             nil, nil)
         let resultStr1 = MIGetStringFromReplyDictionary(result1)
-        let origResult1 = "[{\"sourcetimerange\":{\"start\":{\"flags\":1," +
-        "\"value\":24000,\"timescale\":6000,\"epoch\":0},\"duration\"" +
-        ":{\"flags\":1,\"value\":12000,\"timescale\":6000,\"epoch\":0}}," +
-        "\"targettimerange\":{\"start\":{\"flags\":1,\"value\":0,\"timescale\":" +
-        "6000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":12000," +
-        "\"timescale\":6000,\"epoch\":0}}},{\"sourcetimerange\":{\"start\":" +
-        "{\"flags\":1,\"value\":6000,\"timescale\":6000,\"epoch\":0}," +
-        "\"duration\":{\"flags\":1,\"value\":12000,\"timescale\":6000," +
-        "\"epoch\":0}},\"targettimerange\":{\"start\":{\"flags\":1,\"value\":" +
-        "12000,\"timescale\":6000,\"epoch\":0},\"duration\":{\"flags\":1," +
-        "\"value\":12000,\"timescale\":6000,\"epoch\":0}}}]"
+        let origResult1 = "[{\"sourcetimerange\":{\"start\":{\"flags\":1,\"value\":360000,\"timescale\":90000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":12000,\"timescale\":6000,\"epoch\":0}},\"targettimerange\":{\"start\":{\"flags\":1,\"value\":0,\"timescale\":6000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":12000,\"timescale\":6000,\"epoch\":0}}},{\"sourcetimerange\":{\"start\":{\"flags\":1,\"value\":6000,\"timescale\":6000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":12000,\"timescale\":6000,\"epoch\":0}},\"targettimerange\":{\"start\":{\"flags\":1,\"value\":180000,\"timescale\":90000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":12000,\"timescale\":6000,\"epoch\":0}}}]"
         XCTAssertEqual(origResult1, resultStr1,
             "Segments of the video track with no empty segments differ")
-        print(resultStr1)
         print("=============================================================")
 
-        let origResult3 = "[{\"sourcetimerange\":{\"start\":{\"flags\":1," +
-        "\"value\":24000,\"timescale\":6000,\"epoch\":0},\"duration\":" +
-        "{\"flags\":1,\"value\":9000,\"timescale\":6000,\"epoch\":0}}," +
-        "\"targettimerange\":{\"start\":{\"flags\":1,\"value\":0," +
-        "\"timescale\":6000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":" +
-        "9000,\"timescale\":6000,\"epoch\":0}}},{\"sourcetimerange\":" +
-        "{\"start\":{\"flags\":1,\"value\":33000,\"timescale\":6000," +
-        "\"epoch\":0},\"duration\":{\"flags\":1,\"value\":3000,\"timescale\":" +
-        "6000,\"epoch\":0}},\"targettimerange\":{\"start\":{\"flags\":1," +
-        "\"value\":12000,\"timescale\":6000,\"epoch\":0},\"duration\":" +
-        "{\"flags\":1,\"value\":3000,\"timescale\":6000,\"epoch\":0}}}," +
-        "{\"sourcetimerange\":{\"start\":{\"flags\":1,\"value\":6000," +
-        "\"timescale\":6000,\"epoch\":0},\"duration\":{\"flags\":1," +
-        "\"value\":12000,\"timescale\":6000,\"epoch\":0}}," +
-        "\"targettimerange\":{\"start\":{\"flags\":1,\"value\":15000," +
-        "\"timescale\":6000,\"epoch\":0},\"duration\":{\"flags\":1," +
-        "\"value\":12000,\"timescale\":6000,\"epoch\":0}}}]"
+        let origResult3 = "[{\"sourcetimerange\":{\"start\":{\"flags\":1,\"value\":360000,\"timescale\":90000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":135000,\"timescale\":90000,\"epoch\":0}},\"targettimerange\":{\"start\":{\"flags\":1,\"value\":0,\"timescale\":6000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":9000,\"timescale\":6000,\"epoch\":0}}},{\"sourcetimerange\":{\"start\":{\"flags\":1,\"value\":495000,\"timescale\":90000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":45000,\"timescale\":90000,\"epoch\":0}},\"targettimerange\":{\"start\":{\"flags\":1,\"value\":180000,\"timescale\":90000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":3000,\"timescale\":6000,\"epoch\":0}}},{\"sourcetimerange\":{\"start\":{\"flags\":1,\"value\":6000,\"timescale\":6000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":12000,\"timescale\":6000,\"epoch\":0}},\"targettimerange\":{\"start\":{\"flags\":1,\"value\":225000,\"timescale\":90000,\"epoch\":0},\"duration\":{\"flags\":1,\"value\":12000,\"timescale\":6000,\"epoch\":0}}}]"
         let result3 = MIMovingImagesHandleCommands(context, commandsDict3,
             nil, nil)
         let resultStr3 = MIGetStringFromReplyDictionary(result3)

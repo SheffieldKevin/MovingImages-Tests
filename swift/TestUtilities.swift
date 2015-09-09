@@ -92,7 +92,7 @@ let platformSuffix = "OSX"
     }
     
     #else
-let platformSuffix = "iOS"
+    let platformSuffix = "iOS"
     
     // This version is for running on a iOS device.
     func makeSaveFileURLPath(fileName: String) -> NSURL {
