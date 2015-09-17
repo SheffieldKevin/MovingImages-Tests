@@ -2953,7 +2953,7 @@ class MovingImagesMovieEditor: XCTestCase {
         XCTAssertEqual(errorCode, MIReplyErrorEnum.NoError,
             "Error occured generating and creating movie with crop instruction.")
         #if os(iOS) && !arch(x86_64)
-            let moviePath = GetMoviePathInMoviesDir("movieeditor_croptransition.mov")
+            let moviePath = GetMoviePathInMoviesDir("movieeditor_cropramptransition.mov")
             saveMovieFileToSharedPhotoLibrary(filePath: moviePath)
             
             // Now check to see if the file exists and delete it.
