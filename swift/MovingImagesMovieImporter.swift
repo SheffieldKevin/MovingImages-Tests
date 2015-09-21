@@ -153,7 +153,7 @@ class MovingImagesMovieImporter: XCTestCase {
         // A demonstration that you can save to your desktop from simulator.
         // resultString.writeToFile("/Users/ktam/Desktop/410_clip4_metadata.json",
         //    atomically: true, encoding: NSUTF8StringEncoding, error: nil)
-        
+/*
         #if !arch(x86_64) && os(iOS)
             let jsonURL = testBundle.URLForResource("410_clip4_metadata_iOS",
                 withExtension:"json")!
@@ -161,6 +161,10 @@ class MovingImagesMovieImporter: XCTestCase {
         let jsonURL = testBundle.URLForResource("410_clip4_metadata",
             withExtension:"json")!
         #endif
+*/
+        let jsonURL = testBundle.URLForResource("410_clip4_metadata",
+            withExtension:"json")!
+        
         let testResult = try! NSString(contentsOfFile: jsonURL.path!,
             encoding: NSUTF8StringEncoding)
         

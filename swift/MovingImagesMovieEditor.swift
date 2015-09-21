@@ -694,6 +694,8 @@ class MovingImagesMovieEditor: XCTestCase {
         
         // ProRes4444 is not available, it is not a export preset option.
 #if os(iOS)
+    let origCompatiblePresets = "AVAssetExportPreset1920x1080 AVAssetExportPresetLowQuality AVAssetExportPreset640x480 AVAssetExportPresetHighestQuality AVAssetExportPreset1280x720 AVAssetExportPresetMediumQuality AVAssetExportPreset960x540"
+/*
     #if arch(x86_64)
         let origCompatiblePresets = "AVAssetExportPreset1920x1080 AVAssetExportPresetLowQuality AVAssetExportPreset640x480 AVAssetExportPresetHighestQuality AVAssetExportPreset1280x720 AVAssetExportPresetMediumQuality AVAssetExportPreset960x540"
     #else
@@ -702,6 +704,7 @@ class MovingImagesMovieEditor: XCTestCase {
         "AVAssetExportPresetMediumQuality AVAssetExportPreset1920x1080 " +
         "AVAssetExportPreset1280x720 AVAssetExportPresetHighestQuality"
     #endif
+*/
 #else
     let origCompatiblePresets = "AVAssetExportPreset1920x1080 AVAssetExportPresetLowQuality AVAssetExportPresetAppleM4V720pHD AVAssetExportPresetLowQuality_16x9 AVAssetExportPresetAppleM4VAppleTV AVAssetExportPreset640x480 AVAssetExportPresetAppleProRes422LPCM AVAssetExportPreset3840x2160 AVAssetExportPresetAppleM4VWiFi AVAssetExportPresetHighestQuality AVAssetExportPresetAppleM4VCellular AVAssetExportPreset1280x720 AVAssetExportPresetMediumQuality_16x9 AVAssetExportPresetMediumQuality AVAssetExportPresetAppleM4V1080pHD AVAssetExportPresetAppleM4V480pSD AVAssetExportPreset960x540 AVAssetExportPresetAppleM4ViPod"
 #endif
