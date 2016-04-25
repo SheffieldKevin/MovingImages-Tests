@@ -3215,7 +3215,7 @@ class MovingImagesMovieEditor: XCTestCase {
             ]
         ]
         commandList.append(addOpacityRampInstructionCommand)
-        ++tIndex
+        tIndex += 1
         commandList.append(makePassthruInstructionCommandForTrack(
             trackForIndex(tIndex), startTime: tIndex * 2 + 1))
 
@@ -3267,7 +3267,7 @@ class MovingImagesMovieEditor: XCTestCase {
             ]
         ]
         commandList.append(addTransformRampInstructionCommand)
-        ++tIndex
+        tIndex += 1
         commandList.append(makePassthruInstructionCommandForTrack(
             trackForIndex(tIndex), startTime: tIndex * 2 + 1))
         
@@ -3303,7 +3303,7 @@ class MovingImagesMovieEditor: XCTestCase {
             ]
         ]
         commandList.append(addCropRampInstructionCommand)
-        ++tIndex
+        tIndex += 1
         commandList.append(makePassthruInstructionCommandForTrack(
             trackForIndex(tIndex), startTime: tIndex * 2 + 1))
 
